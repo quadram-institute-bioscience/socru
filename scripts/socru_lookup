@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+import sys
+sys.path.append('../')
+sys.path.append('./')
+import argparse
+import os
+import pkg_resources
+sys.path.append('../')
+sys.path.append('./')
+from socru.SocruLookup import SocruLookup
+
+version = ''
+try:
+	version = pkg_resources.get_distribution("socru").version
+except pkg_resources.DistributionNotFound:
+	version = 'x.y.z'
+
+parser = argparse.ArgumentParser(
+	description = 'Given a set of fragments, output the type',
+	usage = 'socru_lookup[options] /path/to/database 1-2-3-4-5-6-7'
+    , formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+parser.add_argument('db_dir',  help='Database directory', type=str )
+parser.add_argument('fragments', help="Fragments such as 1-2-3-4-5-6-7 or 1'-3-4'-5'-6'-7-2", type=str)
+
+parser.add_argument('--verbose', '-v', action='store_true', help='Turn on debugging [%(default)s]', default = False)
+parser.add_argument('--version', action='version', version=str(version))
+
+options = parser.parse_args()
+
+g = SocruLookup(options)
+g.run()

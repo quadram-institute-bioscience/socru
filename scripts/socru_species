@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+import sys
+import argparse
+import os
+import pkg_resources
+sys.path.append('../')
+sys.path.append('./')
+from socru.Schemas import Schemas
+
+version = ''
+try:
+	version = pkg_resources.get_distribution("socru").version
+except pkg_resources.DistributionNotFound:
+	version = 'x.y.z'
+
+parser = argparse.ArgumentParser(
+	description = 'List all available species',
+	usage = 'socru_species [options]',
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument('--verbose', '-v', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--version', action='version', version=str(version))
+
+options = parser.parse_args()
+
+Schemas().print_all()

@@ -1,0 +1,4 @@
+GS	Frag_1	Frag_2	Frag_3	Frag_4	Frag_5
+1.0	1	2	3	4	5
+2.0	1	2	4	3	5
+3.0	1	2	3	5	4

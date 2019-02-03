@@ -1,0 +1,5 @@
+##gff-version 3
+NZ_LT904894.1	barrnap:0.9	rRNA	1254	2791	0	+	.	Name=16S_rRNA;product=16S ribosomal RNA
+NZ_LT904894.1	barrnap:0.9	rRNA	3310	6312	0	+	.	Name=23S_rRNA;product=23S ribosomal RNA
+NZ_LT904894.1	barrnap:0.9	rRNA	6418	6528	7.5e-11	+	.	Name=5S_rRNA;product=5S ribosomal RNA
+NZ_LT904894.1	barrnap:0.9	rRNA	6799	6909	4.7e-11	+	.	Name=5S_rRNA;product=5S ribosomal RNA

@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+import sys
+sys.path.append('../')
+sys.path.append('./')
+import argparse
+import os
+import pkg_resources
+sys.path.append('../')
+sys.path.append('./')
+from socru.Socru import Socru
+
+version = ''
+try:
+	version = pkg_resources.get_distribution("socru").version
+except pkg_resources.DistributionNotFound:
+	version = 'x.y.z'
+
+parser = argparse.ArgumentParser(
+	description = 'calculate the order and orientation of complete bacterial genomes',
+	usage = 'socru [options] species assembly.fasta',
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    
+parser.add_argument('species',  help='Species name, use socru_species to see all available', type=str)
+parser.add_argument('input_files', help='Input FASTA files (optionally gzipped)', nargs='+', type=str)
+
+# Input
+parser.add_argument('--db_dir', '-d',  help='Base directory for specices databases, defaults to bundled', type=str )
+parser.add_argument('--threads', '-t',  help='No. of threads to use', type=int, default=1)
+
+# Output
+parser.add_argument('--output_file', '-o',  help='Output filename, defaults to STDOUT', type=str)
+parser.add_argument('--novel_profiles', '-n',  help='Filename for novel profiles', type=str, default = 'profile.txt.novel')
+parser.add_argument('--new_fragments', '-f',  help='Filename for novel fragments', type=str, default = 'novel_fragments.fa')
+parser.add_argument('--top_blast_hits', '-b',  help='Filename for top blast hits', type=str)
+
+# Advanced
+
+parser.add_argument('--max_bases_from_ends', '-m', help='Only look at this number of bases from start and end of fragment', type=int)
+parser.add_argument('--not_circular', '-c', action='store_true', help='Assume chromosome is not circularised', default = False)
+parser.add_argument('--min_bit_score',  help='Minimum bit score', type=int, default=100)
+parser.add_argument('--min_alignment_length',  help='Minimum alignment length', type=int, default=100)
+
+parser.add_argument('--verbose', '-v', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--version', action='version', version=str(version))
+
+options = parser.parse_args()
+
+if options.verbose:
+    import cProfile, pstats, io
+    pr = cProfile.Profile()
+    pr.enable()
+    
+    g = Socru(options)
+    g.run()
+    
+    pr.disable()
+    s = io.StringIO()
+    sortby = 'cumulative'
+    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+    ps.print_stats()
+    print(s.getvalue())
+else:
+    g = Socru(options) 
+    g.run()

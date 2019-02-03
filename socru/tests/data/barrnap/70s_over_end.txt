@@ -1,0 +1,7 @@
+NZ_CP021865.1	barrnap:0.9	rRNA	12	1699	0	+	.	Name=23S_rRNA;product=23S ribosomal RNA (partial);note=aligned only 52 percent of the 23S ribosomal RNA
+NZ_CP021865.1	barrnap:0.9	rRNA	1781	1889	5e-11	+	.	Name=5S_rRNA;product=5S ribosomal RNA
+NZ_CP021865.1	barrnap:0.9	rRNA	2805	4349	0	+	.	Name=16S_rRNA;product=16S ribosomal RNA
+NZ_CP021865.1	barrnap:0.9	rRNA	4634	5531	0	+	.	Name=23S_rRNA;product=23S ribosomal RNA
+NZ_CP021865.1	barrnap:0.9	rRNA	5613	5721	5e-11	+	.	Name=5S_rRNA;product=5S ribosomal RNA
+NZ_CP021865.1	barrnap:0.9	rRNA	9200	9210	0	+	.	Name=16S_rRNA;product=16S ribosomal RNA
+NZ_CP021865.1	barrnap:0.9	rRNA	9310	9320	4.2e-274	+	.	Name=23S_rRNA;product=23S ribosomal RNA (partial);note=aligned only 37 percent of the 23S ribosomal RNA
