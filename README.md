@@ -21,10 +21,14 @@ Socru allows you to easily identify and communicate the order and orientation of
 If you just want to quickly try out the software please try a Docker continer. This software is designed to run on Linux and OSX. It will not run on Windows.
 
 ## Conda
-To install Socru, first install conda with Python3 then run:
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/socru/badges/latest_release_date.svg)](https://anaconda.org/bioconda/socru)
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/socru/badges/platforms.svg)](https://anaconda.org/bioconda/socru)
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/socru/badges/downloads.svg)](https://anaconda.org/bioconda/socru)
+
+To install Socru, first install [conda with Python3](https://conda.io/en/latest/miniconda.html) then run:
+
 ```
-conda install barrnap blast git
-pip3 install git+git://github.com/quadram-institute-bioscience/socru.git
+conda install -c conda-forge -c bioconda socru
 ```
 
 ## Docker
