@@ -261,7 +261,7 @@ This is a utility script which will help you to shrink down a database by lookin
 
 
 ```
-usage: socru_update_profile [options]
+usage: socru_shrink_database [options]
 
 Admin utility to take the novel GS results and update the profile for the
 database
@@ -294,6 +294,46 @@ __min_fragment_size__: The minimum size in bases that you want in a fragment. If
 __verbose__: Print out enhanced information while the program is running.
 
 __version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you havent installed the software in a standard manner (conda/pip).
+
+### Output
+The output is a new directory mirroring in the input database. There will be 1 FASTA file per fragment, labelled 1..n, and these are gzipped. The profile.txt and profile.txt.yml files are copied from the input database without modification.
+
+## socru_update_profile
+This utility will take the primary output of socru, where there is 1 assembly per tab delimited line, the GS identifier and the pattern. It will then look for novel patterns (GS0.X), and if they contain 1 copy of each fragment exactly once (and only once), it will assign a new number to them and output a new updated database. Multiple sets of results (multiple input assemblies) can be used at once, so it is good for the mass population of a database.
+
+```
+usage: socru_update_profile [options]
+
+Admin utility to take the novel GS results and update the profile for the
+database
+
+positional arguments:
+  socru_output_filename
+                        Socru output file
+  profile_filename      profile.txt from database
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --output_file OUTPUT_FILE, -o OUTPUT_FILE
+                        Output filename, defaults to STDOUT (default:
+                        updated_profile.txt)
+  --verbose, -v         Turn on debugging (default: False)
+  --version             show program's version number and exit
+```
+
+__socru_output_filename__: The output results of socru containing the tab delimited assembly name, GS identifier, and fragment pattern
+
+
+__help__: This will print out the extended help information, including default values, then exit.
+
+__output_file__: The name of the output file to use. It will contain the new profiles, and existing profiles from profile.txt in the database, so that it can be immediately dropped into the database without further modification.
+
+__verbose__: Print out enhanced information while the program is running.
+
+__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you havent installed the software in a standard manner (conda/pip).
+
+### Output
+A new profile.txt file is outputted which can be dropped into the database without any further modification. s
 
 # License
 Socru is free software, licensed under [GPLv3](https://raw.githubusercontent.com/quadram-institute-bioscience/socru/master/VERSION/LICENSE).
