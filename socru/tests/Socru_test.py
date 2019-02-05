@@ -33,4 +33,5 @@ class TestSocru(unittest.TestCase):
         os.remove('blast')
         os.remove('output_file')
         os.remove('novel')
+        os.remove('newfrag.fa')
  

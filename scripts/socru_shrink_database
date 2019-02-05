@@ -14,8 +14,8 @@ except pkg_resources.DistributionNotFound:
 	version = 'x.y.z'
 
 parser = argparse.ArgumentParser(
-	description = 'Admin utility to take the novel GS results and update the profile for the database',
-	usage = 'socru_update_profile [options]',
+	description = 'Admin utility take a database and blast results and create a new shrunk database',
+	usage = 'socru_shrink_database [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 	
 	

@@ -34,7 +34,7 @@ class Barrnap:
                 if row[0] == '##gff-version 3':
                     continue
                     
-                m = re.search("Name=([\d]+)S_rRNA", row[8])
+                m = re.search(r"Name=([\d]+)S_rRNA", row[8])
                 if m:
                     coords.append((int(row[3]), int(row[4]), int(m.group(1)), row[6] ))
             return coords

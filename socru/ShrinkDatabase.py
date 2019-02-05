@@ -18,10 +18,10 @@ class ShrinkDatabase:
     
     # read in the files in the directory starting with number and ending in fa
     def get_database_files(self):
-        return [os.path.join(self.input_database,f) for f in listdir(self.input_database) if isfile(join(self.input_database, f)) and re.match("[\d]+\.fa$", f)]
+        return [os.path.join(self.input_database,f) for f in listdir(self.input_database) if isfile(join(self.input_database, f)) and re.match(r'[\d]+\.fa$', f)]
         
     def get_database_files_compressed(self):
-        return [os.path.join(self.input_database,f) for f in listdir(self.input_database) if isfile(join(self.input_database, f)) and re.match("[\d]+\.fa.gz$", f)]
+        return [os.path.join(self.input_database,f) for f in listdir(self.input_database) if isfile(join(self.input_database, f)) and re.match(r'[\d]+\.fa.gz$', f)]
 
     def shrink_files(self):
         output_filenames = []
@@ -58,7 +58,7 @@ class ShrinkDatabase:
     def compress_files(self, filenames):
         compressed_filenames = []
         for filename in filenames:
-            m = re.search("[\d]+\.fa$", filename)
+            m = re.search(r"[\d]+\.fa$", filename)
             if m:
                 subprocess.check_output( 'gzip '+ filename,  shell=True)
                 compressed_filenames.append(filename + '.gz')

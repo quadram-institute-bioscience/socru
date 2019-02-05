@@ -58,7 +58,7 @@ class Results:
     def filter_previously_seen_profiles(self, profiles):
         filtered_profiles = []
         for p in profiles:
-            m = re.match("([\d]+)\.([\d]+)", p.gat_number)
+            m = re.match(r'([\d]+)\.([\d]+)', p.gat_number)
             if m:
                 if int(m.group(1)) == 0:
                      # not seen before so keep

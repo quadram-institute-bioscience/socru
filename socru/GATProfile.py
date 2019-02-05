@@ -8,7 +8,7 @@ class GATProfile:
         self.dnaA_fragment_number = dnaA_fragment_number
         
     def order(self):
-        m = re.search('([\d]+)\.[\d]+$', str(self.gat_number) )
+        m = re.search(r'([\d]+)\.[\d]+$', str(self.gat_number) )
         
         if m:
             return int(m.group(1)) 
@@ -21,7 +21,7 @@ class GATProfile:
     def invert_fragments(self):
         inverted = []
         for f in self.fragments:
-            m = re.match("([\d]+)'", f)
+            m = re.match(r"([\d]+)'", f)
             if m:
                 inverted.append(m.group(1))
             else:
@@ -71,7 +71,7 @@ class GATProfile:
     def orientationless_fragments(self):
         orientationless = []
         for f in self.fragments:
-            m = re.match("([\d]+)'", f)
+            m = re.match(r"([\d]+)'", f)
             if m:
                 orientationless.append(m.group(1))
             else:
@@ -90,7 +90,7 @@ class GATProfile:
         # If a fragment is inverted it gets a 1, otherwise zero. The fragments are then shifted by the fragment number and added.
         total = 0
         for f in self.fragments:
-            m = re.match("([\d]+)'", f)
+            m = re.match(r"([\d]+)'", f)
             if m:
                 bits_to_shift = int(m.group(1)) -1
                 total += 1 << bits_to_shift

@@ -13,10 +13,9 @@ class TestResults(unittest.TestCase):
         r = Results(os.path.join(data_dir, 'yersinia'))
         
         valid_patterns  = [str(p)for p in r.filter(7)]
-        self.assertEqual(valid_patterns, ["1'\t7'\t6'\t5'\t3\t4\t2'",
-                                          "1'\t2\t3\t4\t5\t6\t7",
-                                          "1'\t7'\t3\t4\t5\t6\t2'",
-                                          "1\t7'\t3\t4\t5\t6\t2'",
-                                          "1'\t7'\t3\t4\t5\t6\t2'"])
+        self.assertEqual(valid_patterns, ["1'\t7'\t6'\t5'\t3\t4\t2'", 
+                                          "1'\t2\t3\t4\t5\t6\t7", 
+                                          "1'\t7'\t3\t4\t5\t6\t2'", 
+                                          "1\t7'\t3\t4\t5\t6\t2'"])
 
 
