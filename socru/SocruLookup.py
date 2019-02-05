@@ -19,5 +19,5 @@ class SocruLookup:
         return tg.calculate_type()
 
     def run(self):
-        print(calc_type())
+        print(self.calc_type())
         
