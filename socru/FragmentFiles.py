@@ -33,7 +33,7 @@ class FragmentFiles:
             input_order = self.split_fragment_order()
             for i in range(0,len(reordered_fragments)):
                 # reverse complement if prime
-                m = re.match("([\d]+)'", input_order[i])
+                m = re.match(r"([\d]+)'", input_order[i])
                 if m:
                     reordered_fragments[i].number = m.group(1)
                     reordered_fragments[i].sequence = reordered_fragments[i].sequence.reverse_complement()

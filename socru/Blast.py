@@ -14,7 +14,7 @@ class Blast:
         self.files_to_cleanup = []
 
     def decompress_file_to_tmp(self, input_file):
-        m = re.search(".gz$", input_file)
+        m = re.search(r".gz$", input_file)
         if m:
             fd, decompressed_input_file = mkstemp()
             self.files_to_cleanup.append(decompressed_input_file)

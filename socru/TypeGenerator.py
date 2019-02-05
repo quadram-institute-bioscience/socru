@@ -33,7 +33,7 @@ class TypeGenerator:
         return self.create_gs_type(self.gat_profile.gat_number, self.gat_profile.orientation_binary())
     
     def previously_seen(self, gat_number, orientation_binary):
-        m = re.search('([\d]+)\.([\d]+)$', str(gat_number) )
+        m = re.search(r'([\d]+)\.([\d]+)$', str(gat_number) )
         
         if m:
             if str(m.group(1)) == str(0):
@@ -47,7 +47,7 @@ class TypeGenerator:
             return False
     
     def create_gs_type(self, gat_number, orientation_binary):
-        m = re.search('([\d]+)\.([\d]+)$', str(gat_number) )
+        m = re.search(r'([\d]+)\.([\d]+)$', str(gat_number) )
         
         if m:
             if str(m.group(2)) == str(orientation_binary):

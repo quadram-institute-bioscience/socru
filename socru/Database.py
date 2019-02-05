@@ -15,10 +15,10 @@ class Database:
     
     # read in the files in the directory starting with number and ending in fa
     def get_database_files(self):
-        return [os.path.join(self.directory,f) for f in listdir(self.directory) if isfile(join(self.directory, f)) and re.match("[\d]+\.fa$", f)]
+        return [os.path.join(self.directory,f) for f in listdir(self.directory) if isfile(join(self.directory, f)) and re.match(r'[\d]+\.fa$', f)]
         
     def get_database_files_compressed(self):
-        return [os.path.join(self.directory,f) for f in listdir(self.directory) if isfile(join(self.directory, f)) and re.match("[\d]+\.fa.gz$", f)]
+        return [os.path.join(self.directory,f) for f in listdir(self.directory) if isfile(join(self.directory, f)) and re.match(r'[\d]+\.fa.gz$', f)]
         
     # concat into a temp file. It can take a mixture of gz and non gzip files
     def concat_db_files(self):
