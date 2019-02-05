@@ -1,6 +1,7 @@
 language: python
 python:
   - "3.5"
+  - "3.6"
 cache:
   directories:
   - "$HOME/.cache/pip"
@@ -19,5 +20,10 @@ install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION barrnap blast
   - source activate test-environment
   - python3 setup.py install
+before_script:
+  - pip3 install codecov
 script:
-  - "./run_tests.sh" 
+  - coverage run setup.py test
+after_success:
+  - codecov
+

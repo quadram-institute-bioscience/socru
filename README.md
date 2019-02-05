@@ -1,6 +1,7 @@
 # Socru
 [![Build Status](https://travis-ci.org/quadram-institute-bioscience/socru.svg?branch=master)](https://travis-ci.org/quadram-institute-bioscience/socru)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/quadram-institute-bioscience/socru/blob/master/LICENSE)
+[![codecov](https://codecov.io/gh/andrewjpage/socru/branch/master/graph/badge.svg)](https://codecov.io/gh/andrewjpage/socru)
 [![Docker Build Status](https://img.shields.io/docker/build/andrewjpage/socru.svg)](https://hub.docker.com/r/andrewjpage/socru)
 [![Docker Pulls](https://img.shields.io/docker/pulls/andrewjpage/socru.svg)](https://hub.docker.com/r/andrewjpage/socru)  
 
