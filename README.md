@@ -141,11 +141,37 @@ Staphylococcus/aureus/USA300.fna.gz	GS1.0	1	2	3	4	5
 Staphylococcus/aureus/MOZ66.fna.gz	GS1.8	1	2	3	4'	5
 ```
 
-Interpretting the output when all goes well is fairly straightforward. If the GS identifier is 1 or greater, then the pattern has been observed before and all should be okay. In the normal case you are looking for each fragment to occur exactly once (and only once), in an order that makes biological sense. For example, if the origin and terminus are on fragments side by side, its possibly an assembly error, since this could indicate an unbalanced replicore. The terminus is always on fragment 1 and the origin varies by species (recorded in the database profile.txt.yml file). Some species will have a variable number of fragments, which you will need to verify as being real.
+Interpretting the output when all goes well is fairly straightforward. If the GS identifier is 1 or greater, then the pattern has been observed before and all should be okay. In the normal case you are looking for each fragment to occur exactly once (and only once), in an order that makes biological sense. 
+Some species will have a variable number of fragments, which you will need to verify as being real. If a fragment cannot be classified it is flagged with a question mark (?).
+
+
 
 ### Not all complete genomes are equal
 You should be aware that not all complete assemblies are equal. In the early days, each complete reference genome was lovingly hand finished by teams of scientists at huge expense. With the advent of long read sequencing and better bioinformatics methods, it allowed a huge number of complete assemblies to be produced at a fraction of the cost. Many of these assemblies have not undergone rigourouse quality checks, so may contain large structural errors. These errors may manifest as novel patterns in the output of this software. So its useful for quality control if your input is your own assemblies.
-Additionally a common mistake people make is taking short read data,  scaffolding this using a reference genome, and calling the output a "complete genome". These are not complete genomes. Unfortunatly since short read sequencing is so cheap, researchers can pump out these erroneous genomes at a high rate, creating an overwhelming amount of noise compared to the real complete genomes.
+
+Additionally a common mistake people make is taking short read data,  scaffolding this using a reference genome, and calling the output a "complete genome". These are not complete genomes. This would look something like:
+
+```
+Campylobacter_jejuni.fa	GS0.0	1
+```
+where there would normally be expected to be 3 fragments within Camplyobacter Jejuni. In this instance the short read assembler could only assembled a single rRNA segment as it could not unambigously resolve the repetition. Unfortunatly since short read sequencing is so cheap, researchers can pump out these erroneous genomes at a high rate, creating an overwhelming amount of noise compared to the real complete genomes.
+
+Another example of a poor quality assembly is extra fragments. Virtually all K. pneumoniae assemblies consist of 8 fragments, ordered identically to the reference. To have regions duplicated, with an extra fragment, and an unidentified fragment rings alarm bells. This is likely to be something really really interesting, or just an assembly error.
+```
+Klebsiella/pneumoniae/TGH10/GCF_001611095.1.fna.gz	GS0.4	1	3'	2	?'	3	4	7	8	8
+```
+
+Sometimes fragments are missing:
+```
+Salmonella/enterica/ty3-193/GCF_001240865.2.fa	GS0.1	1'	2	3	6	5	7	
+```
+In this instance a very small fragment (4) is missing. If its small the assembler may get a bit confused and miss it entirely. 
+
+Sometimes biologically improbable patterns appear and you need to do some further investigating.  For example, if the origin and terminus are on fragments side by side, there is a high chance its an assembly error, since this could indicate an unbalanced replicore. The terminus is always on fragment 1 and the origin varies by species (recorded in the database profile.txt.yml file).
+```
+Salmonella_enterica.fa	GS1.0	1	2	7	4	5	6	3
+```
+In this case the origin is on fragment 3, which is beside fragment 1 (cirular). This is highly improbable in Salmonella.
 
 ## socru_species
 This will list all the species databases bundled with the software. You can then copy and paste one of the names for use with the main socru script. It doesnt take any input, instead it just prints out a sorted list of available species. If the species you want is not in the list, please create it using socru_create.
