@@ -24,7 +24,7 @@ parser.add_argument('species',  help='Species name, use socru_species to see all
 parser.add_argument('input_files', help='Input FASTA files (optionally gzipped)', nargs='+', type=str)
 
 # Input
-parser.add_argument('--db_dir', '-d',  help='Base directory for specices databases, defaults to bundled', type=str )
+parser.add_argument('--db_dir', '-d',  help='Base directory for species databases, defaults to bundled', type=str )
 parser.add_argument('--threads', '-t',  help='No. of threads to use', type=int, default=1)
 
 # Output

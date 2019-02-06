@@ -16,7 +16,7 @@
   * [Citation](#citation)
 
 ## Introduction
-Socru allows you to easily identify and communicate the order and orientation of complete genomes. These large scale structural variants have real impacts on the phenotype of the organism, and with the advent of long read sequencing, we can now start to delve into the mechanisms at work.
+Socru allows you to easily identify and communicate the order and orientation of complete genomes around ribosomal operons. These large scale structural variants have real impacts on the phenotype of the organism, and with the advent of long read sequencing, we can now start to delve into the mechanisms at work.
 
 # Installation
 If you just want to quickly try out the software please try a Docker continer. This software is designed to run on Linux and OSX. It will not run on Windows.
@@ -39,7 +39,7 @@ Install [Docker](https://www.docker.com/).  There is a docker container which ge
 docker pull andrewjpage/socru
 ```
 
-To use it you would use a command such as this (substituting in your filename/directories), using the example file in this respository:
+To use it you would use a command such as this (substituting in your filename/directories), using the example file in this repository:
 ```
 docker run --rm -it -v /path/to/example_data:/example_data andrewjpage/socru socru xxxxx
 ```
@@ -47,7 +47,7 @@ docker run --rm -it -v /path/to/example_data:/example_data andrewjpage/socru soc
 # Usage
 
 ## Quick start
-Given you have an Escherichia coli complete genome (K12.fasta), see what datbases are available:
+Given that you have an Escherichia coli complete genome (e.g. K12.fasta), see what databases are available:
 
 ```
 socru_species
@@ -78,7 +78,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --db_dir DB_DIR, -d DB_DIR
-                        Base directory for specices databases, defaults to
+                        Base directory for species databases, defaults to
                         bundled (default: None)
   --threads THREADS, -t THREADS
                         No. of threads to use (default: 1)
@@ -106,23 +106,23 @@ optional arguments:
 
 __species__: This mandatory argument is the name of the species database you wish to use. You can either create your own species database using socru_create or look up one of the bundled databases with socru_species. It normally takes the form of Genus_species, for example: "Salmonella_enterica".
 
-__input_files__: This mandatory argument takes in a list of 1 or more FASTA files. Each FASTA file should be a complete assembly (chromosome in 1 contig) and never short read draft assemblies. Short read assemblies cant resolve large repeats, such as the rrn region. The FASTA files can be optionally gzipped (compressed).
+__input_files__: This mandatory argument takes in a list of 1 or more FASTA files. Each FASTA file should be a complete assembly (chromosome in 1 contig) and never short read draft assemblies. Short read assemblies cannot resolve large repeats, such as the rrn region. The FASTA files can be optionally gzipped (compressed).
 
 __help__: This will print out the extended help information, including default values, then exit.
 
 __db_dir__: By default the software will look for the bundled databases. You can use this option to change the base directory for the databases and point it somewhere else, perhaps if you have a custom database you wish to use or if you wish to separate data from software on your computing system.  You can use a relative or absolute path. The full database pathname is derived from joining this directory to the species argument.
 
-__threads__: An integer with the number of threads to use. It defaults to 1 and you get diminishing returns with higher numbers. Theres not much benefit to be had from using more than 4 threads.
+__threads__: An integer with the number of threads to use. It defaults to 1 and you get diminishing returns with higher numbers. There's not much benefit to be had from using more than 4 threads.
 
-__output_file__: By default the output is printed to STDOUT (to your terminal screen). You can specify a filename to print it to instead. The default behaviour is to create the file if it doesnt already exist, and to __append__ to the end of the file if it already exists.
+__output_file__: By default the output is printed to STDOUT (to your terminal screen). You can specify a filename to print it to instead. The default behaviour is to create the file if it doesn't already exist, and to __append__ to the end of the file if it already exists.
 
-__novel_profiles__: Sometimes you encounter novel arrangments and orders. These will get printed to a file to allow you to update the profile.txt file in the database. If there is a new order of fragments, the first number will be 0. You will need to assign a number manually before adding it to the profile.txt. This is because you need to check to see if there is an assembly error or if it is a legitimate new pattern.  If its just a novel reorientation, the first number will have an integer of 1 or more.   Please considered sending your changes back to the GitHub repository, so that the whole community will benefit from your science.
+__novel_profiles__: Sometimes you encounter novel arrangements and orders. These will get printed to a file to allow you to update the profile.txt file in the database. If there is a new order of fragments, the first number will be 0. You will need to assign a number manually before adding it to the profile.txt. This is because you need to check to see if there is an assembly error or if it is a legitimate new pattern.  If it's just a novel reorientation, the first number will have an integer of 1 or more.   Please considered sending your changes back to the GitHub repository, so that the whole community will benefit from your science.
 
 __new_fragments__: Any fragments that cannot be classified are written to a FASTA file for later investigation. The outcome might be that you add the fragment to the database as another representation, or exclude it as a contamination.
 
 __top_blast_hits__: You can write the top BLAST hit for each input fragment against each database fragment. This is in outfmt 6 (old m8 format) which is tab delimited. You can use this as input to the socru_shrink_database command.
 
-__max_bases_from_ends__: Take this number of bases from the start and end of a fragment and compare to the database. This is an experimental feature, it hasnt performed as expected and may be removed at a later point.
+__max_bases_from_ends__: Take this number of bases from the start and end of a fragment and compare to the database. This is an experimental feature, it hasn't performed as expected and may be removed at a later point.
 
 __not_circular__: Not all bacteria have circular chromosomes, or you may have an incomplete assembly. This flag tells the software not to try joining up the start and end of the largest contig.  If you are using this flag, you may be attempting to use this software for a purpose for which it was never designed. 
 
@@ -132,7 +132,7 @@ __min_alignment_length__: Only consider blast alignment lengths above this value
 
 __verbose__: Print out enhanced information while the program is running.
 
-__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you havent installed the software in a standard manner (conda/pip).
+__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you haven't installed the software in a standard manner (conda/docker).
 
 ### Output
 The output is printed to STDOUT or to an output file. It is tab delimited and provides the filename, the GS identifier and the order and orientation of the individual fragments, labelled from 1..n. If a fragment is reversed compared to the database reference, it is denoted prime (').
@@ -141,22 +141,22 @@ Staphylococcus/aureus/USA300.fna.gz	GS1.0	1	2	3	4	5
 Staphylococcus/aureus/MOZ66.fna.gz	GS1.8	1	2	3	4'	5
 ```
 
-Interpretting the output when all goes well is fairly straightforward. If the GS identifier is 1 or greater, then the pattern has been observed before and all should be okay. In the normal case you are looking for each fragment to occur exactly once (and only once), in an order that makes biological sense. 
+Interpreting the output when all goes well is fairly straightforward. If the GS identifier is 1 or greater, then the pattern has been observed before and all should be okay. In the normal case you are looking for each fragment to occur exactly once (and only once), in an order that makes biological sense. 
 Some species will have a variable number of fragments, which you will need to verify as being real. If a fragment cannot be classified it is flagged with a question mark (?).
 
 
 
 ### Not all complete genomes are equal
-You should be aware that not all complete assemblies are equal. In the early days, each complete reference genome was lovingly hand finished by teams of scientists at huge expense. With the advent of long read sequencing and better bioinformatics methods, it allowed a huge number of complete assemblies to be produced at a fraction of the cost. Many of these assemblies have not undergone rigourouse quality checks, so may contain large structural errors. These errors may manifest as novel patterns in the output of this software. So its useful for quality control if your input is your own assemblies.
+You should be aware that not all complete assemblies are equal. In the early days, each complete reference genome was lovingly hand finished by teams of scientists at huge expense. With the advent of long read sequencing and better bioinformatics methods, it allowed a huge number of complete assemblies to be produced at a fraction of the cost. Many of these assemblies have not undergone rigorous quality checks, so may contain large structural errors. These errors may manifest as novel patterns in the output of this software. So it's useful for quality control if your input is your own assemblies.
 
-Additionally a common mistake people make is taking short read data,  scaffolding this using a reference genome, and calling the output a "complete genome". These are not complete genomes. This would look something like:
+Additionally, a common mistake people make is taking short read data,  scaffolding this using a reference genome, and calling the output a "complete genome". These are not complete genomes. This would look something like:
 
 ```
 Campylobacter_jejuni.fa	GS0.0	1
 ```
-where there would normally be expected to be 3 fragments within Camplyobacter Jejuni. In this instance the short read assembler could only assembled a single rRNA segment as it could not unambigously resolve the repetition. Unfortunatly since short read sequencing is so cheap, researchers can pump out these erroneous genomes at a high rate, creating an overwhelming amount of noise compared to the real complete genomes.
+where there would normally be expected to be 3 fragments within Campylobacter jejuni. In this instance the short read assembler could only assembled a single rRNA segment as it could not unambiguously resolve the repetition. Unfortunately since short read sequencing is so cheap, researchers can pump out these erroneous genomes at a high rate, creating an overwhelming amount of noise compared to the real complete genomes.
 
-Another example of a poor quality assembly is extra fragments. Virtually all K. pneumoniae assemblies consist of 8 fragments, ordered identically to the reference. To have regions duplicated, with an extra fragment, and an unidentified fragment rings alarm bells. This is likely to be something really really interesting, or just an assembly error.
+Another example of a poor quality assembly is extra fragments. Virtually all Klebsiella pneumoniae assemblies consist of 8 fragments, ordered identically to the reference. To have regions duplicated, with an extra fragment, and an unidentified fragment rings alarm bells. This is likely to be something really really interesting, or just an assembly error.
 ```
 Klebsiella/pneumoniae/TGH10/GCF_001611095.1.fna.gz	GS0.4	1	3'	2	?'	3	4	7	8	8
 ```
@@ -165,16 +165,16 @@ Sometimes fragments are missing:
 ```
 Salmonella/enterica/ty3-193/GCF_001240865.2.fa	GS0.1	1'	2	3	6	5	7	
 ```
-In this instance a very small fragment (4) is missing. If its small the assembler may get a bit confused and miss it entirely. 
+In this instance a very small fragment (4) is missing. If it's small the assembler may get a bit confused and miss it entirely. 
 
-Sometimes biologically improbable patterns appear and you need to do some further investigating.  For example, if the origin and terminus are on fragments side by side, there is a high chance its an assembly error, since this could indicate an unbalanced replicore. The terminus is always on fragment 1 and the origin varies by species (recorded in the database profile.txt.yml file).
+Sometimes biologically improbable patterns appear and you need to do some further investigating.  For example, if the origin and terminus are on fragments side by side, there is a high chance it's an assembly error, since this could indicate an unbalanced replichore. The terminus is always on fragment 1 and the origin varies by species (recorded in the database profile.txt.yml file).
 ```
 Salmonella_enterica.fa	GS1.0	1	2	7	4	5	6	3
 ```
-In this case the origin is on fragment 3, which is beside fragment 1 (cirular). This is highly improbable in Salmonella.
+In this case the origin is on fragment 3, which is beside fragment 1 (circular). This is highly improbable in Salmonella.
 
 ## socru_species
-This will list all the species databases bundled with the software. You can then copy and paste one of the names for use with the main socru script. It doesnt take any input, instead it just prints out a sorted list of available species. If the species you want is not in the list, please create it using socru_create.
+This will list all the species databases bundled with the software. You can then copy and paste one of the names for use with the main socru script. It doesn't take any input, instead it just prints out a sorted list of available species. If the species you want is not in the list, please create it using socru_create.
 
 ```
 usage: socru_species [options]
@@ -238,24 +238,24 @@ __input_file__: This is a complete assembly file in FASTA format. You only need 
 
 __help__: This will print out the extended help information, including default values, then exit.
 
-__max_bases_from_ends__: Take this number of bases from the start and end of a fragment and compare to the database. This is an experimental feature, it hasnt performed as expected and may be removed at a later point.
+__max_bases_from_ends__: Take this number of bases from the start and end of a fragment and compare to the database. This is an experimental feature, it hasn't performed as expected and may be removed at a later point.
 
-__threads__: An integer with the number of threads to use. It defaults to 1 and you get diminishing returns with higher numbers. Theres not much benefit to be had from using more than 4 threads.
+__threads__: An integer with the number of threads to use. It defaults to 1 and you get diminishing returns with higher numbers. There's not much benefit to be had from using more than 4 threads.
 
-__fragment_order__: By default the software will take the largest fragment and go around in a clockwise fashion, labeling the fragments incrementally (1,2,3,4,5...). You can choose to force different numbers on the fragments, perhaps if someone has already published a particular scheme. In practice this option shouldnt be used, and if you are using it, dont ask for any support when things go wrong.
+__fragment_order__: By default the software will take the largest fragment and go around in a clockwise fashion, labelling the fragments incrementally (1,2,3,4,5...). You can choose to force different numbers on the fragments, perhaps if someone has already published a particular scheme. In practice this option shouldnt be used, and if you are using it, don't ask for any support when things go wrong.
 
 __dnaa_fasta__: This is the location of the FASTA file containing the dnaA sequences which are used to anchor the fragment orientations. It defaults to a bundled version, so you should never need to change it. The FASTA file containing the dnaA genes was generated by [Circlator](https://github.com/sanger-pathogens/circlator). The [original file](https://raw.githubusercontent.com/sanger-pathogens/circlator/master/circlator/data/dnaA.fasta) is run through [cd-hit-est](http://weizhongli-lab.org/cd-hit/) with default parameters to cluster similar sequences and reduce the size of the overall file.
 
 __verbose__: Print out enhanced information while the program is running.
 
-__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you havent installed the software in a standard manner (conda/pip).
+__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you haven't installed the software in a standard manner (conda/pip).
 
 ### Output
-This command creates a directory containing the database. Each fragment is saved to a separate FASTA file, labelled 1..n. By default the full sequence is used, and it is unzipped initially to allow you to more easily look at the data while building the database. You should gzip the FASTA files once you are happy with them. Additionally there is a tab delimited profile.txt file which contains the patterns which have been previously seen (and appear valid). This consists of a GS identifier, followed by the fragment order and orientation (prime ' denotes reversed). As this is a new database the profile.txt will only contain GS1.0 with the fragments labelled 1..n in ascending order. There is a metadata file in YAML format which notes the direction of dnaA and which fragment it was found on. This information is used by socru later to decide on the orientation of the fragments it finds, since you can flip a bacteria.
+This command creates a directory containing the database. Each fragment is saved to a separate FASTA file, labelled 1..n. By default the full sequence is used, and it is unzipped initially to allow you to more easily look at the data while building the database. You should gzip the FASTA files once you are happy with them. Additionally there is a tab delimited profile.txt file which contains the patterns which have been previously seen (and appear valid). This consists of a GS identifier, followed by the fragment order and orientation (prime ' denotes reversed). As this is a new database the profile.txt will only contain GS1.0 with the fragments labelled 1..n in ascending order. There is a metadata file in YAML format which notes the direction of dnaA and which fragment it was found on. This information is used by socru later to decide on the orientation of the fragments it finds, since you can flip a circular bacterial chromosome.
 
 
 ## socru_lookup
-This is a utility script which will take in a fragment pattern and give you back the GS number. Its probably of limited use, but if you do find it useful and need it extended/made better, please submit an Issue on GitHub to let us know.
+This is a utility script which will take in a fragment pattern and give you back the GS number. It's probably of limited use, but if you do find it useful and need it extended/made better, please submit an Issue on GitHub to let us know.
 
 ```
 usage: socru_lookup[options] /path/to/database 1-2-3-4-5-6-7
@@ -280,11 +280,11 @@ __help__: This will print out the extended help information, including default v
 
 __verbose__: Print out enhanced information while the program is running.
 
-__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you havent installed the software in a standard manner (conda/pip).
+__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you haven't installed the software in a standard manner (conda/pip).
 
 
 ## socru_shrink_database
-This is a utility script which will help you to shrink down a database by looking at the most conserved regions.  By default a database contains all of the bases in the reference fragment, but this is way more information than needed in reality. The first step you must take is to have multiple assemblies for the species (more than 1) and run socru with the -b option. This will output blast results for each fragment to a file. The matching regions in the database from the blast results are piledup. The coverage threshold is gradually reduced until the minimum fragment size (bases) is met. These regions are then outputted to a new FASTA file in a new directory and gzipped. The profile.txt and profile.txt.yml files are also copied, so the database is ready to go. On average there more than an 80% reduction in the amount of storage space required for a database. Small fragments are skipped over and copied in full. Some species have a lot of variation and dont work with this method. This was validated by using over 7000 samples, with identical results before shrinking and after shrinking. 
+This is a utility script which will help you to shrink down a database by looking at the most conserved regions.  By default a database contains all of the bases in the reference fragment, but this is way more information than needed in reality. The first step you must take is to have multiple assemblies for the species (more than 1) and run socru with the -b option. This will output blast results for each fragment to a file. The matching regions in the database from the blast results are piled up. The coverage threshold is gradually reduced until the minimum fragment size (bases) is met. These regions are then outputted to a new FASTA file in a new directory and gzipped. The profile.txt and profile.txt.yml files are also copied, so the database is ready to go. On average there is more than an 80% reduction in the amount of storage space required for a database. Small fragments are skipped over and copied in full. Some species have a lot of variation and don't work with this method. This was validated by using over 7000 samples, with identical results before shrinking and after shrinking. 
 
 
 ```
@@ -320,7 +320,7 @@ __min_fragment_size__: The minimum size in bases that you want in a fragment. If
 
 __verbose__: Print out enhanced information while the program is running.
 
-__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you havent installed the software in a standard manner (conda/pip).
+__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you haven't installed the software in a standard manner (conda/pip).
 
 ### Output
 The output is a new directory mirroring in the input database. There will be 1 FASTA file per fragment, labelled 1..n, and these are gzipped. The profile.txt and profile.txt.yml files are copied from the input database without modification.
@@ -357,10 +357,10 @@ __output_file__: The name of the output file to use. It will contain the new pro
 
 __verbose__: Print out enhanced information while the program is running.
 
-__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you havent installed the software in a standard manner (conda/pip).
+__version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you haven't installed the software in a standard manner (conda/pip).
 
 ### Output
-A new profile.txt file is outputted which can be dropped into the database without any further modification. s
+A new profile.txt file is outputted which can be dropped into the database without any further modification. 
 
 # License
 Socru is free software, licensed under [GPLv3](https://raw.githubusercontent.com/quadram-institute-bioscience/socru/master/VERSION/LICENSE).
@@ -375,4 +375,4 @@ Coming soon
 To give you an indication of the resources required, a single 5Mbase assembly takes about 20 seconds using a single thread on an average laptop and uses no more than 250MB RAM. So overall the resource requirements are very light.
 
 # Etymology
-[socrú](https://www.focloir.ie/en/dictionary/ei/arrangement) (sock-roo) is the word for arrangment in Irish (Gaeilge). 
+[socrú](https://www.focloir.ie/en/dictionary/ei/arrangement) (sock-roo) is the word for arrangement in Irish (Gaeilge). 
