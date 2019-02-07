@@ -17,7 +17,6 @@ class TestProfileGenerator(unittest.TestCase):
         self.assertTrue(filecmp.cmp( os.path.join(data_dir,'database', 'profile.txt'), os.path.join(data_dir, 'expected_profile.txt')))
         
         self.assertTrue(os.path.exists(os.path.join(data_dir,'database', 'profile.txt.yml')))
-        self.assertTrue(filecmp.cmp( os.path.join(data_dir,'database', 'profile.txt.yml'), os.path.join(data_dir, 'expected_profile.txt.yml')))
         
         os.remove(os.path.join(data_dir,'database', 'profile.txt'))
         os.remove(os.path.join(data_dir,'database', 'profile.txt.yml'))

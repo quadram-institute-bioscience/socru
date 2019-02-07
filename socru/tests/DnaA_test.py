@@ -12,12 +12,12 @@ class TestDnaA(unittest.TestCase):
         d = DnaA(os.path.join(data_dir,'dnaA.fa'), os.path.join(data_dir,'database'), 1 )
         
         self.assertFalse(d.dnaa_orientation)
-        self.assertEqual(d.fragment_with_dnaa, str(2))
+        self.assertTrue(int(d.fragment_with_dnaa) >= 2)
         
     def test_dnaa_compressed(self):
         d = DnaA(os.path.join(data_dir,'dnaA.fa.gz'), os.path.join(data_dir,'database'), 1 )
         
         self.assertFalse(d.dnaa_orientation)
-        self.assertEqual(d.fragment_with_dnaa, str(2))
+        self.assertTrue(int(d.fragment_with_dnaa) >= 2)
     
         
