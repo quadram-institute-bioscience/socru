@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Campylobacter/iguaniorum/1485E/GCF_000736415.1_ASM73641v1_genomic.fna.gz

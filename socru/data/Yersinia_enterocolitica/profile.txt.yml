@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Yersinia/enterocolitica/8081/GCF_000009345.1_ASM934v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 5
+reference_genome: Paenibacillus/larvae/DSM_25430/GCF_000511405.1_ASM51140v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Paenibacillus/polymyxa/E681/GCF_000146875.3_ASM14687v2_genomic.fna.gz

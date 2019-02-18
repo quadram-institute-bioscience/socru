@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 2
+reference_genome: Candidatus/Liberibacter/psy62/GCF_000023765.2_ASM2376v2_genomic.fna.gz

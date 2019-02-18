@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Staphylococcus/argenteus/MSHR1132/GCF_000236925.1_ASM23692v1_genomic.fna.gz

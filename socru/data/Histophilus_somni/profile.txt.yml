@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Histophilus/somni/129PT/GCF_000011785.1_ASM1178v1_genomic.fna.gz

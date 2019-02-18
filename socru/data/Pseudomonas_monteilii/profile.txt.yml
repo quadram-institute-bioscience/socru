@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Pseudomonas/monteilii/SB3078/GCF_000510285.1_ASM51028v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Morganella/morganii/KT/GCF_000286435.2_ASM28643v2_genomic.fna.gz

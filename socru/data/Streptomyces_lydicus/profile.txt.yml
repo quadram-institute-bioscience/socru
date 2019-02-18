@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Streptomyces/lydicus/A02/GCF_000952035.2_ASM95203v2_genomic.fna.gz

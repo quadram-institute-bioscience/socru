@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Corynebacterium/stationis/ATCC_6872/GCF_001561975.1_ASM156197v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Paenibacillus/sp./JDR-2/GCF_000023585.1_ASM2358v1_genomic.fna.gz

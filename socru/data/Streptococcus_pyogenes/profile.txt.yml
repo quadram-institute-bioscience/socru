@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Streptococcus/pyogenes/SF370/GCF_000006785.2_ASM678v2_genomic.fna.gz

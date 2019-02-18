@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Staphylococcus/haemolyticus/JCSC1435/GCF_000009865.1_ASM986v1_genomic.fna.gz

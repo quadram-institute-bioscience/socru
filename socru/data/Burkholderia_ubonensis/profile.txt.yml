@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 1
+reference_genome: Burkholderia/ubonensis/MSMB22/GCF_000959245.1_ASM95924v1_genomic.fna.gz

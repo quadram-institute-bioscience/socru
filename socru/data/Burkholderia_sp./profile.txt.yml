@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Burkholderia/sp./CCGE1002/GCF_000092885.1_ASM9288v1_genomic.fna.gz

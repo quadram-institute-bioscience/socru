@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 5
+reference_genome: Acinetobacter/haemolyticus/TJS01/GCF_001932555.1_ASM193255v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Providencia/rettgeri/RB151/GCF_001874625.1_ASM187462v1_genomic.fna.gz

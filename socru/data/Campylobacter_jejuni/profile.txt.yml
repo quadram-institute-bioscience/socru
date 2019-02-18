@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Campylobacter/jejuni/NCTC_11168/GCF_000009085.1_ASM908v1_genomic.fna.gz

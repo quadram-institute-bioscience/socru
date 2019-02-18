@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Pseudomonas/protegens/Pf-5/GCF_000012265.1_ASM1226v1_genomic.fna.gz

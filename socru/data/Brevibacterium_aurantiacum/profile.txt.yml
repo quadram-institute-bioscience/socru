@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Brevibacterium/aurantiacum/SMQ-1335/GCF_001729525.1_ASM172952v1_genomic.fna.gz

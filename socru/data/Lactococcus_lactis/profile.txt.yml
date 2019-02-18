@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Lactococcus/lactis/IL1403/GCF_000006865.1_ASM686v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 7
+reference_genome: Klebsiella/variicola/342/GCF_000019565.1_ASM1956v1_genomic.fna.gz

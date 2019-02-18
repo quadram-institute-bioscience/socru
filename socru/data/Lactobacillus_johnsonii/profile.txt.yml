@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Lactobacillus/johnsonii/NCC_533/GCF_000008065.1_ASM806v1_genomic.fna.gz

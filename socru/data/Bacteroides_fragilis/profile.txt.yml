@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Bacteroides/fragilis/YCH46/GCF_000009925.1_ASM992v1_genomic.fna.gz

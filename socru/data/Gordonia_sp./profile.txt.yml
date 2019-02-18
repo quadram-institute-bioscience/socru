@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Gordonia/sp./KTR9/GCF_000143885.2_ASM14388v2_genomic.fna.gz

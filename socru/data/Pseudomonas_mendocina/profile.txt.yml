@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Pseudomonas/mendocina/ymp/GCF_000016565.1_ASM1656v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Burkholderia/cenocepacia/J2315/GCF_000009485.1_ASM948v1_genomic.fna.gz

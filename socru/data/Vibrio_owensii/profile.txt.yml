@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Vibrio/owensii/XSBZ03/GCF_002021755.1_ASM202175v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Sulfurospirillum/sp./UCH001/GCF_001548035.1_ASM154803v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Campylobacter/fetus/82-40/GCF_000015085.1_ASM1508v1_genomic.fna.gz

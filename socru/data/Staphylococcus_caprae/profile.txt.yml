@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Staphylococcus/caprae/JMUB145/GCF_003966585.1_ASM396658v1_genomic.fna.gz

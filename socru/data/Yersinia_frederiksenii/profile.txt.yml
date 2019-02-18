@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Yersinia/frederiksenii/Y225/GCF_000834215.1_ASM83421v1_genomic.fna.gz

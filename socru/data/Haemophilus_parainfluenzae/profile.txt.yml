@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Haemophilus/parainfluenzae/T3T1/GCF_000210895.1_ASM21089v1_genomic.fna.gz

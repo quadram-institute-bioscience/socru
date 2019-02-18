@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 1
+reference_genome: Bibersteinia/trehalosi/USDA-ARS-USMARC-192/GCF_000347595.1_ASM34759v1_genomic.fna.gz

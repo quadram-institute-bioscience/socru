@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 4
+reference_genome: Leptotrichia/sp./W10393/GCF_001274535.1_ASM127453v1_genomic.fna.gz

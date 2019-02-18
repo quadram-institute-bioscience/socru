@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Klebsiella/michiganensis/KCTC_1686/GCF_000240325.1_ASM24032v1_genomic.fna.gz

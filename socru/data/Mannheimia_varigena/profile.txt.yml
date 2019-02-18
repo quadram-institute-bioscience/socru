@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Mannheimia/varigena/USDA-ARS-USMARC-1296/GCF_000521655.1_ASM52165v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Flavobacterium/psychrophilum/JIP02_86/GCF_000064305.2_ASM6430v2_genomic.fna.gz

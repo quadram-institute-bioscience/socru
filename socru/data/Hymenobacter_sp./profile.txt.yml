@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Hymenobacter/sp./APR13/GCF_000737515.1_ASM73751v1_genomic.fna.gz

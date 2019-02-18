@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Burkholderia/gladioli/BSR3/GCF_000194745.1_ASM19474v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Citrobacter/sp./FDAARGOS_155/GCF_001559235.2_ASM155923v2_genomic.fna.gz

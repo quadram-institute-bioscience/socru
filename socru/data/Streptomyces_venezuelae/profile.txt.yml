@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Streptomyces/venezuelae/ATCC_15439/GCF_001406115.1_Streptomyces_venezuelae_ATCC_15439_genomic.fna.gz

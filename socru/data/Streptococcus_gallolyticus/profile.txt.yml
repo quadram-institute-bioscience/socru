@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Streptococcus/gallolyticus/UCN34/GCF_000027185.1_ASM2718v1_genomic.fna.gz

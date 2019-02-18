@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Lactococcus/garvieae/ATCC_49156/GCF_000269925.1_ASM26992v1_genomic.fna.gz

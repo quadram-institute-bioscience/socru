@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 4
+reference_genome: Aggregatibacter/actinomycetemcomitans/D7S-1/GCF_000163615.3_ASM16361v3_genomic.fna.gz

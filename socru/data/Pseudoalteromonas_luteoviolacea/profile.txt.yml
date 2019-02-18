@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Pseudoalteromonas/luteoviolacea/S4054249/GCF_001750165.1_ASM175016v1_genomic.fna.gz

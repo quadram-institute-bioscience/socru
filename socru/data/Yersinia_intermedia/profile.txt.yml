@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Yersinia/intermedia/Y228/GCF_000834515.1_ASM83451v1_genomic.fna.gz

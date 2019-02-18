@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Tatlockia/micdadei/ATCC_33218/GCF_000953635.1_LMI_genomic.fna.gz

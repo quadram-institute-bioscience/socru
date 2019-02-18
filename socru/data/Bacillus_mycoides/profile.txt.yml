@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Bacillus/mycoides/KBAB4/GCF_000018825.1_ASM1882v1_genomic.fna.gz

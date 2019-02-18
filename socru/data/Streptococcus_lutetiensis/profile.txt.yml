@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Streptococcus/lutetiensis/033/GCF_000441535.1_ASM44153v1_genomic.fna.gz

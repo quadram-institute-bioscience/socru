@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 7
+reference_genome: Bacillus/cellulasensis/NJ-M2/GCF_001431145.1_ASM143114v1_genomic.fna.gz

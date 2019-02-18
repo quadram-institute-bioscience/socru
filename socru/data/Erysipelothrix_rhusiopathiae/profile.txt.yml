@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Erysipelothrix/rhusiopathiae/Fujisawa/GCF_000270085.1_ASM27008v1_genomic.fna.gz

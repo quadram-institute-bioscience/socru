@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Staphylococcus/nepalensis/JS1/GCF_002442895.1_ASM244289v1_genomic.fna.gz

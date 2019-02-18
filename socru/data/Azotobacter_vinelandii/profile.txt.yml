@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Azotobacter/vinelandii/DJ__ATCC_BAA-1303/GCF_000021045.1_ASM2104v1_genomic.fna.gz

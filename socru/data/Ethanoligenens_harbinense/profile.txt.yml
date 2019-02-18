@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Ethanoligenens/harbinense/YUAN-3/GCF_000178115.2_ASM17811v2_genomic.fna.gz

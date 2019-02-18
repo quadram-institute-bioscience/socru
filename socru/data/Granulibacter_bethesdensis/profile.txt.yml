@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Granulibacter/bethesdensis/CGDNIH1/GCF_000014285.2_ASM1428v2_genomic.fna.gz

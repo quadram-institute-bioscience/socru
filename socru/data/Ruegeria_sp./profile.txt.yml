@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Ruegeria/sp./TM1040/GCF_000014065.1_ASM1406v1_genomic.fna.gz
