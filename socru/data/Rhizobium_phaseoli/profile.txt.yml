@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Rhizobium/phaseoli/Brasil_5/GCF_000172715.2_ASM17271v2_genomic.fna.gz

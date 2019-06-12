@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Staphylococcus/schleiferi/1360-13/GCF_001188855.1_ASM118885v1_genomic.fna.gz

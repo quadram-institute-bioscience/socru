@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 2
+reference_genome: Paraburkholderia/caribensis/MBA4/GCF_000522545.2_ASM52254v2_genomic.fna.gz

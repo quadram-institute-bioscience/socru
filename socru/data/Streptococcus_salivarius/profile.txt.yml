@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Streptococcus/salivarius/JIM8777/GCF_000253315.1_ASM25331v1_genomic.fna.gz

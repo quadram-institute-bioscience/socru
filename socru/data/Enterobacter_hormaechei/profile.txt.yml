@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Enterobacter/hormaechei/ECNIH3/GCF_000750225.1_ASM75022v1_genomic.fna.gz

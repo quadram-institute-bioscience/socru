@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Geobacillus/thermoleovorans/CCB_US3_UF5/GCF_000236605.1_ASM23660v1_genomic.fna.gz

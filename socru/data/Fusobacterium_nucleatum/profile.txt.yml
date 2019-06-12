@@ -1,2 +1,3 @@
 dnaa_forward_orientation: null
 dnaa_fragment: 1
+reference_genome: Fusobacterium/nucleatum/ATCC_25586/GCF_000007325.1_ASM732v1_genomic.fna.gz

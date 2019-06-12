@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 1
+reference_genome: Chryseobacterium/shandongense/G0239/GCF_003815615.1_ASM381561v1_genomic.fna.gz

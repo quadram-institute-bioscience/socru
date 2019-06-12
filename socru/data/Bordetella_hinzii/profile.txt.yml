@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 1
+reference_genome: Bordetella/hinzii/F582/GCF_001078275.1_ASM107827v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Alcaligenes/faecalis/ZD02/GCF_000967305.2_ASM96730v2_genomic.fna.gz

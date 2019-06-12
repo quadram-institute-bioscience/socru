@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Candidatus/Kinetoplastibacterium/crithidii__ex_Angomonas_deanei_ATCC_30255_/GCF_000319225.1_ASM31922v1_genomic.fna.gz

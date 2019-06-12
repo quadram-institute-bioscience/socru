@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Arthrobacter/alpinus/A3/GCF_000755585.2_ASM75558v2_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Klebsiella/pneumoniae/NTUH-K2044/GCF_000009885.1_ASM988v1_genomic.fna.gz

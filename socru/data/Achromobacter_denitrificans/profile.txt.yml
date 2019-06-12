@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Achromobacter/denitrificans/USDA-ARS-USMARC-56712/GCF_001514355.1_ASM151435v1_genomic.fna.gz

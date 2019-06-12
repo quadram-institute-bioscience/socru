@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Bacillus/paralicheniformis/ATCC_9945a/GCF_000408885.1_ASM40888v1_genomic.fna.gz

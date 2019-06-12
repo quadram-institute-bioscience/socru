@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Acinetobacter/junii/65/GCF_001941805.1_ASM194180v1_genomic.fna.gz

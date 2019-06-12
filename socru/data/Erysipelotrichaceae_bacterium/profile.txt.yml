@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 4
+reference_genome: Erysipelotrichaceae/bacterium/I46/GCF_001688965.2_ASM168896v2_genomic.fna.gz

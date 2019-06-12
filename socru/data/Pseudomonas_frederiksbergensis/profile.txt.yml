@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 3
+reference_genome: Pseudomonas/frederiksbergensis/ERDD5:01/GCF_001874645.1_ASM187464v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 4
+reference_genome: Flavobacterium/columnare/ATCC_49512/GCF_000240075.2_ASM24007v2_genomic.fna.gz

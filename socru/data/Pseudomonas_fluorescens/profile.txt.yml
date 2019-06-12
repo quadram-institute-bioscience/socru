@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Pseudomonas/fluorescens/SBW25/GCF_000009225.2_ASM922v1_genomic.fna.gz

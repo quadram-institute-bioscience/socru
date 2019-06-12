@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Campylobacter/insulaenigrae/NCTC_12927/GCF_000816185.1_ASM81618v1_genomic.fna.gz

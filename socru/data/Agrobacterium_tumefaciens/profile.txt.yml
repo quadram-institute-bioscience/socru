@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Agrobacterium/tumefaciens/Ach5/GCF_000971565.1_ASM97156v1_genomic.fna.gz

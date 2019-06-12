@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Pandoraea/apista/TF81F4/GCF_000826965.5_ASM82696v4_genomic.fna.gz

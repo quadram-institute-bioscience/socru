@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Stenotrophomonas/maltophilia/R551-3/GCF_000020665.1_ASM2066v1_genomic.fna.gz

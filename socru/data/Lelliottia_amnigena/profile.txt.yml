@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Lelliottia/amnigena/ZB04/GCF_001652505.2_ASM165250v2_genomic.fna.gz

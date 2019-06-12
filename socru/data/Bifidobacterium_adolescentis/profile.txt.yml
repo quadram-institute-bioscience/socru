@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Bifidobacterium/adolescentis/ATCC_15703/GCF_000010425.1_ASM1042v1_genomic.fna.gz

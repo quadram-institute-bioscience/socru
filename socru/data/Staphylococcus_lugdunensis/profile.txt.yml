@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Staphylococcus/lugdunensis/HKU09-01/GCF_000025085.1_ASM2508v1_genomic.fna.gz

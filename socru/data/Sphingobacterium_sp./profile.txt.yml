@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Sphingobacterium/sp./21/GCF_000192845.1_ASM19284v1_genomic.fna.gz

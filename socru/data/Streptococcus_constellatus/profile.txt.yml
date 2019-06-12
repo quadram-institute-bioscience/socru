@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Streptococcus/constellatus/C232/GCF_000463395.1_ASM46339v1_genomic.fna.gz

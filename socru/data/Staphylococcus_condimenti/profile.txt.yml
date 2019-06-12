@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Staphylococcus/condimenti/DSM_11674/GCF_001618885.1_ASM161888v1_genomic.fna.gz

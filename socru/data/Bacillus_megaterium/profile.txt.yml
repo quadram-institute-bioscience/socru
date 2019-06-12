@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Bacillus/megaterium/DSM_319/GCF_000025805.1_ASM2580v1_genomic.fna.gz

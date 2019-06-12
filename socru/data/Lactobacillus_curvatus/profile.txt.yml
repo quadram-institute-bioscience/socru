@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 4
+reference_genome: Lactobacillus/curvatus/FBA2/GCF_001663835.1_ASM166383v1_genomic.fna.gz

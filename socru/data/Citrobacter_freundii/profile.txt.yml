@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 4
+reference_genome: Citrobacter/freundii/CFNIH1/GCF_000648515.1_ASM64851v1_genomic.fna.gz

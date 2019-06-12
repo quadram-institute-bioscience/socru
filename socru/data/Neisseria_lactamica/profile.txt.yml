@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 1
+reference_genome: Neisseria/lactamica/020-06/GCF_000196295.1_ASM19629v1_genomic.fna.gz

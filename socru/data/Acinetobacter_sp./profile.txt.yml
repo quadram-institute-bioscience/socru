@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Acinetobacter/sp./ADP1/GCF_000046845.1_ASM4684v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 7
+reference_genome: Clostridium/chauvoei/DSM_7528/GCF_002327185.1_ASM232718v1_genomic.fna.gz

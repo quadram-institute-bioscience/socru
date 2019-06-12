@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Alteromonas/macleodii/ATCC_27126/GCF_000172635.2_ASM17263v2_genomic.fna.gz

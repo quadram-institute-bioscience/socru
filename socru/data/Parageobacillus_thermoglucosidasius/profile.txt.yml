@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Parageobacillus/thermoglucosidasius/C56-YS93/GCF_000178395.2_ASM17839v2_genomic.fna.gz

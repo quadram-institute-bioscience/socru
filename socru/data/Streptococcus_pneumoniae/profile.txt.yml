@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Streptococcus/pneumoniae/TIGR4__ATCC_BAA-334/GCF_000006885.1_ASM688v1_genomic.fna.gz

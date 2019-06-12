@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Riemerella/anatipestifer/DSM_15868/GCF_000183155.1_ASM18315v1_genomic.fna.gz

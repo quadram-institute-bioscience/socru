@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 7
+reference_genome: Sporosarcina/ureae/S204/GCF_002081995.1_ASM208199v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Streptococcus/thermophilus/LMG_18311/GCF_000011825.1_ASM1182v1_genomic.fna.gz

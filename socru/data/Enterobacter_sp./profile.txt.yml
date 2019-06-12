@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Enterobacter/sp./638/GCF_000016325.1_ASM1632v1_genomic.fna.gz

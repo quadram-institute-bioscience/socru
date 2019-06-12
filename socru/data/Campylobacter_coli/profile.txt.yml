@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Campylobacter/coli/CVM_N29710/GCF_000465235.1_ASM46523v1_genomic.fna.gz

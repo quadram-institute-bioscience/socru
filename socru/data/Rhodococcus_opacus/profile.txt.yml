@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Rhodococcus/opacus/B4/GCF_000010805.1_ASM1080v1_genomic.fna.gz

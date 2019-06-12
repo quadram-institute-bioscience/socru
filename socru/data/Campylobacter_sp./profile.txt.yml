@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Campylobacter/sp./RM16704/GCF_000816245.1_ASM81624v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Lactobacillus/fermentum/IFO_3956/GCF_000010145.1_ASM1014v1_genomic.fna.gz

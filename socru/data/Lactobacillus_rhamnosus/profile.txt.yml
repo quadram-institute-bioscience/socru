@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Lactobacillus/rhamnosus/ATCC_53103/GCF_000011045.1_ASM1104v1_genomic.fna.gz

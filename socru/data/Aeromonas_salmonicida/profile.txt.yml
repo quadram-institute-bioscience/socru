@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 7
+reference_genome: Aeromonas/salmonicida/A449/GCF_000196395.1_ASM19639v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Pseudomonas/sp./UW4/GCF_000316175.1_ASM31617v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Francisella/sp./TX077308/GCF_000219045.1_ASM21904v1_genomic.fna.gz

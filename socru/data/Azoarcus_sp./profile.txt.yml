@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Azoarcus/sp./BH72/GCF_000061505.1_ASM6150v1_genomic.fna.gz

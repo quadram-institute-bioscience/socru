@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Methylorubrum/extorquens/PA1/GCF_000018845.1_ASM1884v1_genomic.fna.gz

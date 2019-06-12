@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 8
+reference_genome: Vibrio/campbellii/ATCC_BAA-1116__BB120/GCF_000017705.1_ASM1770v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Capnocytophaga/sp./F0383/GCF_001278825.1_ASM127882v1_genomic.fna.gz

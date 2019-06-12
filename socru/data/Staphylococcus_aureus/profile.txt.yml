@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Staphylococcus/aureus/RF122/GCF_000009005.1_ASM900v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Pseudomonas/putida/KT2440/GCF_000007565.2_ASM756v2_genomic.fna.gz

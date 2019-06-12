@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Streptococcus/suis/GZ1/GCF_000018185.1_ASM1818v1_genomic.fna.gz

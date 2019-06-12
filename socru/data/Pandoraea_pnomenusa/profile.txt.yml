@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Pandoraea/pnomenusa/RB-44/GCF_000504585.2_ASM50458v2_genomic.fna.gz

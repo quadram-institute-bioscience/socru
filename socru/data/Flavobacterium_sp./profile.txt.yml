@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Flavobacterium/sp./MEBiC07310/GCF_003148385.1_ASM314838v1_genomic.fna.gz

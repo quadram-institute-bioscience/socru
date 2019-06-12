@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 4
+reference_genome: Staphylococcus/pseudintermedius/HKU10-03/GCF_000185885.1_ASM18588v1_genomic.fna.gz

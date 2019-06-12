@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Clostridium/perfringens/13/GCF_000009685.1_ASM968v1_genomic.fna.gz

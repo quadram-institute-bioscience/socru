@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 2
+reference_genome: Legionella/sainthelensi/LA01-117/GCF_002848365.1_ASM284836v1_genomic.fna.gz

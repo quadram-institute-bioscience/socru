@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Pediococcus/claussenii/ATCC_BAA-344/GCF_000237995.1_ASM23799v2_genomic.fna.gz

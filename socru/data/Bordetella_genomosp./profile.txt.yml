@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Bordetella/genomosp./AU7206/GCF_002119665.1_ASM211966v1_genomic.fna.gz

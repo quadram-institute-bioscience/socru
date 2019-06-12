@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Paracoccus/yeei/FDAARGOS_252/GCF_002073635.2_ASM207363v2_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 8
+reference_genome: Lysinibacillus/sphaericus/OT4b.25/GCF_001581875.1_ASM158187v1_genomic.fna.gz

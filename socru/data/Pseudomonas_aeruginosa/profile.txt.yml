@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 4
+reference_genome: Pseudomonas/aeruginosa/PAO1/GCF_000006765.1_ASM676v1_genomic.fna.gz

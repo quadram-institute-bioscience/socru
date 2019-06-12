@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Actinoplanes/sp./SE50_110/GCF_000237145.1_ASM23714v1_genomic.fna.gz

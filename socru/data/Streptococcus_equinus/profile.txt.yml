@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Streptococcus/equinus/FDAARGOS_251/GCF_002073515.1_ASM207351v2_genomic.fna.gz

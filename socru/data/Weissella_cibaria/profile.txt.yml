@@ -1,2 +1,3 @@
 dnaa_forward_orientation: false
 dnaa_fragment: 1
+reference_genome: Weissella/cibaria/CH2/GCF_001308145.2_ASM130814v2_genomic.fna.gz

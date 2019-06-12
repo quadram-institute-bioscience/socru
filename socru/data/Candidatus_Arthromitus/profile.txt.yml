@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 1
+reference_genome: Candidatus/Arthromitus/mouse_isolate/GCF_000270205.1_ASM27020v1_genomic.fna.gz

@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 6
+reference_genome: Vibrio/sp./EJY3/GCF_000241385.1_ASM24138v1_genomic.fna.gz

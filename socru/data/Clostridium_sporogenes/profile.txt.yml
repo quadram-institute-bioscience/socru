@@ -1,2 +1,3 @@
 dnaa_forward_orientation: true
 dnaa_fragment: 3
+reference_genome: Clostridium/sporogenes/NCIMB_10696/GCF_000973705.1_ASM97370v1_genomic.fna.gz
