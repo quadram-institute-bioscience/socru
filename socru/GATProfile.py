@@ -67,16 +67,23 @@ class GATProfile:
     
     def __str__(self):
         return self.fragment_str()
-        
-    def orientationless_fragments(self):
+
+    def remove_orientation(self, fragments):
         orientationless = []
-        for f in self.fragments:
+        for f in fragments:
             m = re.match(r"([\d]+)'", f)
             if m:
                 orientationless.append(m.group(1))
             else:
                 orientationless.append(f)
         return orientationless
+        
+    def orientationless_fragments(self):
+        return self.remove_orientation(self.fragments)
+        
+    def inverted_orientationless_fragments(self):
+        inverted = self.invert_fragments()
+        return self.remove_orientation(inverted)
 		
         # 1' - 00000001
         # 2' - 00000010

@@ -77,6 +77,7 @@ class Socru:
            shell=True)
 
         boundries = b.read_barrnap_output(barrnap_outputfile)
+        os.close(fd)
         
         f = Fasta(input_file, is_circular = self.is_circular)
         fragments = f.calc_fragment_coords( boundries)

@@ -36,8 +36,6 @@ class SocruCreate:
             self.dnaa_fasta = str(pkg_resources.resource_filename( __name__, 'data/dnaA.fa.gz'))
         
     def run(self):
-        # todo: filter fasta to keep just the largest contig.
-        
         # run the fasta through barrnap
         fd, barrnap_outputfile = mkstemp()
         self.files_to_cleanup.append(barrnap_outputfile)

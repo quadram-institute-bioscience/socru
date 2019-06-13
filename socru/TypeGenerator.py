@@ -13,16 +13,34 @@ class TypeGenerator:
         
         self.gs_type = self.calculate_type()
         
-    def calculate_orientationless_order(self):
-        orientationless_fragment = GATProfile(fragments = self.gat_profile.orientationless_fragments())
-        
+    def find_order_orientationless(self, orientationless_fragment):
         for db_profile in self.profile_db.gats:
             orientationless_db_profile = GATProfile(fragments = db_profile.orientationless_fragments())
             if orientationless_db_profile.does_the_profile_match(orientationless_fragment):
                 return db_profile.order()
         return 0
         
+    def calculate_orientationless_order(self):
+        orientationless_fragment = GATProfile(fragments = self.gat_profile.orientationless_fragments())
+        
+        order = self.find_order_orientationless(orientationless_fragment)
+        if order > 0:
+            return order
+        
+        # invert it
+        inverted_orientationless_fragment = GATProfile(fragments = orientationless_fragment.inverted_orientationless_fragments())
+        
+        order = self.find_order_orientationless(inverted_orientationless_fragment)
+        if order > 0:
+            return order
+        else:
+            return 0
+
     def calculate_type(self):
+        if self.gat_profile.gat_number == 0:
+            self.gat_profile.gat_number = self.calculate_orientationless_order()
+            
+        
         # lookup the gat_profile to get the number
         for db_profile in self.profile_db.gats:
             if db_profile.does_the_profile_match(self.gat_profile):
