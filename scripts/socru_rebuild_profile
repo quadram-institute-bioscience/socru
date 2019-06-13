@@ -5,7 +5,7 @@ import os
 import pkg_resources
 sys.path.append('../')
 sys.path.append('./')
-from socru.SocruUpdateProfile import SocruUpdateProfile
+from socru.SocruRebuildProfile import SocruRebuildProfile
 
 version = ''
 try:
@@ -14,18 +14,20 @@ except pkg_resources.DistributionNotFound:
 	version = 'x.y.z'
 
 parser = argparse.ArgumentParser(
-	description = 'Admin utility to take the novel GS results and update the profile for the database',
-	usage = 'socru_update_profile [options]',
+	description = 'Admin utility which will take in an existing profile and rebuild it',
+	usage = 'socru_rebuild_profile [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-	
-parser.add_argument('socru_output_filename',  help='Socru output file', type=str )
+
 parser.add_argument('profile_filename', help="profile.txt from database", type=str)
 parser.add_argument('--output_file', '-o',  help='Output filename', type=str, default = 'updated_profile.txt')
+parser.add_argument('--prefix', '-p',  help='Prefix', type=str, default = 'GS')
 
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
 options = parser.parse_args()
 
-g = SocruUpdateProfile(options)
+g = SocruRebuildProfile(options)
 g.run()
+
+
