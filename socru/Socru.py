@@ -128,8 +128,8 @@ class Socru:
                     gat_profile.fragments.append( str(top_result.subject)+ '\'')
         
         gat_profile.orientate_for_dnaA()
-        reordered_frag_obj = gat_profile.reorder_fragment_objects_based_on_fragment_name_array( ff.ordered_fragments )
-        pp = PlotProfile(ff.ordered_fragments, self.output_plot_file)
+        reordered_frag_objs = gat_profile.reorder_fragment_objects_based_on_fragment_name_array( ff.ordered_fragments )
+        pp = PlotProfile(reordered_frag_objs, self.output_plot_file)
         pp.create_plot()
         
         # lookup the gat_profile to get the number

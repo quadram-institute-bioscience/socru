@@ -59,15 +59,22 @@ class GATProfile:
         reordered_fragment_objects = []
         # inefficient but small searches
         # need to check for unmatched
-        for frag_name in self.orientationless_fragments():
-            for frag_obj in fragment_objects:
-                frag_obj_number = frag_obj.number 
-                m = re.match(r"([\d]+)'", frag_obj.number)
-                if m:
-                    frag_obj_number = m.group(1)
+        for frag_name in self.fragments:
+            frag_name_orientationless = frag_name
+            frag_name_reversed = False
+            m = re.match(r"([\d]+)'", frag_name)
+            if m:
+                frag_name_orientationless = m.group(1)
+                frag_name_reversed = True
 
-                if str(frag_obj_number) == str(frag_name):
+            for frag_obj in fragment_objects:
+                if str(frag_obj.number) == str(frag_name_orientationless):
+                    if frag_name_reversed:
+                        frag_obj.reversed_frag = True
+                    else:
+                        frag_obj.reversed_frag = False
                     reordered_fragment_objects.append(frag_obj)
+                    
         return reordered_fragment_objects
         
         
