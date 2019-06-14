@@ -1,9 +1,11 @@
 
 class Fragment:
-    def __init__(self, coords):
+    def __init__(self, coords, sequence = "", number = 0, reversed_frag = False, dna_A = False):
         self.coords = coords
-        self.sequence = ""
-        self.number = 0
+        self.sequence = sequence
+        self.number = number
+        self.reversed_frag = reversed_frag
+        self.dna_A = dna_A
         
     def num_bases(self):
         return len(self.sequence)

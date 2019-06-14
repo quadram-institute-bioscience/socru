@@ -54,7 +54,7 @@ class SocruCreate:
         ff.create_fragment_fastas()
         
         # create a default profile.txt file
-        default_profile = ProfileGenerator(self.output_directory, len(ff.ordered_fragments), self.dnaa_fasta, self.threads)
+        default_profile = ProfileGenerator(self.output_directory, len(ff.ordered_fragments), self.dnaa_fasta, self.threads, self.input_file )
         default_profile.write_output_file()
         
     def __del__(self):
