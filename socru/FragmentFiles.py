@@ -37,6 +37,7 @@ class FragmentFiles:
                 if m:
                     reordered_fragments[i].number = m.group(1)
                     reordered_fragments[i].sequence = reordered_fragments[i].sequence.reverse_complement()
+                    reordered_fragments[i].reversed = True
                     
                 else:
                     reordered_fragments[i].number = input_order[i]
@@ -48,6 +49,7 @@ class FragmentFiles:
             record = [SeqRecord(f.sequence, str(f) , '', '')]
             outname = os.path.join(self.output_directory, f.output_filename())
             self.output_filenames.append(outname)
+            f.output_filename = outname
             SeqIO.write(record, outname, "fasta")
     
     def split_fragment_order(self):
