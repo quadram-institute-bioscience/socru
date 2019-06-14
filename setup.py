@@ -26,7 +26,8 @@ setup(
     install_requires=[
            'biopython >= 1.68',
            'PyYAML',
-           'numpy'
+           'numpy',
+           'matplotlib'
        ],
     package_data={'socru': ['data/*', 'data/*/*']},
     license='GPLv3',
