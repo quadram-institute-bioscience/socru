@@ -128,6 +128,7 @@ class Socru:
                     gat_profile.fragments.append( str(top_result.subject)+ '\'')
         
         pp = PlotProfile(ff.ordered_fragments, self.output_plot_file)
+        pp.create_plot()
         
         gat_profile.orientate_for_dnaA()
         # lookup the gat_profile to get the number
