@@ -15,7 +15,7 @@ class PlotProfile:
         size = [int(f.num_bases()) for f in self.fragments]
         reversed_fragments = [f.reversed_frag for f in self.fragments]
         dna_A = [f.dna_A for f in self.fragments]
-        
+
         for i in range(len(names)):
             if dna_A[i]:
                 names[i] += " - Ori"

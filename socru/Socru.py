@@ -127,10 +127,11 @@ class Socru:
                     current_fragment.reversed_frag = True
                     gat_profile.fragments.append( str(top_result.subject)+ '\'')
         
+        gat_profile.orientate_for_dnaA()
+        reordered_frag_obj = gat_profile.reorder_fragment_objects_based_on_fragment_name_array( ff.ordered_fragments )
         pp = PlotProfile(ff.ordered_fragments, self.output_plot_file)
         pp.create_plot()
         
-        gat_profile.orientate_for_dnaA()
         # lookup the gat_profile to get the number
         tg = TypeGenerator(p, gat_profile)
         type_output_string  =  tg.calculate_type() + "\t" + str(gat_profile)

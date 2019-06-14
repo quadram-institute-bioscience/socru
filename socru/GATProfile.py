@@ -55,6 +55,22 @@ class GATProfile:
         # dnaA hasnt been found so really should raise an exception
         return True
         
+    def reorder_fragment_objects_based_on_fragment_name_array(self, fragment_objects):
+        reordered_fragment_objects = []
+        # inefficient but small searches
+        # need to check for unmatched
+        for frag_name in self.orientationless_fragments():
+            for frag_obj in fragment_objects:
+                frag_obj_number = frag_obj.number 
+                m = re.match(r"([\d]+)'", frag_obj.number)
+                if m:
+                    frag_obj_number = m.group(1)
+
+                if str(frag_obj_number) == str(frag_name):
+                    reordered_fragment_objects.append(frag_obj)
+        return reordered_fragment_objects
+        
+        
     def orientate_for_dnaA(self):
         if not self.is_profile_in_correct_orientation():
             self.fragments  = self.invert_fragments()
