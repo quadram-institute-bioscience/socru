@@ -4,9 +4,10 @@ import re
 import gzip
 
 class Fasta:
-    def __init__(self, input_file, is_circular=True):
+    def __init__(self, input_file,verbose, is_circular=True):
         self.input_file = input_file
         self.is_circular = is_circular
+        self.verbose = verbose
         self.chromosome = self.get_chromosome_from_fasta()
     
     def get_chromosome_from_fasta(self):

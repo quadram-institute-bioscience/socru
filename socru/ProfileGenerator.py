@@ -5,12 +5,13 @@ import yaml
 from socru.DnaA  import DnaA
 
 class ProfileGenerator:
-    def __init__(self, output_directory, num_fragments, dnaa_fasta, threads, input_file, prefix = 'GS', output_filename = 'profile.txt', metadata_file_suffix = '.yml',):
+    def __init__(self, output_directory, num_fragments, dnaa_fasta, threads, input_file,verbose, prefix = 'GS', output_filename = 'profile.txt', metadata_file_suffix = '.yml',):
         self.output_directory = output_directory
         self.output_filename = os.path.join(self.output_directory, output_filename)
         self.input_file = input_file
         self.prefix = prefix
         self.num_fragments = num_fragments
+        self.verbose = verbose
         self.dnaa_fasta = dnaa_fasta
         self.threads = threads
         self.metadata_file_suffix = metadata_file_suffix
@@ -36,7 +37,7 @@ class ProfileGenerator:
         self.write_metadata_file()
     
     def write_metadata_file(self):
-        d = DnaA(self.dnaa_fasta, self.output_directory, self.threads)
+        d = DnaA(self.dnaa_fasta, self.output_directory, self.threads, self.verbose)
         metadata_file =  self.output_filename + self.metadata_file_suffix
         metadata_content = { 'dnaa_fragment': int(d.fragment_with_dnaa), 'dnaa_forward_orientation': d.forward_orientation, 'reference_genome':  self.input_file }
         

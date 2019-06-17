@@ -4,7 +4,8 @@ from os.path import isdir
 import pkg_resources
 
 class Schemas:
-    def __init__(self):
+    def __init__(self, verbose):
+        self.verbose = verbose
         self.base_directory = str(pkg_resources.resource_filename( __name__, 'data/'))
     
     def all_available(self):

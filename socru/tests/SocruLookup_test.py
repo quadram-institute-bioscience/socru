@@ -10,7 +10,7 @@ class TestOptions:
     def __init__(self, fragments, db_dir):
         self.fragments = fragments
         self.db_dir = db_dir
-
+        self.verbose = False
 
 class TestSocruLookup(unittest.TestCase):
 

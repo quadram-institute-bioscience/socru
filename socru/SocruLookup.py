@@ -8,14 +8,15 @@ class SocruLookup:
     def __init__(self,options):
         self.fragments = options.fragments
         self.db_dir = options.db_dir
+        self.verbose = options.verbose
         
     def calc_type(self):  
-        profile_db = Profiles(os.path.join(self.db_dir, 'profile.txt'))
+        profile_db = Profiles(os.path.join(self.db_dir, 'profile.txt'), self.verbose)
         
         split_fragments = self.fragments.split('-')
-        input_profile = GATProfile(fragments = split_fragments)
+        input_profile = GATProfile(self.verbose, fragments = split_fragments)
         
-        tg = TypeGenerator(profile_db,input_profile)
+        tg = TypeGenerator(profile_db,input_profile, self.verbose)
         return tg.calculate_type()
 
     def run(self):

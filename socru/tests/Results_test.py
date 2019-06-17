@@ -10,7 +10,7 @@ data_dir = os.path.join(test_modules_dir, 'data','results')
 class TestResults(unittest.TestCase):
    
     def test_results(self):
-        r = Results(os.path.join(data_dir, 'yersinia'))
+        r = Results(os.path.join(data_dir, 'yersinia'), False)
         
         valid_patterns  = [str(p)for p in r.filter(7)]
         self.assertEqual(valid_patterns, ["1'\t7'\t6'\t5'\t3\t4\t2'", 

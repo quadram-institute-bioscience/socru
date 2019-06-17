@@ -22,6 +22,7 @@ class TestOptions:
         self.max_bases_from_ends = max_bases_from_ends
         self.top_blast_hits = top_blast_hits
         self.output_plot_file = output_plot_file
+        self.verbose = False
 
 class TestSocru(unittest.TestCase):
 
@@ -35,4 +36,5 @@ class TestSocru(unittest.TestCase):
         os.remove('output_file')
         os.remove('novel')
         os.remove('newfrag.fa')
+        os.remove('output_plot.png')
  

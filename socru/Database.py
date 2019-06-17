@@ -8,8 +8,9 @@ import subprocess
 import shutil
 
 class Database:
-    def __init__(self,directory):
+    def __init__(self,directory, verbose):
         self.directory = directory
+        self.verbose = verbose
         self.concat_fasta = self.concat_db_files()
         self.db_prefix = self.make_blastdb(self.concat_fasta)
     

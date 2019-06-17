@@ -10,7 +10,7 @@ data_dir = os.path.join(test_modules_dir, 'data','profiles')
 class TestProfiles(unittest.TestCase):
    
     def test_profiles(self):
-        p = Profiles(os.path.join(data_dir, 'profile.txt'))
+        p = Profiles(os.path.join(data_dir, 'profile.txt'), False)
         self.assertEqual(7, len(p.gats))
         self.assertEqual("1	2	3	4	5	6	7", str(p.gats[0]))
         

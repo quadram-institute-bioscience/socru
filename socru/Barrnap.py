@@ -5,12 +5,13 @@ from tempfile import mkstemp
 from socru.Fasta import Fasta
 
 class Barrnap:
-    def __init__(self,input_file, threads, overlap_margin = 1500, len_70s = 8000, chromosome_length = 0):
+    def __init__(self,input_file, threads, verbose, overlap_margin = 1500, len_70s = 8000, chromosome_length = 0):
         self.input_file = input_file
         self.threads = threads
         self.overlap_margin = overlap_margin
         self.len_70s = len_70s
         self.chromosome_length = chromosome_length
+        self.verbose = verbose
         self.files_to_cleanup = []
         
     def decompress_to_file(self):
@@ -106,7 +107,7 @@ class Barrnap:
         if len(remaining_start_coords) > 0 and len(remaining_end_coords) > 0:
             chromosome_length = self.chromosome_length
             if self.chromosome_length <= 0:
-                chromosome_length = len(Fasta(self.input_file).chromosome)
+                chromosome_length = len(Fasta(self.input_file, self.verbose).chromosome)
             
             for start_index in range(len(remaining_start_coords)):
                 start = remaining_start_coords[start_index]

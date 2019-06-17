@@ -13,6 +13,7 @@ class TestOptions:
         self.input_database = input_database
         self.output_database = output_database
         self.min_fragment_size = min_fragment_size
+        self.verbose = False
  
 class TestSocruShrinkDatabase(unittest.TestCase):
 

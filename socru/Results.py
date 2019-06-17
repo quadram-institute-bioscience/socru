@@ -4,9 +4,9 @@ import re
 from socru.GATProfile  import GATProfile
 
 class Results:
-    def __init__(self, results_file):
+    def __init__(self, results_file, verbose):
         self.results_file = results_file
-        
+        self.verbose = verbose
         self.profiles = self.create_profiles()
     
     def create_profiles(self):
@@ -28,7 +28,7 @@ class Results:
                             if len(unknown) > 0:
                                 continue
                             
-                            g = GATProfile(gat_number = gat_number, fragments = fragments)
+                            g = GATProfile(self.verbose, gat_number = gat_number, fragments = fragments)
                             if str(g) not in seen_profiles:
                                 seen_profiles.append(str(g))
                                 profiles.append(g)

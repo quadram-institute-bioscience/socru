@@ -9,16 +9,18 @@ from tempfile import mkstemp
 from tempfile import mkdtemp
 
 class SocruUpdateProfileOptions:
-    def __init__(self, socru_output_filename, profile_filename, output_file):
+    def __init__(self, socru_output_filename, profile_filename, output_file, verbose):
         self.socru_output_filename = socru_output_filename
         self.profile_filename = profile_filename
         self.output_file = output_file
+        self.verbose = verbose
 
 class SocruRebuildProfile:
     def __init__(self,options):
         self.profile_filename = options.profile_filename
         self.output_file = options.output_file
         self.prefix = options.prefix
+        self.verbose = options.verbose
         self.missing_character = '0'
         self.files_to_cleanup = []
         
@@ -54,7 +56,7 @@ class SocruRebuildProfile:
         fd_upf, unsorted_profile_file = mkstemp()
         self.files_to_cleanup.append(unsorted_profile_file)
         
-        sup = SocruUpdateProfile(SocruUpdateProfileOptions(additional_profiles_file, intermediate_profile_file,  unsorted_profile_file))
+        sup = SocruUpdateProfile(SocruUpdateProfileOptions(additional_profiles_file, intermediate_profile_file,  unsorted_profile_file, self.verbose))
         sup.run()
         
         # sort the profile file in numerical order

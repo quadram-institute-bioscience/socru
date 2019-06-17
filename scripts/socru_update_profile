@@ -22,7 +22,8 @@ parser.add_argument('socru_output_filename',  help='Socru output file', type=str
 parser.add_argument('profile_filename', help="profile.txt from database", type=str)
 parser.add_argument('--output_file', '-o',  help='Output filename', type=str, default = 'updated_profile.txt')
 
-parser.add_argument('--verbose', '-v', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
 options = parser.parse_args()

@@ -24,7 +24,8 @@ parser.add_argument('input_database',  help='Directory containing database to sh
 parser.add_argument('output_database', help="Output directory for new database, it must not already exist", type=str)
 parser.add_argument('--min_fragment_size', help="Minimum fragment size in bases", type=int, default = 100000)
 
-parser.add_argument('--verbose', '-v', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
 options = parser.parse_args()

@@ -19,6 +19,7 @@ class SocruCreate:
         self.fragment_order = options.fragment_order
         self.threads = options.threads
         self.dnaa_fasta = options.dnaa_fasta
+        self.verbose = options.verbose
         self.max_bases_from_ends = options.max_bases_from_ends
         self.files_to_cleanup = []
         
@@ -39,22 +40,22 @@ class SocruCreate:
         # run the fasta through barrnap
         fd, barrnap_outputfile = mkstemp()
         self.files_to_cleanup.append(barrnap_outputfile)
-        b = Barrnap(self.input_file, self.threads)
+        b = Barrnap(self.input_file, self.threads, self.verbose)
         subprocess.check_output(
            b.construct_barrnap_command(barrnap_outputfile), 
            shell=True)
 
         boundries = b.read_barrnap_output(barrnap_outputfile)
         
-        f = Fasta(self.input_file)
+        f = Fasta(self.input_file, self.verbose)
         fragments = f.calc_fragment_coords( boundries)
         f.populate_fragments_from_chromosome(fragments, self.max_bases_from_ends)
         
-        ff = FragmentFiles(fragments, self.output_directory, fragment_order =  self.fragment_order)
+        ff = FragmentFiles(fragments, self.output_directory, self.verbose, fragment_order =  self.fragment_order)
         ff.create_fragment_fastas()
         
         # create a default profile.txt file
-        default_profile = ProfileGenerator(self.output_directory, len(ff.ordered_fragments), self.dnaa_fasta, self.threads, self.input_file )
+        default_profile = ProfileGenerator(self.output_directory, len(ff.ordered_fragments), self.dnaa_fasta, self.threads, self.input_file, self.verbose )
         default_profile.write_output_file()
         
     def __del__(self):

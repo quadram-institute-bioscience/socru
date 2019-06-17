@@ -17,7 +17,7 @@ class TestPlotProfile(unittest.TestCase):
         fragments.append(Fragment([], sequence = "AAAAAAAAAA", number = 2, reversed_frag = False, dna_A = True))
         fragments.append(Fragment([], sequence = "A", number = 4, reversed_frag = False, dna_A = False))
 
-        p = PlotProfile(fragments, 'plot.pdf')
+        p = PlotProfile(fragments, 'plot.pdf', False)
         p.create_plot()
         self.assertTrue(os.path.exists('plot.pdf'))
         os.remove('plot.pdf')
@@ -29,7 +29,7 @@ class TestPlotProfile(unittest.TestCase):
         fragments.append(Fragment([], sequence = "AAAAAAAAAA", number = 2, reversed_frag = True, dna_A = False))
         fragments.append(Fragment([], sequence = "A", number = 4, reversed_frag = False, dna_A = False))
 
-        p = PlotProfile(fragments, 'plot2.pdf')
+        p = PlotProfile(fragments, 'plot2.pdf', False)
         p.create_plot()
         
         self.assertTrue(os.path.exists('plot2.pdf'))
