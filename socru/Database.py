@@ -39,6 +39,8 @@ class Database:
         tmpdir = mkdtemp()
         output_prefix = os.path.join(tmpdir, 'all')
         cmd = " ".join(['makeblastdb', '-in', concat_fasta, '-dbtype', 'nucl',  '-out', output_prefix])
+        if self.verbose:
+            print("Creating blast database:\t" + cmd)
         subprocess.check_output(cmd, shell=True)
         return output_prefix
     

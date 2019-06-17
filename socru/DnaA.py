@@ -16,6 +16,8 @@ class DnaA:
         self.find_dnaa()
     
     def find_dnaa(self):
+        if self.verbose:
+            print("Finding fragment FASTA containing dnaA (origin of replication)")
         blastdb = Database(self.directory_of_fasta_files, self.verbose)
         blast = Blast(blastdb.db_prefix, self.threads, self.verbose, task = 'blastn',  word_size = 11)
         blast_results = blast.run_blast(self.dnaa_fasta)
@@ -31,4 +33,8 @@ class DnaA:
                 self.forward_orientation = True
             else:
                 self.forward_orientation = False
+                
+            if self.verbose:
+                print("Found dnaA on fragment:\t" + str(self.fragment_with_dnaa))
+                print("dnaA in forward orientation:\t" + str(self.forward_orientation))
             

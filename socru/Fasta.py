@@ -22,6 +22,7 @@ class Fasta:
         else:
             for record in SeqIO.parse(self.input_file, "fasta"):
                 largest_contig = self.largest_contig_check( largest_contig, record)
+
         return largest_contig
         
     def fragment_number(self):
