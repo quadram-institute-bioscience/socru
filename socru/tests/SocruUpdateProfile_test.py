@@ -12,6 +12,7 @@ class TestOptions:
         self.socru_output_filename = socru_output_filename
         self.profile_filename = profile_filename
         self.output_file = output_file
+        self.verbose = False
  
 class TestSocruUpdateProfile(unittest.TestCase):
 

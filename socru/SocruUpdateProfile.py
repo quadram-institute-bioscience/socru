@@ -8,10 +8,11 @@ class SocruUpdateProfile:
         self.socru_output_filename = options.socru_output_filename
         self.profile_filename = options.profile_filename
         self.output_file = options.output_file
+        self.verbose = options.verbose
         
-        shutil.copy(self.profile_filename,self.output_file)
-        self.profiles = Profiles( self.profile_filename)
-        self.results = Results( self.socru_output_filename)
+        shutil.copy(self.profile_filename, self.output_file)
+        self.profiles = Profiles( self.profile_filename, self.verbose)
+        self.results = Results( self.socru_output_filename, self.verbose)
             
     def run(self):
         valid_profiles_not_db_checked = self.results.filter(self.profiles.num_fragments)
@@ -29,7 +30,7 @@ class SocruUpdateProfile:
         
         with open(self.output_file, "a+") as output_fh:
             for p in valid_profiles:
-                tg = TypeGenerator(self.profiles, p, prefix = '')
+                tg = TypeGenerator(self.profiles, p, self.verbose, prefix = '')
                 # get orientationless versions of p and db
                 # check if there is an order number assigned, if not generate the next one.
                 order_to_use = tg.calculate_orientationless_order()

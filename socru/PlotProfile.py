@@ -2,9 +2,10 @@ import matplotlib.pyplot as plt
 
 class PlotProfile:
     
-    def __init__(self, fragments, output_file):
+    def __init__(self, fragments, output_file, verbose):
         self.fragments = fragments
         self.output_file = output_file
+        self.verbose = verbose
         
     def total_bases(self):
         return sum([f.num_bases() for f in self.fragments])

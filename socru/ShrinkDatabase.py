@@ -10,11 +10,12 @@ from socru.FilterBlast import FilterBlast
 from socru.Fasta import Fasta
 
 class ShrinkDatabase:
-    def __init__(self,input_database, output_database, blast_results, target_bases):
+    def __init__(self,input_database, output_database, blast_results, target_bases, verbose):
         self.input_database = input_database
         self.output_database = output_database
         self.blast_results = blast_results
         self.target_bases = target_bases
+        self.verbose = verbose
     
     # read in the files in the directory starting with number and ending in fa
     def get_database_files(self):
@@ -33,9 +34,9 @@ class ShrinkDatabase:
         fasta_file_names_uncompressed = self.get_database_files()
         fasta_file_names = fasta_file_names_uncompressed + fasta_file_names_compressed
         
-        fasta_obj = [ Fasta(f) for f in fasta_file_names]
+        fasta_obj = [ Fasta(f, self.verbose) for f in fasta_file_names]
         for f in fasta_obj:
-            fb = FilterBlast(self.blast_results, 1, 1)
+            fb = FilterBlast(self.blast_results, 1, 1, self.verbose)
             destination_filename = os.path.join(self.output_database, str(f.fragment_number()) + '.fa')
             if len(f.chromosome.seq) < self.target_bases:
                 if f.input_file in fasta_file_names_compressed:

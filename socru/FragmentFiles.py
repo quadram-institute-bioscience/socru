@@ -7,10 +7,11 @@ import os
 import re
 
 class FragmentFiles:
-    def __init__(self, fragments, output_directory, fragment_order = None):
+    def __init__(self, fragments, output_directory, verbose, fragment_order = None):
         self.fragments = fragments
         self.output_directory = output_directory
         self.fragment_order = fragment_order
+        self.verbose = verbose
         self.ordered_fragments = self.fragments_with_largest_first()
         self.output_filenames = []
         

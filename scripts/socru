@@ -41,12 +41,13 @@ parser.add_argument('--not_circular', '-c', action='store_true', help='Assume ch
 parser.add_argument('--min_bit_score',  help='Minimum bit score', type=int, default=100)
 parser.add_argument('--min_alignment_length',  help='Minimum alignment length', type=int, default=100)
 
-parser.add_argument('--verbose', '-v', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
+parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
 options = parser.parse_args()
 
-if options.verbose:
+if options.debug:
     import cProfile, pstats, io
     pr = cProfile.Profile()
     pr.enable()

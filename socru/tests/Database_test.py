@@ -9,13 +9,13 @@ data_dir = os.path.join(test_modules_dir, 'data','database')
 class TestDatabase(unittest.TestCase):
    
     def test_database(self):
-        d = Database( data_dir)
+        d = Database( data_dir, False)
         self.assertEqual(2, len(d.get_database_files()))
         self.assertEqual(0, len(d.get_database_files_compressed()))
         self.assertTrue(os.path.exists(d.db_prefix+'.nhr'))
         
     def test_database_compressed_inputs(self):
-        d = Database( os.path.join(data_dir,'compressed'))
+        d = Database( os.path.join(data_dir,'compressed'), False)
         self.assertEqual(2, len(d.get_database_files_compressed()))
         self.assertEqual(0, len(d.get_database_files()))
         self.assertTrue(os.path.exists(d.db_prefix+'.nhr'))

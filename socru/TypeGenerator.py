@@ -5,30 +5,31 @@ import re
 import gzip
 
 class TypeGenerator:
-    def __init__(self, profile_db, gat_profile, prefix = 'GS'):
+    def __init__(self, profile_db, gat_profile, verbose, prefix = 'GS'):
         self.profile_db = profile_db
         self.gat_profile = gat_profile
         self.prefix = prefix
         self.has_previously_seen = False
+        self.verbose = verbose
         
         self.gs_type = self.calculate_type()
         
     def find_order_orientationless(self, orientationless_fragment):
         for db_profile in self.profile_db.gats:
-            orientationless_db_profile = GATProfile(fragments = db_profile.orientationless_fragments())
+            orientationless_db_profile = GATProfile(self.verbose, fragments = db_profile.orientationless_fragments())
             if orientationless_db_profile.does_the_profile_match(orientationless_fragment):
                 return db_profile.order()
         return 0
         
     def calculate_orientationless_order(self):
-        orientationless_fragment = GATProfile(fragments = self.gat_profile.orientationless_fragments())
+        orientationless_fragment = GATProfile(self.verbose, fragments = self.gat_profile.orientationless_fragments())
         
         order = self.find_order_orientationless(orientationless_fragment)
         if order > 0:
             return order
         
         # invert it
-        inverted_orientationless_fragment = GATProfile(fragments = orientationless_fragment.inverted_orientationless_fragments())
+        inverted_orientationless_fragment = GATProfile(self.verbose, fragments = orientationless_fragment.inverted_orientationless_fragments())
         
         order = self.find_order_orientationless(inverted_orientationless_fragment)
         if order > 0:

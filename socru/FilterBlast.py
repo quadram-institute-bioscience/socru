@@ -4,10 +4,11 @@ import math
 from socru.BlastResult  import BlastResult
 
 class FilterBlast:
-    def __init__(self, results_file, min_bit_score, min_alignment_length):
+    def __init__(self, results_file, min_bit_score, min_alignment_length, verbose):
         self.results_file = results_file
         self.min_bit_score = min_bit_score
         self.min_alignment_length =  min_alignment_length
+        self.verbose = verbose
         self.results = self.readin_results()
     
     def readin_results(self):

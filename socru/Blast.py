@@ -4,13 +4,14 @@ import os
 import re
 
 class Blast:
-    def __init__(self, blast_db, threads, word_size = 28, exec = 'blastn', evalue = 0.000001, task = 'megablast'):
+    def __init__(self, blast_db, threads, verbose, word_size = 28, exec = 'blastn', evalue = 0.000001, task = 'megablast'):
         self.blast_db = blast_db
         self.evalue = evalue
         self.threads = threads
         self.word_size = word_size
         self.exec = exec
         self.task = task
+        self.verbose = verbose
         self.files_to_cleanup = []
 
     def decompress_file_to_tmp(self, input_file):
@@ -19,6 +20,8 @@ class Blast:
             fd, decompressed_input_file = mkstemp()
             self.files_to_cleanup.append(decompressed_input_file)
             cmd = " ".join(['gunzip', '-c', input_file, '>', decompressed_input_file])
+            if self.verbose:
+                print("Decompress file before blasting:\t" + cmd)
             subprocess.check_output( cmd,  shell=True)
             
             return decompressed_input_file
@@ -30,9 +33,12 @@ class Blast:
         
     def run_blast(self, query):
         fd, blast_results = mkstemp()
-        subprocess.check_output( self.blast_command(query, blast_results),  shell=True)
+        cmd = self.blast_command(query, blast_results)
+        if self.verbose:
+            print("Run blastn:\t" + cmd )
+        subprocess.check_output( cmd,  shell=True)
+        os.close(fd)
         return blast_results
-
 
     def __del__(self):
         for f in self.files_to_cleanup:

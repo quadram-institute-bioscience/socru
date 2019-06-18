@@ -12,7 +12,7 @@ class TestOptions:
         self.profile_filename = profile_filename
         self.output_file = output_file
         self.prefix = prefix
-
+        self.verbose = False
  
 class TestSocruUpdateProfile(unittest.TestCase):
 

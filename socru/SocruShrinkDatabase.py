@@ -9,6 +9,7 @@ class SocruShrinkDatabase:
         self.input_database = options.input_database
         self.output_database = options.output_database
         self.min_fragment_size = options.min_fragment_size
+        self.verbose = options.verbose
         
         if not os.path.exists(self.input_database):
              print(
@@ -25,7 +26,7 @@ class SocruShrinkDatabase:
 
     def run(self):
         input_dir_size =self.directory_size(self.input_database) 
-        s = ShrinkDatabase(self.input_database, self.output_database, self.blast_results, self.min_fragment_size)
+        s = ShrinkDatabase(self.input_database, self.output_database, self.blast_results, self.min_fragment_size, self.verbose)
         s.shrink_files()
             
         output_dir_size = self.directory_size(self.output_database)

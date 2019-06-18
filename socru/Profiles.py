@@ -5,11 +5,12 @@ from socru.GATProfile import GATProfile
 
 
 class Profiles:
-    def __init__(self, input_file, metadata_file_suffix = '.yml', default_dnaA_fragment_number = 3):
+    def __init__(self, input_file, verbose, metadata_file_suffix = '.yml', default_dnaA_fragment_number = 3):
         self.input_file = input_file
         self.metadata_file = self.input_file + metadata_file_suffix
         self.dnaA_fragment_number = default_dnaA_fragment_number
         self.dnaa_forward_orientation = False
+        self.verbose = verbose
         
         self.gats = self.read_profiles()
         self.read_metadata()
@@ -24,7 +25,7 @@ class Profiles:
             for row in profile_reader:
                 if len(row) > 2:
                     fragments = [row[f] for f in range(1, len(row)) if row[f] != '']
-                    g = GATProfile(gat_number = row[0], fragments = fragments)
+                    g = GATProfile(self.verbose, gat_number = row[0], fragments = fragments)
                     g.orientate_for_dnaA()
                     profiles.append(g)
             return profiles

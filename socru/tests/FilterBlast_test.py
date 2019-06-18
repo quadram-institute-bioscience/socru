@@ -10,7 +10,7 @@ data_dir = os.path.join(test_modules_dir, 'data','filter_blast')
 class TestFilterBlast(unittest.TestCase):
    
     def test_filter_blast_valid(self):
-        fb = FilterBlast(os.path.join(data_dir, 'blast_results_shrink'), 1, 1)
+        fb = FilterBlast(os.path.join(data_dir, 'blast_results_shrink'), 1, 1, False)
 
         self.assertEqual(len(fb.pileup_fragment(4)), 51494)
         pileup = fb.pileup_fragment(4)

@@ -1,9 +1,10 @@
 import re
 class GATProfile:
     
-    def __init__(self, gat_number = 0, fragments = [], orientation_number = 0, dnaA_fragment_number = 3 ):
+    def __init__(self, verbose, gat_number = 0, fragments = [], orientation_number = 0, dnaA_fragment_number = 3 ):
         self.gat_number = gat_number
         self.fragments = fragments
+        self.verbose = verbose
         self.orientation_number = orientation_number
         self.dnaA_fragment_number = dnaA_fragment_number
         

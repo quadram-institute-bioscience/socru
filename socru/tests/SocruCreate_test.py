@@ -16,6 +16,7 @@ class TestOptions:
         self.threads = threads
         self.max_bases_from_ends = max_bases_from_ends
         self.dnaa_fasta = dnaa_fasta
+        self.verbose = False
 
 class TestSocruCreate(unittest.TestCase):
 
