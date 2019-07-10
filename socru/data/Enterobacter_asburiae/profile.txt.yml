@@ -1,3 +1,3 @@
-dnaa_forward_orientation: true
-dnaa_fragment: 6
-reference_genome: Enterobacter/asburiae/LF7a/GCF_000224675.1_ASM22467v1_genomic.fna.gz
+dnaa_forward_orientation: false
+dnaa_fragment: 4
+reference_genome: Enterobacter/asburiae/asburiae_L1/GCF_000632395.1_ASM63239v1_genomic.fna.gz
