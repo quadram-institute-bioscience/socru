@@ -14,8 +14,11 @@ except pkg_resources.DistributionNotFound:
 	version = 'x.y.z'
 
 parser = argparse.ArgumentParser(
-	description = 'Admin utility which will take in an existing profile and rebuild it',
-	usage = 'socru_rebuild_profile [options]',
+    description = '''
+    "Admin utility which will take in an existing profile and rebuild it. Please cite our paper, Socru: Typing of genome level order and orientation in bacteria", 
+    Andrew J Page, Gemma Langridge, 
+    bioRxiv 543702; (2019) doi: https://doi.org/10.1101/543702''',
+    usage = 'socru_rebuild_profile [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('profile_filename', help="profile.txt from database", type=str)
@@ -30,5 +33,3 @@ options = parser.parse_args()
 
 g = SocruRebuildProfile(options)
 g.run()
-
-

@@ -16,8 +16,10 @@ except pkg_resources.DistributionNotFound:
 	version = 'x.y.z'
 
 parser = argparse.ArgumentParser(
-	description = 'calculate the order and orientation of complete bacterial genomes',
-	usage = 'socru [options] species assembly.fasta',
+    description = '''Please cite our paper, "Socru: Typing of genome level order and orientation in bacteria", 
+    Andrew J Page, Gemma Langridge, 
+    bioRxiv 543702; (2019) doi: https://doi.org/10.1101/543702''',
+    usage = 'socru [options] species assembly.fasta',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     
 parser.add_argument('species',  help='Species name, use socru_species to see all available', type=str)
