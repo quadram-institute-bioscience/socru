@@ -14,9 +14,12 @@ except pkg_resources.DistributionNotFound:
 	version = 'x.y.z'
 
 parser = argparse.ArgumentParser(
-	description = 'create genome arrangement type scheme',
-	usage = 'socru_create [options] output_directory assembly.fasta'
-    , formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    description = '''
+    Create genome arrangement type scheme.  Please cite our paper, "Socru: Typing of genome level order and orientation in bacteria", 
+    Andrew J Page, Gemma Langridge, 
+    bioRxiv 543702; (2019) doi: https://doi.org/10.1101/543702''',
+    usage = 'socru_create [options] output_directory assembly.fasta', 
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('output_directory', help='Output directory', type=str)
 parser.add_argument('input_file', help='Input FASTA file (optionally gzipped)', type=str)

@@ -18,7 +18,7 @@ setup(
 	long_description=read('README.md'),
     packages = find_packages(),
     author='Andrew J. Page',
-    author_email='path-help@sanger.ac.uk',
+    author_email='andrew.page@quadram.ac.uk',
     url='https://github.com/quadram-institute-bioscience/socru',
     scripts=glob.glob('scripts/*'),
     test_suite='nose.collector',
