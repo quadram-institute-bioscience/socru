@@ -32,9 +32,19 @@ class TestSocru(unittest.TestCase):
         self.assertTrue(os.path.exists('output_file'))
         self.assertTrue(os.path.exists('blast'))
         
-        os.remove('blast')
-        os.remove('output_file')
-        os.remove('novel')
-        os.remove('newfrag.fa')
-        os.remove('output_plot.png')
+        for file_name in ['blast', 'output_file', 'newfrag.fa', 'output_plot.png', 'novel']:
+            if os.path.exists(file_name):
+                os.remove(file_name)
+		
+    def test_operon_wrapped_around_ends(self):
+		# If there is no operon identified, then skip and dont throw an error
+        g = Socru(TestOptions([os.path.join(data_dir, 'wrapped.fa')], 'Salmonella_enterica', None, 1000,1000,1, 'output_file', False, 'novel', 'newfrag.fa', None, 'blast', 'output_plot.png'))
+        g.run()
+        self.assertTrue(os.path.exists('output_file'))
+        self.assertTrue(os.path.exists('blast'))
+        
+        for file_name in ['blast', 'output_file', 'newfrag.fa', 'output_plot.png', 'novel']:
+            if os.path.exists(file_name):
+                os.remove(file_name)
+	
  

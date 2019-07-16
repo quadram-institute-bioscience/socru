@@ -38,6 +38,8 @@ class Fasta:
     def calc_fragment_coords(self, boundries):
         genome_length = len(self.chromosome.seq)
         fragments = []
+        if not boundries:
+            return []
         
         start_coord = 0
         end_coord = genome_length
