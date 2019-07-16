@@ -107,6 +107,8 @@ class Socru:
     # refactor
     def run_analysis(self, input_file, p, d):
         boundries = self.find_rrna_boundries(input_file)
+        if not boundries:
+            return ''
         fragments = self.populate_fragments_from_chromosome(input_file, boundries)
         
         tmpdir = mkdtemp()
