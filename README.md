@@ -43,6 +43,26 @@ To use it you would use a command such as this (substituting in your filename/di
 docker run --rm -it -v /path/to/example_data:/example_data andrewjpage/socru socru xxxxx
 ```
 
+## Dependancies
+If you are performing a manual install (not recommended and we do not support it), you will need to ensure the following software is installed and available in your environment.
+
+Python:
+* python >=3.6
+* biopython >=1.68
+* PyYAML
+* numpy
+* matplotlib
+
+Software applications:
+* barrnap
+* blast
+
+The Python 3 dependancies, and socru itself, can all be installed through pip:
+```
+pip install git+https://github.com/quadram-institute-bioscience/socru
+```
+leaving you to just install the software application dependancies.
+
 # Usage
 
 ## Quick start
