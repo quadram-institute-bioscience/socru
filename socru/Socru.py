@@ -89,7 +89,9 @@ class Socru:
 
         boundries = b.read_barrnap_output(barrnap_outputfile)
         if self.verbose:
-            print("Boundries:\t" + boundries)
+            print("Boundries:")
+            for b in boundries:
+                print(b)
         os.close(fd)
         return boundries
     

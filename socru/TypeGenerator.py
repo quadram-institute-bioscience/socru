@@ -1,5 +1,4 @@
 from Bio import SeqIO
-from socru.Fragment import Fragment
 from socru.GATProfile  import GATProfile
 import re
 import gzip
