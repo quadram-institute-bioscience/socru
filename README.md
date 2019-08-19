@@ -59,7 +59,7 @@ Software applications:
 
 The Python 3 dependancies, and socru itself, can all be installed through pip:
 ```
-pip install git+https://github.com/quadram-institute-bioscience/socru
+pip3 install git+https://github.com/quadram-institute-bioscience/socru
 ```
 leaving you to just install the software application dependancies.
 
