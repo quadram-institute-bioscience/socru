@@ -15,7 +15,25 @@ class Fragment:
         
     def output_filename(self):
         return str(self.number) + '.fa'
-    
+        
+    # <-- 3(Ori) 
+    def operon_direction_str(self):
+        output_str = ''
+        if self.operon_forward_start:
+            output_str += '--> '
+        else:
+            output_str += '<-- '
+
+        if self.reversed_frag:
+            output_str += str(self.number)+"'"
+        else:
+            output_str += str(self.number)
+            
+        if self.dna_A:
+            output_str += '(Ori)'
+            
+        return output_str
+        
     def __str__(self):
         seqname = str(self.number)+ " " +"__".join([str(i[0]) + "_" + str(i[1]) for i in self.coords])
         return seqname

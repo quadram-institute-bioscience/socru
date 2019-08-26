@@ -34,6 +34,7 @@ class Socru:
         self.max_bases_from_ends = options.max_bases_from_ends
         self.top_blast_hits = options.top_blast_hits
         self.output_plot_file = options.output_plot_file
+        self.output_operon_directions_file = options.output_operon_directions_file
         self.verbose = options.verbose
         self.dirs_to_cleanup = []
         self.top_results = []
@@ -154,6 +155,11 @@ class Socru:
         pp = PlotProfile(reordered_frag_objs, self.output_plot_file, self.verbose)
         pp.create_plot()
         
+        operon_directions_str = " ".join([current_fragment.operon_direction_str() for current_fragment in ff.ordered_fragments])
+        if self.verbose:
+            print("Operon directions:\t" +  operon_directions_str)
+        self.output_operon_direction(input_file, operon_directions_str)
+        
         # lookup the gat_profile to get the number
         tg = TypeGenerator(p, gat_profile, self.verbose)
         type_output_string  =  tg.calculate_type() + "\t" + str(gat_profile)
@@ -161,7 +167,9 @@ class Socru:
         
         return type_output_string
         
-
+    def output_operon_direction(self, input_file, operon_directions):
+        with open(self.output_operon_directions_file, "a+") as output_fh:
+            output_fh.write(input_file + "\t" + operon_directions + "\n")
 
     def __del__(self):
         for f in self.dirs_to_cleanup:

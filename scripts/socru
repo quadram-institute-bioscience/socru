@@ -35,6 +35,7 @@ parser.add_argument('--output_plot_file', '-p',  help='Filename of plot of genom
 parser.add_argument('--novel_profiles', '-n',  help='Filename for novel profiles', type=str, default = 'profile.txt.novel')
 parser.add_argument('--new_fragments', '-f',  help='Filename for novel fragments', type=str, default = 'novel_fragments.fa')
 parser.add_argument('--top_blast_hits', '-b',  help='Filename for top blast hits', type=str)
+parser.add_argument('--output_operon_directions_file', '-r',  help='Filename of directions of operons', type=str, default = 'operon_directions.txt')
 
 # Advanced
 
