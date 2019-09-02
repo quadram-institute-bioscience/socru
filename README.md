@@ -153,7 +153,8 @@ __verbose__: Print out enhanced information while the program is running.
 
 __version__: Print the version of the software and exit. If the version is 'x.y.z' it probably means you haven't installed the software in a standard manner (conda/docker).
 
-### Output
+## Output
+### Primary output
 The output is printed to STDOUT or to an output file. It is tab delimited and provides the filename, the GS identifier and the order and orientation of the individual fragments, labelled from 1..n. If a fragment is reversed compared to the database reference, it is denoted prime (').
 ```
 Staphylococcus/aureus/USA300.fna.gz	GS1.0	1	2	3	4	5
@@ -163,7 +164,18 @@ Staphylococcus/aureus/MOZ66.fna.gz	GS1.8	1	2	3	4'	5
 Interpreting the output when all goes well is fairly straightforward. If the GS identifier is 1 or greater, then the pattern has been observed before and all should be okay. In the normal case you are looking for each fragment to occur exactly once (and only once), in an order that makes biological sense. 
 Some species will have a variable number of fragments, which you will need to verify as being real. If a fragment cannot be classified it is flagged with a question mark (?).
 
+### Operon directions output
+A file is generated called _operon_directions.txt_ which contains the order of the fragments and the direction of the rRNA operon.  Using this example:
+```
+Ty2_1.fa	--> 1 <-- 2' <-- 4 <-- 5 <-- 3(Ori) --> 7'
+```
+The first column is the filename, the arrows denote the direction of the operon (its circular so loops around) and the number denotes the fragment. The operon goes in the direction --> if 16S comes first, and <-- if 16S comes last in the operon. The origin of replication is denoted (Ori). As with the primary output, a prime indicates the fragment (not the operon) is inverted.  To be biologically valid, the arrows should point outwards from the Origin of replication to the terminus, if it doesnt then its an assembly error.
 
+### Novel genome structures output
+A file is generated called _profile.txt.novel_ which contains any novel genome structures encountered in the genomes. They may contain invalid structures. You can copy and paste any valid genome structures to the database (and increment the GS number if they have none).
+
+### Visual representation of genome structure
+A visual representation of the genome structure is saved as _genome_structure.pdf_ showing the order of a circular genome and fragments.
 
 ### Not all complete genomes are equal
 You should be aware that not all complete assemblies are equal. In the early days, each complete reference genome was lovingly hand finished by teams of scientists at huge expense. With the advent of long read sequencing and better bioinformatics methods, it allowed a huge number of complete assemblies to be produced at a fraction of the cost. Many of these assemblies have not undergone rigorous quality checks, so may contain large structural errors. These errors may manifest as novel patterns in the output of this software. So it's useful for quality control if your input is your own assemblies.

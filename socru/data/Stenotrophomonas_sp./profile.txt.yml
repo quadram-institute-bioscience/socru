@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Stenotrophomonas/sp./YM1/GCF_001562215.1_ASM156221v1_genomic.fna.gz

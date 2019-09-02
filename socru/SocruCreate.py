@@ -19,6 +19,7 @@ class SocruCreate:
         self.fragment_order = options.fragment_order
         self.threads = options.threads
         self.dnaa_fasta = options.dnaa_fasta
+        self.dif_fasta = options.dif_fasta
         self.verbose = options.verbose
         self.max_bases_from_ends = options.max_bases_from_ends
         self.files_to_cleanup = []
@@ -35,6 +36,8 @@ class SocruCreate:
             
         if self.dnaa_fasta is None:
             self.dnaa_fasta = str(pkg_resources.resource_filename( __name__, 'data/dnaA.fa.gz'))
+        if self.dif_fasta is None:
+            self.dif_fasta = str(pkg_resources.resource_filename( __name__, 'data/dif.fa.gz'))
         
     def run(self):
         # run the fasta through barrnap
@@ -55,7 +58,7 @@ class SocruCreate:
         ff.create_fragment_fastas()
         
         # create a default profile.txt file
-        default_profile = ProfileGenerator(self.output_directory, len(ff.ordered_fragments), self.dnaa_fasta, self.threads, self.input_file, self.verbose )
+        default_profile = ProfileGenerator(self.output_directory, len(ff.ordered_fragments), self.dnaa_fasta, self.dif_fasta, self.threads, self.input_file, self.verbose )
         default_profile.write_output_file()
         
     def __del__(self):

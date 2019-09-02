@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Staphylococcus/hyicus/ATCC_11249/GCF_000816085.1_ASM81608v1_genomic.fna.gz

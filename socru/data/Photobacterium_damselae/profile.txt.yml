@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 6
 reference_genome: Photobacterium/damselae/KC-Na-1/GCF_002142615.1_ASM214261v1_genomic.fna.gz

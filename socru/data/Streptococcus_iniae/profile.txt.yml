@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Streptococcus/iniae/YSFST01-82/GCF_000831485.1_ASM83148v1_genomic.fna.gz

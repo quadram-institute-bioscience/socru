@@ -1,3 +1,4 @@
+dif_fragment: 3
 dnaa_forward_orientation: true
 dnaa_fragment: 9
 reference_genome: Lactobacillus/delbrueckii/ATCC_BAA-365/GCF_000014405.1_ASM1440v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 8
 reference_genome: Brochothrix/thermosphacta/TMW_2.1564/GCF_001703515.1_ASM170351v1_genomic.fna.gz

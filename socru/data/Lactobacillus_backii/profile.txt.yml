@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Lactobacillus/backii/TMW_1.1988/GCF_001663655.1_ASM166365v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 7
 reference_genome: Enterobacteriaceae/bacterium/FGI_57/GCF_000330845.1_ASM33084v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Streptococcus/uberis/0140J/GCF_000009545.1_ASM954v1_genomic.fna.gz

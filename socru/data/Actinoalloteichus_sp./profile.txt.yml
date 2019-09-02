@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Actinoalloteichus/sp./ADI127-7/GCF_001941625.1_ASM194162v1_genomic.fna.gz

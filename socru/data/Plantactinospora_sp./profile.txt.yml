@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Plantactinospora/sp./KBS50/GCF_002285795.1_ASM228579v1_genomic.fna.gz

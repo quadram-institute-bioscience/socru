@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 7
 reference_genome: Raoultella/ornithinolytica/B6/GCF_000367425.1_ASM36742v1_genomic.fna.gz

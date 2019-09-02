@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Serratia/rubidaea/1122/GCF_001572725.1_ASM157272v1_genomic.fna.gz

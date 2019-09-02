@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Tetragenococcus/halophilus/NBRC_12172/GCF_000283615.1_ASM28361v1_genomic.fna.gz

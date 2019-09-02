@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Lactobacillus/helveticus/DPC_4571/GCF_000015385.1_ASM1538v1_genomic.fna.gz

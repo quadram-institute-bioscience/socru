@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Hafnia/alvei/FB1/GCF_000597785.2_ASM59778v2_genomic.fna.gz

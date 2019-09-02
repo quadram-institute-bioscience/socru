@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Corynebacterium/glutamicum/R/GCF_000010225.1_ASM1022v1_genomic.fna.gz

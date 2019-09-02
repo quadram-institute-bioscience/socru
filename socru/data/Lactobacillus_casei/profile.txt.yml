@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Lactobacillus/casei/BL23/GCF_000026485.1_ASM2648v1_genomic.fna.gz

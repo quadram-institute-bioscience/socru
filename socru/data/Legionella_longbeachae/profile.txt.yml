@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Legionella/longbeachae/NSW150/GCF_000091785.1_ASM9178v1_genomic.fna.gz

@@ -45,25 +45,25 @@ class Fasta:
         end_coord = genome_length
         
         # check to see if one of the fragments goes over the end
-        end_frag = [ b for b in boundries if b[0] > b[1] ]
+        end_frag = [ b for b in boundries if b.start > b.end ]
         if len(end_frag) > 0:
             self.is_circular = False
             del boundries[-1]
-            start_coord = end_frag[0][1]
-            end_coord = end_frag[0][0]
+            start_coord = end_frag[0].end
+            end_coord = end_frag[0].start
             
         if self.is_circular:
             # first - we assume its circular
-            f = Fragment([[boundries[-1][1],genome_length], [0, boundries[0][0]]])
+            f = Fragment([[boundries[-1].end, genome_length], [0, boundries[0].start]], operon_forward_start = boundries[-1].direction, operon_forward_end = boundries[0].direction)
             fragments.append(f)
         else:
-            f = Fragment([[boundries[-1][1],end_coord]])
+            f = Fragment([[boundries[-1].end, end_coord]], operon_forward_start = boundries[-1].direction)
             fragments.append(f)
-            f = Fragment([ [start_coord, boundries[0][0]] ])
+            f = Fragment([ [start_coord, boundries[0].start] ], operon_forward_end = boundries[0].direction )
             fragments.append(f)
         
         for i in range(0,len(boundries)-1):
-            fragments.append(Fragment([[boundries[i][1], boundries[i+1][0]]]))
+            fragments.append(Fragment([[boundries[i].end, boundries[i+1].start]], operon_forward_start = boundries[i].direction, operon_forward_end = boundries[i+1].direction))
         return fragments
 
     def populate_fragments_from_chromosome(self, fragments, max_bases_from_ends):        

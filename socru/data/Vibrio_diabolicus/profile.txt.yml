@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 10
 reference_genome: Vibrio/diabolicus/FDAARGOS_96/GCF_002953335.1_ASM295333v1_genomic.fna.gz

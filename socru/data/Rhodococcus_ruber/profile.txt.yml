@@ -1,3 +1,4 @@
+dif_fragment: 4
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Rhodococcus/ruber/P14/GCF_002741725.1_ASM274172v1_genomic.fna.gz

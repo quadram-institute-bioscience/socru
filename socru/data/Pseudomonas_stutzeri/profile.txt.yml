@@ -1,3 +1,4 @@
+dif_fragment: 3
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Pseudomonas/stutzeri/A1501/GCF_000013785.1_ASM1378v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Clostridium/sp./BNL1100/GCF_000244875.1_ASM24487v1_genomic.fna.gz

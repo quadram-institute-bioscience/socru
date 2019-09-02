@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 6
 reference_genome: Aeromonas/caviae/FDAARGOS_72/GCF_000783775.2_ASM78377v2_genomic.fna.gz

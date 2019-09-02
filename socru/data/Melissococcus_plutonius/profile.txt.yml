@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Melissococcus/plutonius/DAT561/GCF_000283975.1_ASM28397v1_genomic.fna.gz

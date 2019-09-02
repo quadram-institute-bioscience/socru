@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Bifidobacterium/bifidum/S17/GCF_000164965.1_ASM16496v1_genomic.fna.gz

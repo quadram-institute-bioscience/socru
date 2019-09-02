@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 5
 reference_genome: Pantoea/ananatis/LMG_20103/GCF_000025405.2_ASM2540v1_genomic.fna.gz

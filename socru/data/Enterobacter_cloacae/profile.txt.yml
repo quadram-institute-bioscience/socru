@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Enterobacter/cloacae/cloacae_ATCC_13047/GCF_000025565.1_ASM2556v1_genomic.fna.gz

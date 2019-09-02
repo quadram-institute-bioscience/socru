@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Thalassolituus/oleivorans/MIL-1/GCF_000355675.1_ASM35567v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Enterobacter/asburiae/asburiae_L1/GCF_000632395.1_ASM63239v1_genomic.fna.gz

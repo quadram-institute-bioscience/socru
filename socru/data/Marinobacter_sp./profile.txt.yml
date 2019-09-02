@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Marinobacter/sp./BSs20148/GCF_000283275.1_ASM28327v1_genomic.fna.gz

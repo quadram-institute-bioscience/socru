@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Streptococcus/oralis/Uo5/GCF_000253155.1_ASM25315v1_genomic.fna.gz

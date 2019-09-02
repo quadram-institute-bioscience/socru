@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Acidipropionibacterium/jensenii/JS280/GCF_004011055.1_ASM401105v1_genomic.fna.gz

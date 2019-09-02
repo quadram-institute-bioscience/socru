@@ -16,7 +16,7 @@ class SocruLookup:
         split_fragments = self.fragments.split('-')
         input_profile = GATProfile(self.verbose, fragments = split_fragments)
         
-        tg = TypeGenerator(profile_db,input_profile, self.verbose)
+        tg = TypeGenerator(profile_db,input_profile, self.verbose, True)
         return tg.calculate_type()
 
     def run(self):

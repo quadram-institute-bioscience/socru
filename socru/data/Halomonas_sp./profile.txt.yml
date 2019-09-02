@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Halomonas/sp./KO116/GCF_000734975.2_ASM73497v2_genomic.fna.gz

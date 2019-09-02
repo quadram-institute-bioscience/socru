@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Yersinia/ruckeri/SC09/GCF_000775355.2_ASM77535v2_genomic.fna.gz

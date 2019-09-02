@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Acinetobacter/baumannii/ACICU/GCF_000018445.1_ASM1844v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Pseudomonas/synxantha/LBUM223/GCF_000968415.2_ASM96841v2_genomic.fna.gz

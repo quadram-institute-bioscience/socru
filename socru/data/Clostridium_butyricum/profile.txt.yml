@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 8
 reference_genome: Clostridium/butyricum/KNU-L09/GCF_001456065.2_ASM145606v2_genomic.fna.gz

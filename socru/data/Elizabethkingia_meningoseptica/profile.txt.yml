@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Elizabethkingia/meningoseptica/G4076/GCF_002022105.1_ASM202210v1_genomic.fna.gz

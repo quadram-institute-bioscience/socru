@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 2
 reference_genome: Neisseria/meningitidis/MC58/GCF_000008805.1_ASM880v1_genomic.fna.gz

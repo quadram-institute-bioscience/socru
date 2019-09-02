@@ -1,3 +1,4 @@
+dif_fragment: 2
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Sorangium/cellulosum/So_ce_56/GCF_000067165.1_ASM6716v1_genomic.fna.gz

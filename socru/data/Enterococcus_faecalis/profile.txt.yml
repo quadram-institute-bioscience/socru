@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Enterococcus/faecalis/V583/GCF_000007785.1_ASM778v1_genomic.fna.gz

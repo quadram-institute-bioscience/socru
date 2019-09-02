@@ -1,3 +1,4 @@
+dif_fragment: 2
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Cellulophaga/lytica/DSM_7489/GCF_000190595.1_ASM19059v1_genomic.fna.gz

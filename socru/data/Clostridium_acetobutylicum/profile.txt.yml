@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Clostridium/acetobutylicum/ATCC_824/GCF_000008765.1_ASM876v1_genomic.fna.gz

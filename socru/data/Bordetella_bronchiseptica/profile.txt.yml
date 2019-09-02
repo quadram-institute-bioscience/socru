@@ -1,3 +1,4 @@
+dif_fragment: 2
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Bordetella/bronchiseptica/RB50/GCF_000195675.1_ASM19567v1_genomic.fna.gz

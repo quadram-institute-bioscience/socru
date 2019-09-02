@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Staphylococcus/xylosus/HKUOPL8/GCF_000706685.1_ASM70668v1_genomic.fna.gz

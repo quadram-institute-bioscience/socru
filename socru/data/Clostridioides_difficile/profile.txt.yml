@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Clostridioides/difficile/630/GCF_000009205.2_ASM920v2_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Rhodococcus/sp./p52/GCF_000763325.2_ASM76332v2_genomic.fna.gz

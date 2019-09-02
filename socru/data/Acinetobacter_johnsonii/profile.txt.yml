@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Acinetobacter/johnsonii/XBB1/GCF_001484935.1_ASM148493v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 5
 reference_genome: Massilia/sp./NR_4-1/GCF_001191005.1_ASM119100v1_genomic.fna.gz

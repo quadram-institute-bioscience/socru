@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Enterococcus/sp./FDAARGOS_375/GCF_002393265.1_ASM239326v1_genomic.fna.gz

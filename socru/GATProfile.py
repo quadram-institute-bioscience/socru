@@ -1,12 +1,13 @@
 import re
 class GATProfile:
     
-    def __init__(self, verbose, gat_number = 0, fragments = [], orientation_number = 0, dnaA_fragment_number = 3 ):
+    def __init__(self, verbose, gat_number = 0, fragments = [], orientation_number = 0, dnaA_fragment_number = 3, dif_fragment_number = 1 ):
         self.gat_number = gat_number
         self.fragments = fragments
         self.verbose = verbose
         self.orientation_number = orientation_number
         self.dnaA_fragment_number = dnaA_fragment_number
+        self.dif_fragment_number = dif_fragment_number
         
     def order(self):
         m = re.search(r'([\d]+)\.[\d]+$', str(self.gat_number) )

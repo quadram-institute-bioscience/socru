@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Neisseria/gonorrhoeae/FA_1090/GCF_000006845.1_ASM684v1_genomic.fna.gz

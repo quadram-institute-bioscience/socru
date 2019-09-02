@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Lactobacillus/paracasei/ATCC_334/GCF_000014525.1_ASM1452v1_genomic.fna.gz

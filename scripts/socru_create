@@ -29,6 +29,7 @@ parser.add_argument('--max_bases_from_ends', '-m', help='Only look at this numbe
 parser.add_argument('--threads','-t',  help='No. of threads to use', type=int, default=1)
 parser.add_argument('--fragment_order', '-f',  help='Order of fragments, you may need to change this, example 1-2-3-4-5-6-7', type=str)
 parser.add_argument('--dnaa_fasta',  '-d', help='Location of dnaA FASTA file, defaults to bundled', type=str)
+parser.add_argument('--dif_fasta',  '-e', help='Location of dif FASTA file, defaults to bundled', type=str)
 
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)

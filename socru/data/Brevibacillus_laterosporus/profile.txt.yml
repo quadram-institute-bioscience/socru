@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Brevibacillus/laterosporus/LMG_15441/GCF_000219535.2_ASM21953v3_genomic.fna.gz

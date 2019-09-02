@@ -3,6 +3,7 @@ import re
 import os
 from tempfile import mkstemp
 from socru.Fasta import Fasta
+from socru.Operon import Operon
 
 class Barrnap:
     def __init__(self,input_file, threads, verbose, overlap_margin = 1500, len_70s = 8000, chromosome_length = 0):
@@ -73,15 +74,26 @@ class Barrnap:
     def find_boundries(self, coords):
         boundries = []
         
+        coord_forward = {}
         starting_coords = []
         ending_coords = []
         variable_s = self.five_or_23s(coords)
         for c in coords:
-            if (c[2] == 16 and c[3] == '+') or (c[2] == variable_s and c[3] == '-'):
+            if (c[2] == 16 and c[3] == '+'):
                 # start of ribo
+                coord_forward[c[0]] = True
+                starting_coords.append(c[0])
+            elif (c[2] == variable_s and c[3] == '-'):
+                # start of ribo
+                coord_forward[c[0]] = False
                 starting_coords.append(c[0])  
-            elif (c[2] == 16 and c[3] == '-') or (c[2] == variable_s and c[3] == '+'):
+            elif (c[2] == 16 and c[3] == '-'):
                 # end of ribo
+                coord_forward[c[0]] = False
+                ending_coords.append(c[1])
+            elif (c[2] == variable_s and c[3] == '+'):
+                # end of ribo
+                coord_forward[c[0]] = True
                 ending_coords.append(c[1])
                     
         starting_coords = self.filter_out_close_start_coords(starting_coords)
@@ -96,7 +108,13 @@ class Barrnap:
                 if end < 0:
                     continue
                 if end - start < self.len_70s and end - start > 0:
-                    boundries.append([start, end])
+                    
+                    direction = True
+                    if start in coord_forward:
+                        direction = coord_forward[start]
+                    elif end in coord_forward:
+                        direction = coord_forward[end]
+                    boundries.append(Operon(start, end, direction))
                     ending_coords[end_index] = -1
                     starting_coords[start_index] = -1
                     continue
@@ -116,11 +134,17 @@ class Barrnap:
                     if end < 0:
                         continue
                     if (chromosome_length - start) < self.len_70s and end < self.len_70s and (chromosome_length - start) + end  < self.len_70s:
-                        boundries.append([start, end])
+                        direction = True
+                        if start in coord_forward:
+                            direction = coord_forward[start]
+                        elif end in coord_forward:
+                            direction = coord_forward[end]
+                        boundries.append(Operon(start, end, direction))
+                        
                         remaining_end_coords[end_index] = -1
                         remaining_start_coords[start_index] = -1
                         continue
-        
+        # set the direction of the boundries
         return boundries
             
     def construct_barrnap_command(self, barrnap_outputfile):

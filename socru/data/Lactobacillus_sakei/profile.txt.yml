@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Lactobacillus/sakei/23K/GCF_000026065.1_ASM2606v1_genomic.fna.gz

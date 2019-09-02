@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Dickeya/zeae/Ech586/GCF_000025065.1_ASM2506v1_genomic.fna.gz

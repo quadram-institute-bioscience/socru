@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Phaeobacter/inhibens/2.10/GCF_000154745.2_ASM15474v2_genomic.fna.gz

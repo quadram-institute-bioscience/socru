@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 7
 reference_genome: Shewanella/baltica/OS155/GCF_000015845.1_ASM1584v1_genomic.fna.gz

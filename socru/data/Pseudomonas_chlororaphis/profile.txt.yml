@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Pseudomonas/chlororaphis/PA23/GCF_000698865.1_ASM69886v1_genomic.fna.gz

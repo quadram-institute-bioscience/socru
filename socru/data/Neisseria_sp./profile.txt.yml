@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Neisseria/sp./10023/GCF_002216145.1_ASM221614v1_genomic.fna.gz

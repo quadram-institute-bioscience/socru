@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Pediococcus/acidilactici/ZPA017/GCF_001767275.1_ASM176727v1_genomic.fna.gz

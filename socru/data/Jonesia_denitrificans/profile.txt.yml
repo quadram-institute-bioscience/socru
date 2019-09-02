@@ -1,3 +1,4 @@
+dif_fragment: 3
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Jonesia/denitrificans/DSM_20603/GCF_000024065.1_ASM2406v1_genomic.fna.gz

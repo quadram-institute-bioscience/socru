@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Acetobacter/pasteurianus/IFO_3283_substr._IFO_3283-01/GCF_000010825.1_ASM1082v1_genomic.fna.gz

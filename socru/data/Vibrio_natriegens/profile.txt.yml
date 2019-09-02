@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Vibrio/natriegens/ATCC_14048/GCF_001456255.1_ASM145625v1_genomic.fna.gz

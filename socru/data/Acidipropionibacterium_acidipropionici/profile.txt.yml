@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Acidipropionibacterium/acidipropionici/ATCC_4875/GCF_000310065.1_ASM31006v1_genomic.fna.gz
