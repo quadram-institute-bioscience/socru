@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Enterococcus/hirae/ATCC_9790/GCF_000271405.2_ASM27140v2_genomic.fna.gz

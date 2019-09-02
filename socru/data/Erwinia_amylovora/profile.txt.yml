@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Erwinia/amylovora/ATCC_49946/GCF_000027205.1_ASM2720v1_genomic.fna.gz

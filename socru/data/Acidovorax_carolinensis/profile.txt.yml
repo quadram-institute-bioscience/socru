@@ -1,3 +1,4 @@
+dif_fragment: 2
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Acidovorax/carolinensis/P4/GCF_002157125.1_ASM215712v1_genomic.fna.gz

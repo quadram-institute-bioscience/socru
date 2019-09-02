@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Klebsiella/quasipneumoniae/HKUOPLA/GCF_001278905.1_ASM127890v1_genomic.fna.gz

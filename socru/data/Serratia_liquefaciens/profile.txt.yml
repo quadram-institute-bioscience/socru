@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Serratia/liquefaciens/ATCC_27592/GCF_000422085.1_ASM42208v1_genomic.fna.gz

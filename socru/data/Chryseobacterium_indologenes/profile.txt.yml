@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Chryseobacterium/indologenes/AA5/GCF_002025665.1_ASM202566v1_genomic.fna.gz

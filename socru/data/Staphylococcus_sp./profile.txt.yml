@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Staphylococcus/sp./AntiMn-1/GCF_001663395.1_ASM166339v1_genomic.fna.gz

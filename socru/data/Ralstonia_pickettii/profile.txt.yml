@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Ralstonia/pickettii/12J/GCF_000020205.1_ASM2020v1_genomic.fna.gz

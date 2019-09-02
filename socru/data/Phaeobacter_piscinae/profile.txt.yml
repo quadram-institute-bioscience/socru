@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Phaeobacter/piscinae/P14/GCF_002407245.1_ASM240724v1_genomic.fna.gz

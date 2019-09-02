@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Geobacillus/sp./WCH70/GCF_000023385.1_ASM2338v1_genomic.fna.gz

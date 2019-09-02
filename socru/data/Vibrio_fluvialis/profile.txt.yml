@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 6
 reference_genome: Vibrio/fluvialis/ATCC_33809/GCF_001558415.2_ASM155841v2_genomic.fna.gz

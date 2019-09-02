@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Bacillus/cereus/ATCC_14579/GCF_000007825.1_ASM782v1_genomic.fna.gz

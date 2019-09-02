@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Alteromonas/sp./Mac1/GCF_001562125.1_ASM156212v1_genomic.fna.gz

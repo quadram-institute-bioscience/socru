@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 5
 reference_genome: Streptomyces/sp./SirexAA-E/GCF_000177195.2_ASM17719v2_genomic.fna.gz

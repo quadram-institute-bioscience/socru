@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Yersinia/pestis/KIM10+/GCF_000006645.1_ASM664v1_genomic.fna.gz

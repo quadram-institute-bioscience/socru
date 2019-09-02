@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 6
 reference_genome: Citrobacter/koseri/ATCC_BAA-895/GCF_000018045.1_ASM1804v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 5
 reference_genome: Aggregatibacter/aphrophilus/NJ8700/GCF_000022985.1_ASM2298v1_genomic.fna.gz

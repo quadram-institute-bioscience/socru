@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 7
 reference_genome: Citrobacter/werkmanii/BF-6/GCF_002025225.1_ASM202522v1_genomic.fna.gz

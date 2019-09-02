@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Dokdonia/sp./MED134/GCF_000152925.2_ASM15292v3_genomic.fna.gz

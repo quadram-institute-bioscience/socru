@@ -1,3 +1,4 @@
+dif_fragment: 2
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Cupriavidus/necator/H16/GCF_000009285.1_ASM928v2_genomic.fna.gz

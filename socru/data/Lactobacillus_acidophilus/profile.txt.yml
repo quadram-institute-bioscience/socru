@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Lactobacillus/acidophilus/NCFM/GCF_000011985.1_ASM1198v1_genomic.fna.gz

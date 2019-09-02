@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Streptomyces/albus/DSM_41398/GCF_000827005.1_ASM82700v1_genomic.fna.gz

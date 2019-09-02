@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Clostridium/beijerinckii/NCIMB_8052/GCF_000016965.1_ASM1696v1_genomic.fna.gz

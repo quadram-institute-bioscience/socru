@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Brachybacterium/sp./P6-10-X1/GCF_001969445.1_ASM196944v1_genomic.fna.gz

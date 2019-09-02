@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 8
 reference_genome: Clostridium/saccharobutylicum/DSM_13864/GCF_000473995.1_ASM47399v1_genomic.fna.gz

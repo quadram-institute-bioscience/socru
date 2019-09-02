@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Blastochloris/viridis/ATCC_19567/GCF_001402875.1_ASM140287v1_genomic.fna.gz

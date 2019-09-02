@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Haemophilus/haemolyticus/M19345/GCF_003351405.1_ASM335140v1_genomic.fna.gz

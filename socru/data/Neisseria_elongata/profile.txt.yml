@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Neisseria/elongata/ATCC_29315/GCF_000818035.1_ASM81803v1_genomic.fna.gz

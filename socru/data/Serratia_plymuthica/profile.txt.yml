@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Serratia/plymuthica/4Rx13/GCF_000176835.2_ASM17683v2_genomic.fna.gz

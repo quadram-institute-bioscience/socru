@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Sphingobium/yanoikuyae/SHJ/GCF_001078495.2_ASM107849v2_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Moraxella/osloensis/CCUG_350/GCF_001553955.1_ASM155395v1_genomic.fna.gz

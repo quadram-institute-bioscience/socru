@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Lactobacillus/pentosus/SLC13/GCF_002211885.1_ASM221188v1_genomic.fna.gz

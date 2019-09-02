@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Methylobacterium/sp./4-46/GCF_000019365.1_ASM1936v1_genomic.fna.gz

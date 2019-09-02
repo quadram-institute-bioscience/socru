@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Moraxella/bovoculi/58069/GCF_000988605.1_ASM98860v1_genomic.fna.gz

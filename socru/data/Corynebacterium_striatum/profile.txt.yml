@@ -1,3 +1,4 @@
+dif_fragment: 4
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Corynebacterium/striatum/KC-Na-01/GCF_002156805.1_ASM215680v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Photorhabdus/laumondii/TTO1/GCF_000196155.1_ASM19615v1_genomic.fna.gz

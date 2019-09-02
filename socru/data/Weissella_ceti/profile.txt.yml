@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Weissella/ceti/WS08/GCF_000732905.1_ASM73290v1_genomic.fna.gz

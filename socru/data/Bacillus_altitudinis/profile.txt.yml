@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Bacillus/altitudinis/W3/GCF_000972685.1_ASM97268v1_genomic.fna.gz

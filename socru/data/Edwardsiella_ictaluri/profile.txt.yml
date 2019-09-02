@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Edwardsiella/ictaluri/93-146/GCF_000022885.2_ASM2288v2_genomic.fna.gz

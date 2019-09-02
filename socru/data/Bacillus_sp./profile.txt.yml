@@ -1,3 +1,4 @@
+dif_fragment: 2
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Bacillus/sp./1NLA3E/GCF_000242895.2_ASM24289v3_genomic.fna.gz

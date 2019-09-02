@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Nostoc/sp./PCC_7120/GCF_000009705.1_ASM970v1_genomic.fna.gz

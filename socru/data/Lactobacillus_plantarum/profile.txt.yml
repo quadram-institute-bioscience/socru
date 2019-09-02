@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Lactobacillus/plantarum/JDM1/GCF_000023085.1_ASM2308v1_genomic.fna.gz

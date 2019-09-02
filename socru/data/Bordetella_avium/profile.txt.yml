@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Bordetella/avium/197N/GCF_000070465.1_ASM7046v1_genomic.fna.gz

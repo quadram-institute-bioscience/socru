@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 2
 reference_genome: Parvimonas/micra/KCOM_1535__ChDC_B708/GCF_000800295.1_ASM80029v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 4
 reference_genome: Faecalibacterium/prausnitzii/Indica/GCF_002586945.1_ASM258694v1_genomic.fna.gz

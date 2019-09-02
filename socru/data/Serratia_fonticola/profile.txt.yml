@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Serratia/fonticola/DSM_4576/GCF_001006005.1_ASM100600v1_genomic.fna.gz

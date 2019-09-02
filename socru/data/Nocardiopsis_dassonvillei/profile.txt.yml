@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Nocardiopsis/dassonvillei/DSM_43111/GCF_000092985.1_ASM9298v1_genomic.fna.gz

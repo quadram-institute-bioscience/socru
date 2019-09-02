@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Colwellia/sp./MT41/GCF_001444365.1_ASM144436v1_genomic.fna.gz

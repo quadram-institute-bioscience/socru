@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Dickeya/solani/RNS_08.23.3.1.A/GCF_000511285.2_ASM51128v2_genomic.fna.gz

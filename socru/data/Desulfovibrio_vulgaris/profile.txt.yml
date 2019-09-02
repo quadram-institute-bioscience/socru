@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Desulfovibrio/vulgaris/DP4/GCF_000015485.1_ASM1548v1_genomic.fna.gz

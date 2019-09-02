@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Klebsiella/oxytoca/KONIH1/GCF_000714655.1_ASM71465v1_genomic.fna.gz

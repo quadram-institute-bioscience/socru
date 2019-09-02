@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Campylobacter/concisus/13826/GCF_000017725.2_ASM1772v2_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Aeromonas/hydrophila/ATCC_7966/GCF_000014805.1_ASM1480v1_genomic.fna.gz

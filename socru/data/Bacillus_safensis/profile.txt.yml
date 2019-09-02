@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Bacillus/safensis/KCTC_12796BP/GCF_001895885.1_ASM189588v1_genomic.fna.gz

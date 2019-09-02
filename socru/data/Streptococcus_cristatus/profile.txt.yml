@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Streptococcus/cristatus/AS_1.3089/GCF_000385925.1_ASM38592v1_genomic.fna.gz

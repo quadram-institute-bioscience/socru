@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 6
 reference_genome: Vibrio/anguillarum/775/GCF_000217675.1_ASM21767v1_genomic.fna.gz

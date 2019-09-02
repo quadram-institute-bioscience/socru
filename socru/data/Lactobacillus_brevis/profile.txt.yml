@@ -1,3 +1,4 @@
+dif_fragment: 4
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Lactobacillus/brevis/ATCC_367/GCF_000014465.1_ASM1446v1_genomic.fna.gz

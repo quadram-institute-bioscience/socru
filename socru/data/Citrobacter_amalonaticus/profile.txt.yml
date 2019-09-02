@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Citrobacter/amalonaticus/Y19/GCF_000981805.1_ASM98180v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Streptococcus/mutans/UA159/GCF_000007465.2_ASM746v2_genomic.fna.gz

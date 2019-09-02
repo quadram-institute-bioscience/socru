@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Escherichia/albertii/KF1/GCF_000512125.1_ASM51212v1_genomic.fna.gz

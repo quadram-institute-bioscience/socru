@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Lactobacillus/reuteri/JCM_1112/GCF_000010005.1_ASM1000v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Streptococcus/mitis/B6/GCF_000027165.1_ASM2716v1_genomic.fna.gz

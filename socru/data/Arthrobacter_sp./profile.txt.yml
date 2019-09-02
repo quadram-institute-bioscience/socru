@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Arthrobacter/sp./FB24/GCF_000196235.1_ASM19623v1_genomic.fna.gz

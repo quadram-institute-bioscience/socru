@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Streptococcus/sanguinis/SK36/GCF_000014205.1_ASM1420v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Staphylococcus/simulans/FDAARGOS_124/GCF_001559115.2_ASM155911v2_genomic.fna.gz

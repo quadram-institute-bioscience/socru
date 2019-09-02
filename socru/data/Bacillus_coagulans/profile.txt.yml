@@ -1,3 +1,4 @@
+dif_fragment: 10
 dnaa_forward_orientation: false
 dnaa_fragment: 6
 reference_genome: Bacillus/coagulans/36D1/GCF_000169195.2_ASM16919v2_genomic.fna.gz

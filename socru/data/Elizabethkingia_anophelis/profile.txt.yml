@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Elizabethkingia/anophelis/Ag1/GCF_000240095.2_ASM24009v3_genomic.fna.gz

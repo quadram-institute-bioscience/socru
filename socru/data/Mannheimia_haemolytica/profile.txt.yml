@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 6
 reference_genome: Mannheimia/haemolytica/USDA-ARS-USMARC-183/GCF_000349765.2_ASM34976v2_genomic.fna.gz

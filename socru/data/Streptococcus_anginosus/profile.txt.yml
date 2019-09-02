@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Streptococcus/anginosus/C1051/GCF_000463465.1_ASM46346v1_genomic.fna.gz

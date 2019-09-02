@@ -1,3 +1,4 @@
+dif_fragment: 3
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Aquimarina/sp./BL5/GCF_003443675.1_ASM344367v1_genomic.fna.gz

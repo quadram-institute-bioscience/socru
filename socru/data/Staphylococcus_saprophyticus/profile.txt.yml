@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Staphylococcus/saprophyticus/ATCC_15305/GCF_000010125.1_ASM1012v1_genomic.fna.gz

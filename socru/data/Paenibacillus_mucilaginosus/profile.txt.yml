@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 7
 reference_genome: Paenibacillus/mucilaginosus/KNP414/GCF_000218915.1_ASM21891v1_genomic.fna.gz

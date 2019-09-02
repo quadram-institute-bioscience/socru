@@ -1,3 +1,4 @@
+dif_fragment: 2
 dnaa_forward_orientation: true
 dnaa_fragment: 4
 reference_genome: Pseudomonas/entomophila/L48/GCF_000026105.1_ASM2610v1_genomic.fna.gz

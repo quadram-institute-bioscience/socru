@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Burkholderia/ambifaria/MC40-6/GCF_000019925.1_ASM1992v1_genomic.fna.gz

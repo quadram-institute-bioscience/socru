@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 2
 reference_genome: Pseudomonas/parafulva/CRS01-1/GCF_000800255.1_ASM80025v1_genomic.fna.gz

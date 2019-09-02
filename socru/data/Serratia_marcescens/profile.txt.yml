@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Serratia/marcescens/WW4/GCF_000336425.1_ASM33642v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Lactobacillus/amylovorus/30SC/GCF_000191545.1_ASM19154v1_genomic.fna.gz

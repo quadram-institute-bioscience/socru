@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Thermoclostridium/stercorarium/DSM_8532/GCF_000331995.1_ASM33199v1_genomic.fna.gz

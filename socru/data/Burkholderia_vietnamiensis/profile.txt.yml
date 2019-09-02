@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 1
 reference_genome: Burkholderia/vietnamiensis/LMG_10929/GCF_000959445.1_ASM95944v1_genomic.fna.gz

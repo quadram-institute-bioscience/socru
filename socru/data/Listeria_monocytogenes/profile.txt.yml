@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Listeria/monocytogenes/4b_F2365/GCF_000008285.1_ASM828v1_genomic.fna.gz

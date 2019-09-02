@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 2
 reference_genome: Achromobacter/insolitus/FDAARGOS_88/GCF_000783435.2_ASM78343v2_genomic.fna.gz

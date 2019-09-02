@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 3
 reference_genome: Clostridium/pasteurianum/BC1/GCF_000389635.1_ASM38963v1_genomic.fna.gz

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Listeria/ivanovii/PAM_55/GCF_000252975.1_ASM25297v1_genomic.fna.gz

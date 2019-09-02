@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Psychrobacter/sp./PRwf-1/GCF_000016885.1_ASM1688v1_genomic.fna.gz

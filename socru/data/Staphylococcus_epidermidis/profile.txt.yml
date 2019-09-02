@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Staphylococcus/epidermidis/ATCC_12228/GCF_000007645.1_ASM764v1_genomic.fna.gz

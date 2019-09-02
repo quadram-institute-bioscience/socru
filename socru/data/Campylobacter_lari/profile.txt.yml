@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 2
 reference_genome: Campylobacter/lari/RM2100__ATCC_BAA-1060D/GCF_000019205.1_ASM1920v1_genomic.fna.gz

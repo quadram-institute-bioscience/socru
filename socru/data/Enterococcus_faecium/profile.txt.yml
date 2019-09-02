@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 5
 reference_genome: Enterococcus/faecium/DO/GCF_000174395.2_ASM17439v2_genomic.fna.gz
