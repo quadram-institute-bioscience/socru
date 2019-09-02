@@ -11,7 +11,7 @@ class Dif:
         self.min_alignment_length = min_alignment_length
         self.verbose = verbose
         
-        self.fragment_with_dif = 1
+        self.fragment_with_dif = 0
         self.dif_orientation = False
         self.find_dif()
     
@@ -27,6 +27,8 @@ class Dif:
         if top_result is None:
             self.forward_orientation = None
             self.fragment_with_dif = 1
+            # Fragment 1 is the largest, and usually contains the terminus
+            print("Dif cannot be found in\t" + self.directory_of_fasta_files)
         else:
             self.fragment_with_dif  = top_result.subject
             if top_result.is_forward():

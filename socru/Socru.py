@@ -143,6 +143,9 @@ class Socru:
                 current_fragment.number = str(top_result.subject)
                 if str(p.dnaA_fragment_number) == str(current_fragment.number):
                     current_fragment.dna_A = True
+					
+                if str(p.dif_fragment_number) == str(current_fragment.number):
+                    current_fragment.dif = True
                 
                 if top_result.is_forward():
                     gat_profile.fragments.append( str(top_result.subject))

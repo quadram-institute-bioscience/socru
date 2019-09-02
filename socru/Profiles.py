@@ -5,10 +5,11 @@ from socru.GATProfile import GATProfile
 
 
 class Profiles:
-    def __init__(self, input_file, verbose, metadata_file_suffix = '.yml', default_dnaA_fragment_number = 3):
+    def __init__(self, input_file, verbose, metadata_file_suffix = '.yml', default_dnaA_fragment_number = 3, default_dif_fragment_number = 1):
         self.input_file = input_file
         self.metadata_file = self.input_file + metadata_file_suffix
         self.dnaA_fragment_number = default_dnaA_fragment_number
+        self.dif_fragment_number = default_dif_fragment_number
         self.dnaa_forward_orientation = False
         self.verbose = verbose
         
@@ -39,6 +40,10 @@ class Profiles:
                 if 'dnaa_fragment' in metadata:
                     self.dnaA_fragment_number = int(metadata['dnaa_fragment'])
                     self.dnaa_forward_orientation = metadata['dnaa_forward_orientation']
+					
+                if 'dif_fragment' in metadata:
+                    self.dif_fragment_number = int(metadata['dif_fragment'])
+					
             except yaml.YAMLError as exc:
                 print(exc)
         return

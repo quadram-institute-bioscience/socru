@@ -1,11 +1,12 @@
 
 class Fragment:
-    def __init__(self, coords, sequence = "", number = 0, reversed_frag = False, dna_A = False, operon_forward_start = True, operon_forward_end = True):
+    def __init__(self, coords, sequence = "", number = 0, reversed_frag = False, dna_A = False, operon_forward_start = True, operon_forward_end = True, dif = False):
         self.coords = coords
         self.sequence = sequence
         self.number = number
         self.reversed_frag = reversed_frag
         self.dna_A = dna_A
+        self.dif = dif
         
         self.operon_forward_start = operon_forward_start
         self.operon_forward_end = operon_forward_end
@@ -31,6 +32,9 @@ class Fragment:
             
         if self.dna_A:
             output_str += '(Ori)'
+			
+        if self.dif:
+            output_str += '(Ter)'
             
         return output_str
         
