@@ -30,7 +30,7 @@ class SocruUpdateProfile:
         
         with open(self.output_file, "a+") as output_fh:
             for p in valid_profiles:
-                tg = TypeGenerator(self.profiles, p, self.verbose, prefix = '')
+                tg = TypeGenerator(self.profiles, p, self.verbose, True, prefix = '')
                 # get orientationless versions of p and db
                 # check if there is an order number assigned, if not generate the next one.
                 order_to_use = tg.calculate_orientationless_order()

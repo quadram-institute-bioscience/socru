@@ -20,6 +20,7 @@ from socru.GATProfile import GATProfile
 from socru.TypeGenerator import TypeGenerator
 from socru.Schemas import Schemas
 from socru.PlotProfile import PlotProfile
+from socru.ValidateFragments import ValidateFragments
 
 class Socru:
     def __init__(self,options):
@@ -158,13 +159,21 @@ class Socru:
         pp = PlotProfile(reordered_frag_objs, self.output_plot_file, self.verbose)
         pp.create_plot()
         
+        validate_fragments = ValidateFragments(ff.ordered_fragments)
+        is_frag_valid = validate_fragments.validate()
+        
         operon_directions_str = " ".join([current_fragment.operon_direction_str() for current_fragment in ff.ordered_fragments])
+        if is_frag_valid:
+            operon_directions_str = "Valid\t" + operon_directions_str
+        else:
+            operon_directions_str = "Invalid\t" + operon_directions_str
+        
         if self.verbose:
             print("Operon directions:\t" +  operon_directions_str)
         self.output_operon_direction(input_file, operon_directions_str)
         
         # lookup the gat_profile to get the number
-        tg = TypeGenerator(p, gat_profile, self.verbose)
+        tg = TypeGenerator(p, gat_profile, self.verbose, is_frag_valid)
         type_output_string  =  tg.quality + "\t" + tg.calculate_type() + "\t" + str(gat_profile)
         self.write_novel_profile_to_file(tg, type_output_string)
         

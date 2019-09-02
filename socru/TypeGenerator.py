@@ -4,13 +4,17 @@ import re
 import gzip
 
 class TypeGenerator:
-    def __init__(self, profile_db, gat_profile, verbose, prefix = 'GS'):
+    def __init__(self, profile_db, gat_profile, verbose, is_frag_valid, prefix = 'GS'):
         self.profile_db = profile_db
         self.gat_profile = gat_profile
         self.prefix = prefix
         self.has_previously_seen = False
         self.verbose = verbose
+        self.is_frag_valid = is_frag_valid
+        
         self.quality = 'RED'
+        if self.is_frag_valid:
+            self.quality = 'AMBER'
         
         self.gs_type = self.calculate_type()
         
@@ -60,7 +64,11 @@ class TypeGenerator:
             
             if str(m.group(2)) == str(orientation_binary):
                 # its in the database so flag it as okay
-                self.quality = 'GREEN' 
+                
+                if self.is_frag_valid:
+                    self.quality = 'GREEN' 
+                else:
+                    self.quality = 'AMBER'
                 return True
             else:
                 return False
