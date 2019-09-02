@@ -162,7 +162,7 @@ class Socru:
         
         # lookup the gat_profile to get the number
         tg = TypeGenerator(p, gat_profile, self.verbose)
-        type_output_string  =  tg.calculate_type() + "\t" + str(gat_profile)
+        type_output_string  =  tg.quality + "\t" + tg.calculate_type() + "\t" + str(gat_profile)
         self.write_novel_profile_to_file(tg, type_output_string)
         
         return type_output_string

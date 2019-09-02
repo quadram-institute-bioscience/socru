@@ -10,6 +10,7 @@ class TypeGenerator:
         self.prefix = prefix
         self.has_previously_seen = False
         self.verbose = verbose
+        self.quality = 'RED'
         
         self.gs_type = self.calculate_type()
         
@@ -58,6 +59,8 @@ class TypeGenerator:
                 return False
             
             if str(m.group(2)) == str(orientation_binary):
+                # its in the database so flag it as okay
+                self.quality = 'GREEN' 
                 return True
             else:
                 return False
