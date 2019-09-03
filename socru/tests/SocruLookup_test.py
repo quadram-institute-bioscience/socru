@@ -17,15 +17,19 @@ class TestSocruLookup(unittest.TestCase):
     def test_socru_lookup(self):
         g = SocruLookup(TestOptions('1-2-3-4-5-6-7', data_dir))
         self.assertEqual('GS1.0', g.calc_type())
+        self.assertEqual('GREEN', g.calc_quality())
         
     def test_different_orientation(self):
         g = SocruLookup(TestOptions("1'-2-3-4'-5-6-7", data_dir))
         self.assertEqual('GS1.9', g.calc_type())
+        self.assertEqual('AMBER', g.calc_quality())
     
-    def test_inverted(self):
+    def test_inverted_invalid(self):
         g = SocruLookup(TestOptions("1-7'-6'-5'-4'-3'-2", data_dir))
         self.assertEqual('GS1.124', g.calc_type())
+        self.assertEqual('RED', g.calc_quality())
 
     def test_unknown_lookup(self):
         g = SocruLookup(TestOptions("1'-5-2-3'-6-7", data_dir))
         self.assertEqual('GS0.5', g.calc_type())
+        self.assertEqual('RED', g.calc_quality())
