@@ -23,7 +23,7 @@ class SocruLookup:
             f = Fragment([], number = frag_number, operon_forward_start = False, dna_A = False, dif = False, reversed_frag = not reversed_frags[i])
             if str(frag_number) == str(input_profile.dnaA_fragment_number):
                 f.dna_A = True
-            elif str(frag_number) == str(input_profile.dif_fragment_number):
+            if str(frag_number) == str(input_profile.dif_fragment_number):
                 f.dif = True
             frags.append(f)
 
@@ -32,14 +32,15 @@ class SocruLookup:
             for s in standard_fragments:
                 if f.number == s.number:
                     f.operon_forward_start = s.operon_forward_start
+                    
+            #if f.dna_A:
+            #    f.operon_forward_start = True
+            #if f.dif:
+            #    f.operon_forward_start = False
+                    
             if f.reversed_frag:
                 f.operon_forward_start = not f.operon_forward_start
-                
-            if s.dna_A:
-                f.operon_forward_start = True
-            if s.dif:
-                f.operon_forward_start = False
-            
+
         return frags
   
     def find_dnaa(self, frags):
@@ -81,7 +82,7 @@ class SocruLookup:
             f = Fragment([], number = frag_number, operon_forward_start = False, dna_A = False, dif = False)
             if str(frag_number) == str(profile_db.dnaA_fragment_number):
                 f.dna_A = True
-            elif str(frag_number) == str(profile_db.dif_fragment_number):
+            if str(frag_number) == str(profile_db.dif_fragment_number):
                 f.dif = True
             ref_frags.append(f)
             
@@ -125,5 +126,5 @@ class SocruLookup:
         return self.tg.quality
         
     def run(self):
-        print(str(self.calc_quality())+"\t"+str(self.tg.calculate_type()))
+        print(str(self.db_dir ) + "\t"+str(self.calc_quality())+"\t"+str(self.tg.calculate_type()))
         
