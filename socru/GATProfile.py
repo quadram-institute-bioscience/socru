@@ -128,5 +128,15 @@ class GATProfile:
                 total += 1 << bits_to_shift
         return total 
         
+    def orientation_array(self):
+        orientation_bools = []
+        for f in self.fragments:
+            m = re.match(r"([\d]+)'", f)
+            if m:
+                orientation_bools.append(False)
+            else:
+                orientation_bools.append(True)
+        return orientation_bools
+        
     
 		

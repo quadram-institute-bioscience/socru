@@ -34,7 +34,7 @@ class TestSocru(unittest.TestCase):
         self.assertTrue(os.path.exists('blast'))
         self.assertTrue(os.path.exists('directions'))
         
-        for file_name in ['blast', 'output_file', 'newfrag.fa', 'output_plot.png', 'novel']:
+        for file_name in ['blast', 'output_file', 'newfrag.fa', 'output_plot.png', 'novel', 'directions']:
             if os.path.exists(file_name):
                 os.remove(file_name)
 		
@@ -46,7 +46,7 @@ class TestSocru(unittest.TestCase):
         self.assertTrue(os.path.exists('blast'))
         self.assertTrue(os.path.exists('directions'))
         
-        for file_name in ['blast', 'output_file', 'newfrag.fa', 'output_plot.png', 'novel']:
+        for file_name in ['blast', 'output_file', 'newfrag.fa', 'output_plot.png', 'novel', 'directions']:
             if os.path.exists(file_name):
                 os.remove(file_name)
 	
