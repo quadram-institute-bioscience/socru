@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 6
 reference_genome: Enterobacter/roggenkampii/35734/GCF_000807415.2_ASM80741v4_genomic.fna.gz

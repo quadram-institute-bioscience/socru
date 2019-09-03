@@ -67,8 +67,7 @@ class TypeGenerator:
                 
                 if self.is_frag_valid:
                     self.quality = 'GREEN' 
-                else:
-                    self.quality = 'AMBER'
+                    
                 return True
             else:
                 return False

@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Escherichia/coli/K-12_substr._MG1655/GCF_000005845.2_ASM584v2_genomic.fna.gz
