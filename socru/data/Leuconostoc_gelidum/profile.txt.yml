@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: true
 dnaa_fragment: 1
 reference_genome: Leuconostoc/gelidum/type_strain:_LMG_18811/GCF_000196855.1_ASM19685v1_genomic.fna.gz

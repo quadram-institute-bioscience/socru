@@ -1,3 +1,4 @@
+dif_fragment: 1
 dnaa_forward_orientation: false
 dnaa_fragment: 3
 reference_genome: Salmonella/enterica/subsp._enterica_serovar_Typhimurium_str._LT2/GCF_000006945.2_ASM694v2_genomic.fna.gz
