@@ -36,7 +36,7 @@ class Profiles:
             return
         with open(self.metadata_file, 'r') as metadatafh:
             try:
-                metadata = yaml.load(metadatafh)
+                metadata = yaml.load(metadatafh, yaml.SafeLoader)
                 if 'dnaa_fragment' in metadata:
                     self.dnaA_fragment_number = int(metadata['dnaa_fragment'])
                     self.dnaa_forward_orientation = metadata['dnaa_forward_orientation']
