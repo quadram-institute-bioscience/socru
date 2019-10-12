@@ -74,6 +74,9 @@ class Socru:
                     output_fh.write(str(h)+"\n")
             
     def output_results(self, input_file, profile_type):
+        if profile_type == '':
+            profile_type = "RED\tGS0.0"
+        
         if self.output_file is None:
             print(input_file + "\t" + profile_type)
         else:

@@ -40,24 +40,22 @@ class ValidateFragments:
 
         # forward walk
         for i in range(dnaa_index + 1, len(self.fragments)):
-            if i >= dif_index:
-                # we have reached the end
-                continue
-            
             #  direction should be -->
             # if the operon is not forward then its invalid
             if not reorientated_frags[i].operon_forward_start:
                 return False
+            if i >= dif_index:
+                # we have reached the end
+                break
        
         # reverse walk
         for i in range( len(self.fragments) -1, dif_index, -1):
-            if i <= dif_index:
-                # we have reached the end
-                continue
-
             #  direction should be <--
             if reorientated_frags[i].operon_forward_start:
                 return False    
+            if i <= dif_index:
+                # we have reached the end
+                break
 
         return True
         
