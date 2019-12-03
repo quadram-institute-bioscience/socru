@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/quadram-institute-bioscience/socru.svg?branch=master)](https://travis-ci.org/quadram-institute-bioscience/socru)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/quadram-institute-bioscience/socru/blob/master/LICENSE)
 [![codecov](https://codecov.io/gh/andrewjpage/socru/branch/master/graph/badge.svg)](https://codecov.io/gh/andrewjpage/socru)
-[![Docker Pulls](https://img.shields.io/docker/pulls/andrewjpage/socru.svg)](https://hub.docker.com/r/andrewjpage/socru)  
+[![Docker Pulls](https://img.shields.io/docker/pulls/quadraminstitute/socru.svg)](https://hub.docker.com/r/quadraminstitute/socru)  
 
 ## Contents
   * [Introduction](#introduction)
@@ -35,12 +35,12 @@ conda install -c conda-forge -c bioconda socru
 Install [Docker](https://www.docker.com/).  There is a docker container which gets automatically built from the latest version of Socru. To install it:
 
 ```
-docker pull andrewjpage/socru
+docker pull quadraminstitute/socru
 ```
 
 To use it you would use a command such as this (substituting in your filename/directories), using the example file in this repository:
 ```
-docker run --rm -it -v /path/to/example_data:/example_data andrewjpage/socru socru xxxxx
+docker run --rm -it -v /path/to/example_data:/example_data quadraminstitute/socru socru xxxxx
 ```
 
 ## Dependancies
