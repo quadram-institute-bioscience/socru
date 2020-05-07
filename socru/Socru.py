@@ -159,8 +159,6 @@ class Socru:
         
         gat_profile.orientate_for_dnaA()
         reordered_frag_objs = gat_profile.reorder_fragment_objects_based_on_fragment_name_array( ff.ordered_fragments )
-        pp = PlotProfile(reordered_frag_objs, self.output_plot_file, self.verbose)
-        pp.create_plot()
         
         validate_fragments = ValidateFragments(ff.ordered_fragments)
         is_frag_valid = validate_fragments.validate()
@@ -179,6 +177,10 @@ class Socru:
         tg = TypeGenerator(p, gat_profile, self.verbose, is_frag_valid)
         type_output_string  =  tg.quality + "\t" + tg.calculate_type() + "\t" + str(gat_profile)
         self.write_novel_profile_to_file(tg, type_output_string)
+        
+        if tg.quality == 'GREEN':
+            pp = PlotProfile(reordered_frag_objs, self.output_plot_file, self.verbose)
+            pp.create_plot()
         
         return type_output_string
         
