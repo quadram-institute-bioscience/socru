@@ -17,10 +17,15 @@ parser = argparse.ArgumentParser(
 	description = 'List all available species',
 	usage = 'socru_species [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    
+parser.add_argument('--extended', '-e', action='store_true', help='Extended information about the species databases', default = False)
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
 options = parser.parse_args()
 
-Schemas(options.verbose).print_all()
+if options.extended:
+    Schemas(options.verbose).print_extended()
+else:
+    Schemas(options.verbose).print_all()
