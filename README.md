@@ -399,13 +399,13 @@ Socru is free software, licensed under [GPLv3](https://raw.githubusercontent.com
 # Feedback/Issues
 Please report any issues or to provide feedback please go to the [issues page](https://github.com/quadram-institute-bioscience/socru/issues). If you make improvements to the software, add databases or extend profiles, please send us the changes though a [pull request](https://github.com/quadram-institute-bioscience/socru/pulls) so that the whole community may benefit from your work.
 
-# Citation
-Socru: Typing of genome level order and orientation in bacteria
-Andrew J Page, Gemma Langridge
-bioRxiv 543702; doi: https://doi.org/10.1101/543702
-
 # Resources required
 To give you an indication of the resources required, a single 5Mbase assembly takes about 20 seconds using a single thread on an average laptop and uses no more than 250MB RAM. So overall the resource requirements are very light.
 
 # Etymology
 [socrú](https://www.focloir.ie/en/dictionary/ei/arrangement) (sock-roo) is the word for arrangement in Irish (Gaeilge). 
+
+# Citation
+socru: typing of genome-level order and orientation around ribosomal operons in bacteria
+Andrew J. Page, Emma V. Ainsworth, Gemma C. Langridge, Microbial Genomics (2020)
+https://doi.org/10.1099/mgen.0.000396
