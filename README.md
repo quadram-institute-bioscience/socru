@@ -169,7 +169,7 @@ A file is generated called _operon_directions.txt_ which contains the order of t
 ```
 Ty2_1.fa	--> 1 <-- 2' <-- 4 <-- 5 <-- 3(Ori) --> 7'
 ```
-The first column is the filename, the arrows denote the direction of the operon (its circular so loops around) and the number denotes the fragment. The operon goes in the direction --> if 16S comes first, and <-- if 16S comes last in the operon. The origin of replication is denoted (Ori). As with the primary output, a prime indicates the fragment (not the operon) is inverted.  To be biologically valid, the arrows should point outwards from the Origin of replication to the terminus, if it doesnt then its an assembly error.
+The first column is the filename, the arrows denote the direction of the operon (its circular so loops around) and the number denotes the fragment. The operon goes in the direction --> if 16S comes first, and <-- if 16S comes last in the operon. The fragment containing origin of replication is denoted (Ori) and it's orientation is fixed to match the orientation in the database reference. As with the primary output, a prime indicates the fragment (not the operon) is inverted.  To be biologically valid, the arrows should point outwards from the Origin of replication to the terminus, if it doesn't then it's an assembly error.
 
 ### Novel genome structures output
 A file is generated called _profile.txt.novel_ which contains any novel genome structures encountered in the genomes. They may contain invalid structures. You can copy and paste any valid genome structures to the database (and increment the GS number if they have none).
