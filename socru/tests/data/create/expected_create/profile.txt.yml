@@ -1,0 +1,4 @@
+dif_fragment: 1
+dnaa_forward_orientation: true
+dnaa_fragment: 2
+reference_genome: /home/runner/work/socru/socru/socru/tests/data/create/test.fa
