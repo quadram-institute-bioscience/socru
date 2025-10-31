@@ -1,8 +1,8 @@
 import unittest
 import os
 import shutil
-from io import StringIO
 import sys
+from io import StringIO
 from socru.Schemas  import Schemas
 
 class TestSchemas(unittest.TestCase):
@@ -21,9 +21,12 @@ class TestSchemas(unittest.TestCase):
         s = Schemas(False)
         # Capture stdout
         captured_output = StringIO()
-        sys.stdout = captured_output
-        s.print_all()
-        sys.stdout = sys.__stdout__
+        old_stdout = sys.stdout
+        try:
+            sys.stdout = captured_output
+            s.print_all()
+        finally:
+            sys.stdout = old_stdout
         output = captured_output.getvalue()
         self.assertTrue(len(output) > 0)
         
@@ -43,9 +46,12 @@ class TestSchemas(unittest.TestCase):
         s = Schemas(False)
         # Capture stdout
         captured_output = StringIO()
-        sys.stdout = captured_output
-        s.print_extended()
-        sys.stdout = sys.__stdout__
+        old_stdout = sys.stdout
+        try:
+            sys.stdout = captured_output
+            s.print_extended()
+        finally:
+            sys.stdout = old_stdout
         output = captured_output.getvalue()
         self.assertTrue(len(output) > 0)
         self.assertIn('Species', output)
@@ -72,9 +78,12 @@ class TestSchemas(unittest.TestCase):
         s = Schemas(False)
         # Capture stdout to suppress error message
         captured_output = StringIO()
-        sys.stdout = captured_output
-        db_dir = s.database_directory(None, 'NonExistentSpecies_12345')
-        sys.stdout = sys.__stdout__
+        old_stdout = sys.stdout
+        try:
+            sys.stdout = captured_output
+            db_dir = s.database_directory(None, 'NonExistentSpecies_12345')
+        finally:
+            sys.stdout = old_stdout
         self.assertIsNone(db_dir)
 
         
