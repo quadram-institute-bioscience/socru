@@ -1,3 +1,14 @@
+"""
+Fragment database management and BLAST database creation.
+
+This module handles loading fragment databases and creating BLAST databases
+from fragment FASTA files. It concatenates individual fragment files (both
+plain and gzipped), creates a temporary BLAST database, and manages cleanup.
+
+Classes:
+    Database: Manages fragment database loading and BLAST database creation
+"""
+
 import os
 from os import listdir
 from os.path import isfile, join
@@ -8,36 +19,99 @@ import subprocess
 import shutil
 
 class Database:
+    """
+    Manage fragment databases and BLAST database creation.
+    
+    This class locates fragment files in a database directory, concatenates
+    them (handling both plain and gzipped formats), and creates a BLAST
+    database for searching. The BLAST database is temporary and cleaned
+    up automatically.
+    
+    Attributes:
+        directory (str): Path to database directory containing fragment files
+        verbose (bool): Enable verbose output
+        concat_fasta (str): Path to concatenated temporary FASTA file
+        db_prefix (str): Path prefix for BLAST database files
+    """
     def __init__(self,directory, verbose):
+        """
+        Initialize Database by loading and indexing fragments.
+        
+        Args:
+            directory (str): Path to database directory
+            verbose (bool): Enable verbose output
+        """
         self.directory = directory
         self.verbose = verbose
+        # Concatenate all fragment files into one FASTA
         self.concat_fasta = self.concat_db_files()
+        # Create BLAST database from concatenated FASTA
         self.db_prefix = self.make_blastdb(self.concat_fasta)
     
-    # read in the files in the directory starting with number and ending in fa
     def get_database_files(self):
+        """
+        Get list of plain (uncompressed) fragment FASTA files.
+        
+        Finds files matching pattern: [digit]+.fa
+        
+        Returns:
+            list: Paths to plain FASTA fragment files
+        """
         return [os.path.join(self.directory,f) for f in listdir(self.directory) if isfile(join(self.directory, f)) and re.match(r'[\d]+\.fa$', f)]
         
     def get_database_files_compressed(self):
-        return [os.path.join(self.directory,f) for f in listdir(self.directory) if isfile(join(self.directory, f)) and re.match(r'[\d]+\.fa.gz$', f)]
+        """
+        Get list of gzipped fragment FASTA files.
         
-    # concat into a temp file. It can take a mixture of gz and non gzip files
+        Finds files matching pattern: [digit]+.fa.gz
+        
+        Returns:
+            list: Paths to gzipped FASTA fragment files
+        """
+        return [os.path.join(self.directory,f) for f in listdir(self.directory) if isfile(join(self.directory, f)) and re.match(r'[\d]+\.fa.gz$', f)]
+    
     def concat_db_files(self):
+        """
+        Concatenate all fragment files into a single temporary FASTA.
+        
+        Handles a mixture of gzipped and plain FASTA files by decompressing
+        gzipped files on the fly and appending all to one file.
+        
+        Returns:
+            str: Path to concatenated temporary FASTA file
+        """
+        # Create temporary file for concatenated sequences
         fd, concat_db_fasta = mkstemp()
         
+        # Decompress and concatenate gzipped files
         if len(self.get_database_files_compressed()) > 0:
             cmd = " ".join(["gunzip", '-c'] + self.get_database_files_compressed() + [ '>' + concat_db_fasta])
             subprocess.check_output( cmd, shell=True)
-            
+        
+        # Append plain files    
         if len(self.get_database_files()) > 0:
             cmd = " ".join(["cat"] + self.get_database_files() + [ '>>' + concat_db_fasta])
             subprocess.check_output( cmd, shell=True)
         return concat_db_fasta
         
-     # make a blast database
     def make_blastdb(self, concat_fasta):
+        """
+        Create BLAST nucleotide database from concatenated FASTA.
+        
+        Runs makeblastdb to create a searchable BLAST database in a
+        temporary directory.
+        
+        Args:
+            concat_fasta (str): Path to concatenated FASTA file
+            
+        Returns:
+            str: Path prefix for BLAST database files
+        """
+        # Create temporary directory for BLAST database
         tmpdir = mkdtemp()
         output_prefix = os.path.join(tmpdir, 'all')
+        
+        # Run makeblastdb command
         cmd = " ".join(['makeblastdb', '-in', concat_fasta, '-dbtype', 'nucl',  '-out', output_prefix])
         if self.verbose:
             print("Creating blast database:\t" + cmd)
@@ -45,8 +119,13 @@ class Database:
         return output_prefix
     
     def __del__(self):
+        """
+        Clean up temporary BLAST database and concatenated FASTA.
+        """
+        # Remove BLAST database directory
         if os.path.exists(self.db_prefix):
             shutil.rmtree(self.db_prefix)
+        # Remove concatenated FASTA file
         if os.path.exists(self.concat_fasta):
             os.remove(self.concat_fasta)
             
