@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
+"""
+Main command-line interface for Socru - typing of genome level order and orientation in bacteria.
+
+This script serves as the entry point for analyzing bacterial genome assemblies to identify
+the order and orientation of fragments around ribosomal operons. It parses command-line arguments,
+initializes the Socru analysis pipeline, and runs the complete workflow.
+
+The tool identifies rRNA operons using Barrnap, extracts inter-operon fragments, BLASTs them
+against a database, and determines the GS (Genome Structure) type based on fragment patterns.
+"""
+
 import sys
+# Add parent and current directories to path for module imports
 sys.path.append('../')
 sys.path.append('./')
 import argparse
@@ -9,12 +21,15 @@ sys.path.append('../')
 sys.path.append('./')
 from socru.Socru import Socru
 
+# Attempt to get the installed version from package metadata
 version = ''
 try:
 	version = pkg_resources.get_distribution("socru").version
 except pkg_resources.DistributionNotFound:
+	# If not installed as a package, use placeholder version
 	version = 'x.y.z'
 
+# Set up command-line argument parser with citation information
 parser = argparse.ArgumentParser(
     description = '''Please cite our paper, "Socru: Typing of genome level order and orientation in bacteria", 
     Andrew J Page, Gemma Langridge, 
@@ -22,14 +37,15 @@ parser = argparse.ArgumentParser(
     usage = 'socru [options] species assembly.fasta',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     
+# Positional arguments - required inputs
 parser.add_argument('species',  help='Species name, use socru_species to see all available', type=str)
 parser.add_argument('input_files', help='Input FASTA files (optionally gzipped)', nargs='+', type=str)
 
-# Input
+# Input options - control input data and processing
 parser.add_argument('--db_dir', '-d',  help='Base directory for species databases, defaults to bundled', type=str )
 parser.add_argument('--threads', '-t',  help='No. of threads to use', type=int, default=1)
 
-# Output
+# Output options - control output files and formats
 parser.add_argument('--output_file', '-o',  help='Output filename, defaults to STDOUT', type=str)
 parser.add_argument('--output_plot_file', '-p',  help='Filename of plot of genome structure', type=str, default = 'genome_structure.pdf')
 parser.add_argument('--novel_profiles', '-n',  help='Filename for novel profiles', type=str, default = 'profile.txt.novel')
@@ -37,27 +53,35 @@ parser.add_argument('--new_fragments', '-f',  help='Filename for novel fragments
 parser.add_argument('--top_blast_hits', '-b',  help='Filename for top blast hits', type=str)
 parser.add_argument('--output_operon_directions_file', '-r',  help='Filename of directions of operons', type=str, default = 'operon_directions.txt')
 
-# Advanced
+# Advanced options - fine-tune analysis parameters
 
 parser.add_argument('--max_bases_from_ends', '-m', help='Only look at this number of bases from start and end of fragment', type=int)
 parser.add_argument('--not_circular', '-c', action='store_true', help='Assume chromosome is not circularised', default = False)
 parser.add_argument('--min_bit_score',  help='Minimum bit score', type=int, default=100)
 parser.add_argument('--min_alignment_length',  help='Minimum alignment length', type=int, default=100)
 
+# Debugging and information options
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
+# Parse command-line arguments
 options = parser.parse_args()
 
+# Run with profiling if debug mode is enabled
 if options.debug:
+    # Import profiling modules
     import cProfile, pstats, io
+    
+    # Initialize profiler
     pr = cProfile.Profile()
     pr.enable()
     
+    # Run Socru analysis with profiling
     g = Socru(options)
     g.run()
     
+    # Disable profiler and output statistics
     pr.disable()
     s = io.StringIO()
     sortby = 'cumulative'
@@ -65,5 +89,6 @@ if options.debug:
     ps.print_stats()
     print(s.getvalue())
 else:
+    # Run Socru analysis normally (without profiling)
     g = Socru(options) 
     g.run()
