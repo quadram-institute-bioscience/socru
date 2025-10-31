@@ -33,7 +33,7 @@ class SocruRebuildProfile:
         self.files_to_cleanup.append(intermediate_profile_file)
         self.files_to_cleanup.append(additional_profiles_file)
         
-        regex_prefix_order = re.compile('^[\d]+\.')
+        regex_prefix_order = re.compile(r'^[\d]+\.')
         
         line_count = 1
         with open(self.profile_filename) as profile_fh:
