@@ -1,18 +1,34 @@
 #!/usr/bin/env python3
+"""
+Command-line utility to rebuild and renumber a Socru profile database.
+
+This administrative tool takes an existing profile.txt file and reconstructs it with
+standardized numbering and formatting. It reassigns GS (Genome Structure) type numbers
+in a systematic way, which is useful when profiles have been manually edited or when
+consolidating multiple profile versions.
+
+The tool maintains all the fragment patterns but provides them with clean, sequential
+GS type identifiers (e.g., GS1.1, GS1.2, etc.).
+"""
+
 import sys
 import argparse
 import os
 import pkg_resources
+# Add parent and current directories to path for module imports
 sys.path.append('../')
 sys.path.append('./')
 from socru.SocruRebuildProfile import SocruRebuildProfile
 
+# Attempt to get the installed version from package metadata
 version = ''
 try:
 	version = pkg_resources.get_distribution("socru").version
 except pkg_resources.DistributionNotFound:
+	# If not installed as a package, use placeholder version
 	version = 'x.y.z'
 
+# Set up command-line argument parser with citation information
 parser = argparse.ArgumentParser(
     description = '''
     "Admin utility which will take in an existing profile and rebuild it. Please cite our paper, Socru: Typing of genome level order and orientation in bacteria", 
@@ -21,15 +37,21 @@ parser = argparse.ArgumentParser(
     usage = 'socru_rebuild_profile [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
+# Positional arguments - required inputs
 parser.add_argument('profile_filename', help="profile.txt from database", type=str)
+
+# Output options
 parser.add_argument('--output_file', '-o',  help='Output filename', type=str, default = 'updated_profile.txt')
 parser.add_argument('--prefix', '-p',  help='Prefix', type=str, default = 'GS')
 
+# Debugging and information options
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
+# Parse command-line arguments
 options = parser.parse_args()
 
+# Rebuild the profile with standardized numbering
 g = SocruRebuildProfile(options)
 g.run()

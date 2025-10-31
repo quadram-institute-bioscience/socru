@@ -1,32 +1,54 @@
 #!/usr/bin/env python3
+"""
+Command-line utility to update a Socru profile database with newly validated GS types.
+
+This administrative tool processes Socru output containing novel genome structure (GS) types
+and integrates them into an existing profile.txt database file. After running Socru on multiple
+genomes and validating novel patterns, this script updates the database so these patterns
+receive proper GS type designations in future analyses.
+
+This is typically used by database curators when new genome arrangements are discovered
+and validated for a species.
+"""
+
 import sys
 import argparse
 import os
 import pkg_resources
+# Add parent and current directories to path for module imports
 sys.path.append('../')
 sys.path.append('./')
 from socru.SocruUpdateProfile import SocruUpdateProfile
 
+# Attempt to get the installed version from package metadata
 version = ''
 try:
 	version = pkg_resources.get_distribution("socru").version
 except pkg_resources.DistributionNotFound:
+	# If not installed as a package, use placeholder version
 	version = 'x.y.z'
 
+# Set up command-line argument parser
 parser = argparse.ArgumentParser(
 	description = 'Admin utility to take the novel GS results and update the profile for the database',
 	usage = 'socru_update_profile [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-	
+
+# Positional arguments - required inputs	
 parser.add_argument('socru_output_filename',  help='Socru output file', type=str )
 parser.add_argument('profile_filename', help="profile.txt from database", type=str)
+
+# Output options
 parser.add_argument('--output_file', '-o',  help='Output filename', type=str, default = 'updated_profile.txt')
 
+# Debugging and information options
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
+# Parse command-line arguments
 options = parser.parse_args()
 
+# Update the profile database with novel types
 g = SocruUpdateProfile(options)
 g.run()

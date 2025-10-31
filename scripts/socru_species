@@ -1,31 +1,51 @@
 #!/usr/bin/env python3
+"""
+Command-line utility to list all available species databases in Socru.
+
+This script displays the available species databases that can be used with Socru.
+It can show either a simple list of species names or extended information including
+database paths and metadata. This helps users identify which species they can
+analyze with the main socru command.
+"""
+
 import sys
 import argparse
 import os
 import pkg_resources
+# Add parent and current directories to path for module imports
 sys.path.append('../')
 sys.path.append('./')
 from socru.Schemas import Schemas
 
+# Attempt to get the installed version from package metadata
 version = ''
 try:
 	version = pkg_resources.get_distribution("socru").version
 except pkg_resources.DistributionNotFound:
+	# If not installed as a package, use placeholder version
 	version = 'x.y.z'
 
+# Set up command-line argument parser
 parser = argparse.ArgumentParser(
 	description = 'List all available species',
 	usage = 'socru_species [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    
+
+# Output format options    
 parser.add_argument('--extended', '-e', action='store_true', help='Extended information about the species databases', default = False)
+
+# Debugging and information options
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
 parser.add_argument('--version', action='version', version=str(version))
 
+# Parse command-line arguments
 options = parser.parse_args()
 
+# Display species databases - either extended format or simple list
 if options.extended:
+    # Show detailed information about each species database
     Schemas(options.verbose).print_extended()
 else:
+    # Show simple list of available species names
     Schemas(options.verbose).print_all()
