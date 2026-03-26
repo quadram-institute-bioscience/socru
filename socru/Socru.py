@@ -38,6 +38,13 @@ from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult
 from socru.ConfidenceScore import calculate_confidence
 from socru.QCFlags import generate_qc_flags
 from socru.HtmlReport import HtmlReport
+from socru.SocruConfig import SocruConfig
+from socru.NoveltyDetector import assess_novelty
+from socru.BatchStats import BatchStats
+from socru.SvgTypeDistribution import generate_type_distribution_svg
+from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg
+from socru.SvgSynteny import generate_synteny_svg
+from socru.SvgFragmentQuality import generate_fragment_quality_svg
 
 class Socru:
     """
@@ -65,50 +72,54 @@ class Socru:
         dirs_to_cleanup (list): Temporary directories to remove on cleanup
         top_results (list): Collection of top BLAST hits for all fragments
     """
-    def __init__(self,options):
+    def __init__(self, options_or_config):
         """
-        Initialize Socru with command-line options.
+        Initialize Socru with a SocruConfig or legacy argparse options.
 
         Args:
-            options: Parsed command-line arguments containing all configuration
+            options_or_config: A ``SocruConfig`` instance for library use,
+                or an argparse ``Namespace`` for backward compatibility.
         """
-        self.input_files = options.input_files
+        if isinstance(options_or_config, SocruConfig):
+            config = options_or_config
+        else:
+            config = SocruConfig.from_options(options_or_config)
+
+        self.input_files = config.input_files
 
         # BLAST filtering parameters
-        self.min_bit_score = options.min_bit_score
-        self.min_alignment_length = options.min_alignment_length
-        self.threads = options.threads
+        self.min_bit_score = config.min_bit_score
+        self.min_alignment_length = config.min_alignment_length
+        self.threads = config.threads
 
         # Output file paths
-        self.output_file = options.output_file
-        self.novel_profiles = options.novel_profiles
-        self.new_fragments = options.new_fragments
-        self.max_bases_from_ends = options.max_bases_from_ends
-        self.top_blast_hits = options.top_blast_hits
-        self.output_plot_file = options.output_plot_file
-        self.output_operon_directions_file = options.output_operon_directions_file
+        self.output_file = config.output_file
+        self.novel_profiles = config.novel_profiles
+        self.new_fragments = config.new_fragments
+        self.max_bases_from_ends = config.max_bases_from_ends
+        self.top_blast_hits = config.top_blast_hits
+        self.output_plot_file = config.output_plot_file
+        self.output_operon_directions_file = config.output_operon_directions_file
 
-        self.verbose = options.verbose
-        self.output_svg = getattr(options, 'output_svg', None)
-        self.output_json = getattr(options, 'output_json', None)
+        self.verbose = config.verbose
+        self.output_svg = config.output_svg
+        self.output_json = config.output_json
         self.dirs_to_cleanup = []
         self.top_results = []
         self.analysis_results = []
         self.html_results = []
-        self.output_html = getattr(options, 'output_html', None)
+        self.output_html = config.output_html
+        self.output_dir = config.output_dir
 
         # Locate and validate the species database
-        self.db_dir =  Schemas(self.verbose).database_directory(options.db_dir, options.species)
+        self.db_dir = Schemas(self.verbose).database_directory(config.db_dir, config.species)
         if self.db_dir is None:
              raise FileNotFoundError(
                  "Cannot access the database for species '{}'. "
-                 "Please check the species name and database directory.".format(options.species))
+                 "Please check the species name and database directory.".format(config.species))
 
         # Set chromosome circularity assumption
-        if options.not_circular:
-            self.is_circular = False
-        else:
-            self.is_circular = True
+        self.is_circular = not config.not_circular
 
     def run(self):
         """
@@ -146,17 +157,38 @@ class Socru:
                 for h in self.top_results:
                     output_fh.write(str(h)+"\n")
 
+        # Compute batch statistics when multiple results are available
+        batch_stats_dict = None
+        if len(self.analysis_results) > 1:
+            result_dicts = [r.to_dict() for r in self.analysis_results]
+            stats = BatchStats(result_dicts)
+            batch_stats_dict = {
+                "type_distribution": stats.type_distribution(),
+                "quality_summary": stats.quality_summary(),
+                "mean_confidence": stats.mean_confidence(),
+                "flag_summary": stats.flag_summary(),
+                "outlier_assemblies": stats.outlier_assemblies(),
+                "total_assemblies": len(result_dicts),
+            }
+
         # Write JSON output if requested
         if self.output_json is not None:
+            result_dicts = [r.to_dict() for r in self.analysis_results]
+            output_payload = {
+                "results": result_dicts,
+            }
+            if batch_stats_dict is not None:
+                output_payload["batch_stats"] = batch_stats_dict
             with open(self.output_json, 'w') as json_fh:
-                json_fh.write(json.dumps(
-                    [r.to_dict() for r in self.analysis_results],
-                    indent=2,
-                ))
+                json_fh.write(json.dumps(output_payload, indent=2))
 
         # Print summary table for batch mode (multiple files)
         if len(self.input_files) > 1:
             self._print_summary_table()
+
+        # Generate batch visualizations if output_dir is set and multiple results
+        if self.output_dir is not None and len(self.analysis_results) > 1:
+            self._generate_batch_outputs(batch_stats_dict)
 
         # Generate HTML report if requested
         if self.output_html is not None:
@@ -488,6 +520,22 @@ class Socru:
             analysis_result,
             expected_fragment_count=p.num_fragments,
         )
+
+        # Assess novelty if the profile is novel
+        if is_novel:
+            from dataclasses import asdict as _asdict
+            known_profiles = [g.fragments for g in p.gats]
+            blast_identities = [
+                fr.blast_identity for fr in fragment_results
+                if fr.blast_identity is not None
+            ]
+            novelty = assess_novelty(
+                query_fragments=gat_profile.fragments,
+                known_profiles=known_profiles,
+                confidence_score=confidence,
+                blast_identities=blast_identities,
+            )
+            analysis_result.novelty_assessment = _asdict(novelty)
 
         return type_output_string, analysis_result
 

@@ -19,6 +19,7 @@ from socru.Fasta import Fasta
 from socru.FragmentFiles import FragmentFiles
 from socru.Barrnap  import Barrnap
 from socru.ProfileGenerator import ProfileGenerator
+from socru.SocruConfig import SocruCreateConfig
 
 class SocruCreate:
     """
@@ -43,21 +44,27 @@ class SocruCreate:
         max_bases_from_ends (int): Optional fragment end trimming
         files_to_cleanup (list): Temporary files to delete
     """
-    def __init__(self,options):
+    def __init__(self, options_or_config):
         """
-        Initialize SocruCreate with command-line options.
+        Initialize SocruCreate with a SocruCreateConfig or legacy argparse options.
 
         Args:
-            options: Parsed command-line arguments
+            options_or_config: A ``SocruCreateConfig`` instance for library
+                use, or an argparse ``Namespace`` for backward compatibility.
         """
-        self.input_file = options.input_file
-        self.output_directory = options.output_directory
-        self.fragment_order = options.fragment_order
-        self.threads = options.threads
-        self.dnaa_fasta = options.dnaa_fasta
-        self.dif_fasta = options.dif_fasta
-        self.verbose = options.verbose
-        self.max_bases_from_ends = options.max_bases_from_ends
+        if isinstance(options_or_config, SocruCreateConfig):
+            config = options_or_config
+        else:
+            config = SocruCreateConfig.from_options(options_or_config)
+
+        self.input_file = config.input_file
+        self.output_directory = config.output_directory
+        self.fragment_order = config.fragment_order
+        self.threads = config.threads
+        self.dnaa_fasta = config.dnaa_fasta
+        self.dif_fasta = config.dif_fasta
+        self.verbose = config.verbose
+        self.max_bases_from_ends = config.max_bases_from_ends
         self.files_to_cleanup = []
 
         # Validate output directory doesn't exist
