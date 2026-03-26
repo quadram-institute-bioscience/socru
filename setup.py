@@ -21,8 +21,6 @@ setup(
     author_email='andrew.page@quadram.ac.uk',
     url='https://github.com/quadram-institute-bioscience/socru',
     scripts=glob.glob('scripts/*'),
-    test_suite='nose.collector',
-    tests_require=['nose >= 1.3'],
     install_requires=[
            'biopython >= 1.68',
            'PyYAML',

@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "socru"
+version = "2.2.4"
+description = "socru: genome arrangement types"
+readme = "README.md"
+license = "GPL-3.0-only"
+requires-python = ">=3.9"
+authors = [
+    { name = "Andrew J. Page", email = "andrew.page@quadram.ac.uk" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+]
+dependencies = [
+    "biopython>=1.68",
+    "PyYAML",
+    "numpy",
+    "matplotlib",
+]
+
+[project.urls]
+Homepage = "https://github.com/quadram-institute-bioscience/socru"
+
+[project.scripts]
+socru = "socru.cli:socru_main"
+socru_create = "socru.cli:socru_create_main"
+socru_rebuild_profile = "socru.cli:socru_rebuild_profile_main"
+socru_shrink_database = "socru.cli:socru_shrink_database_main"
+socru_species = "socru.cli:socru_species_main"
+socru_update_profile = "socru.cli:socru_update_profile_main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov", "ruff"]
+
+[tool.setuptools.packages.find]
+include = ["socru*"]
+
+[tool.setuptools.package-data]
+socru = ["data/*", "data/*/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["socru/tests"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]  # line length handled separately

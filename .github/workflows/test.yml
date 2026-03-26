@@ -1,0 +1,47 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge,bioconda,defaults
+          activate-environment: test
+          auto-activate-base: false
+
+      - name: Install bioinformatics dependencies
+        shell: bash -el {0}
+        run: |
+          conda install -y barrnap blast
+
+      - name: Install package with dev dependencies
+        shell: bash -el {0}
+        run: |
+          pip install -e ".[dev]"
+
+      - name: Run ruff lint check
+        shell: bash -el {0}
+        run: |
+          ruff check socru/
+
+      - name: Run tests with coverage
+        shell: bash -el {0}
+        run: |
+          pytest --cov=socru --cov-report=term-missing socru/tests/
