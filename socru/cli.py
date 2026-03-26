@@ -5,6 +5,7 @@ Each function in this module serves as a console_scripts entry point,
 wrapping the logic previously found in the scripts/ directory.
 """
 
+import logging
 import sys
 import argparse
 import pkg_resources
@@ -76,6 +77,11 @@ def socru_main():
     parser.add_argument("--version", action="version", version=str(version))
 
     options = parser.parse_args()
+
+    logging.basicConfig(
+        level=logging.DEBUG if options.verbose else logging.WARNING,
+        format='%(levelname)s: %(message)s',
+    )
 
     if options.debug:
         import cProfile

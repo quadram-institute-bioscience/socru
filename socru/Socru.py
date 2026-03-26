@@ -16,6 +16,8 @@ import os
 import sys
 
 import subprocess
+
+logger = logging.getLogger(__name__)
 from tempfile import mkstemp
 from tempfile import mkdtemp
 import shutil
@@ -120,18 +122,18 @@ class Socru:
         5. Optionally saves detailed BLAST hits
         """
         # load the profiles
-        if self.verbose:
-            print("Loading profiles:\t" + os.path.join(self.db_dir, 'profile.txt'))
+        logger.info("Loading profiles:\t%s", os.path.join(self.db_dir, 'profile.txt'))
         p = Profiles(os.path.join(self.db_dir, 'profile.txt'), self.verbose)
 
-        if self.verbose:
-            print("Loading database:\t" + self.db_dir)
+        logger.info("Loading database:\t%s", self.db_dir)
         d = Database(self.db_dir, self.verbose)
 
         # Process each input genome file
-        for i in self.input_files:
-            if self.verbose:
-                print("Beginning analysis of input file:\t" + i)
+        for idx, i in enumerate(self.input_files):
+            if len(self.input_files) > 1:
+                logger.info("Processing %d/%d: %s", idx + 1, len(self.input_files), i)
+            else:
+                logger.info("Beginning analysis of input file:\t%s", i)
             output_type, analysis_result = self.run_analysis(i, p, d)
             self.output_results(i, output_type)
             if analysis_result is not None:
@@ -165,8 +167,7 @@ class Socru:
                 html_data = [r.to_dict() for r in self.analysis_results]
             report = HtmlReport(html_data, species=species)
             report.save(self.output_html)
-            if self.verbose:
-                print("HTML report written to:\t" + self.output_html)
+            logger.info("HTML report written to:\t%s", self.output_html)
 
     def _collect_html_result(self, input_file, profile_type):
         """Collect structured result data for the HTML report (fallback when AnalysisResult not available).
@@ -262,10 +263,10 @@ class Socru:
 
         # Parse barrnap output to extract boundary coordinates
         boundries = b.read_barrnap_output(barrnap_outputfile)
-        if self.verbose:
-            print("Boundries:")
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug("Boundries:")
             for b in boundries:
-                print(b)
+                logger.debug(b)
         return boundries
 
     def populate_fragments_from_chromosome(self, input_file, boundries):
@@ -409,8 +410,7 @@ class Socru:
         else:
             operon_directions_str = "Invalid\t" + operon_directions_str
 
-        if self.verbose:
-            print("Operon directions:\t" +  operon_directions_str)
+        logger.info("Operon directions:\t%s", operon_directions_str)
         self.output_operon_direction(input_file, operon_directions_str)
 
         # Step 7: Match profile pattern to known GS type

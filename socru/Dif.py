@@ -10,11 +10,14 @@ Classes:
     Dif: Identifies dif-containing fragments
 """
 
+import logging
 import sys
 
 from socru.Database import Database
 from socru.Blast import Blast
 from socru.FilterBlast import FilterBlast
+
+logger = logging.getLogger(__name__)
 
 class Dif:
     """
@@ -71,8 +74,7 @@ class Dif:
         shorter than dnaA (~28bp), so lower thresholds are used. If not found,
         defaults to fragment 1 (usually the largest, often containing terminus).
         """
-        if self.verbose:
-            print("Finding fragment FASTA containing dif (near terminus of replication)")
+        logger.info("Finding fragment FASTA containing dif (near terminus of replication)")
         
         # Create BLAST database from fragments
         blastdb = Database(self.directory_of_fasta_files, self.verbose)
@@ -88,7 +90,7 @@ class Dif:
         if top_result is None:
             # No match found - default to fragment 1
             # Fragment 1 is the largest, and usually contains the terminus
-            sys.stderr.write("WARNING: Could not locate dif in any fragment, defaulting to fragment 1\n")
+            logger.warning("Could not locate dif in any fragment, defaulting to fragment 1")
             self.forward_orientation = None
             self.fragment_with_dif = 1
         else:
@@ -101,6 +103,5 @@ class Dif:
             else:
                 self.forward_orientation = False
                 
-            if self.verbose:
-                print("Found dif on fragment:\t" + str(self.fragment_with_dif))
-                print("dif in forward orientation:\t" + str(self.forward_orientation))
+            logger.info("Found dif on fragment:\t%s", self.fragment_with_dif)
+            logger.info("dif in forward orientation:\t%s", self.forward_orientation)

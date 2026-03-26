@@ -10,6 +10,7 @@ Classes:
 """
 
 import gzip
+import logging
 import os
 from os import listdir
 from os.path import isfile, join
@@ -18,6 +19,8 @@ from tempfile import mkstemp
 from tempfile import mkdtemp
 import subprocess
 import shutil
+
+logger = logging.getLogger(__name__)
 
 class Database:
     """
@@ -119,8 +122,7 @@ class Database:
 
         # Run makeblastdb command
         cmd = ['makeblastdb', '-in', concat_fasta, '-dbtype', 'nucl', '-out', output_prefix]
-        if self.verbose:
-            print("Creating blast database:\t" + ' '.join(cmd))
+        logger.info("Creating blast database:\t%s", ' '.join(cmd))
         subprocess.run(cmd, check=True, capture_output=True)
         return output_prefix
 

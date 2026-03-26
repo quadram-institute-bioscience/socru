@@ -11,9 +11,12 @@ Classes:
 """
 
 import csv
+import logging
 import yaml
 import os
 from socru.GATProfile import GATProfile
+
+logger = logging.getLogger(__name__)
 
 
 class Profiles:
@@ -113,7 +116,7 @@ class Profiles:
                     self.dif_fragment_number = int(metadata['dif_fragment'])
 					
             except yaml.YAMLError as exc:
-                print(exc)
+                logger.warning("Failed to parse YAML metadata: %s", exc)
         return
         
     def expected_num_fragments(self):

@@ -12,10 +12,13 @@ Classes:
 
 from Bio import SeqIO
 from socru.Fragment import Fragment
+import logging
 import os
 import re
 import sys
 import gzip
+
+logger = logging.getLogger(__name__)
 
 class Fasta:
     """
@@ -83,10 +86,10 @@ class Fasta:
             raise ValueError(f"No valid sequences found in {self.input_file}")
 
         if len(largest_contig.seq) < 100000:
-            sys.stderr.write(
-                f"WARNING: Largest contig in {self.input_file} is only "
-                f"{len(largest_contig.seq)} bp, which is unlikely to be a "
-                f"complete chromosome\n"
+            logger.warning(
+                "Largest contig in %s is only %d bp, which is unlikely to be a "
+                "complete chromosome",
+                self.input_file, len(largest_contig.seq),
             )
 
         return largest_contig

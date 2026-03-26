@@ -9,10 +9,13 @@ Classes:
     SocruShrinkDatabase: Orchestrates database shrinking workflow
 """
 
+import logging
 import os
 import sys
 
 from socru.ShrinkDatabase import ShrinkDatabase
+
+logger = logging.getLogger(__name__)
 
 class SocruShrinkDatabase:
     """
@@ -45,14 +48,12 @@ class SocruShrinkDatabase:
         
         # Validate input database exists
         if not os.path.exists(self.input_database):
-             print(
-             "Cannot access the input database you specified, please check again")
+             logger.error("Cannot access the input database you specified, please check again")
              sys.exit(1)
-        
-        # Validate output database doesn't exist     
+
+        # Validate output database doesn't exist
         if os.path.exists(self.output_database):
-             print(
-             "Output directory already exists, please choose a new name")
+             logger.error("Output directory already exists, please choose a new name")
              sys.exit(1)
         else:
             # Create output directory

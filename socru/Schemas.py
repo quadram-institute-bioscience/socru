@@ -10,11 +10,14 @@ Classes:
     Schemas: Manages species database discovery and access
 """
 
+import logging
 import os
 from os import listdir
 from os.path import isdir
 import importlib.resources
 import yaml
+
+logger = logging.getLogger(__name__)
 
 class Schemas:
     """
@@ -103,7 +106,7 @@ class Schemas:
                     
 					
                 except yaml.YAMLError as exc:
-                    print(exc)
+                    logger.warning("Failed to parse YAML metadata: %s", exc)
         return db_info
         
     def print_extended(self):
@@ -146,5 +149,5 @@ class Schemas:
         if isdir(proposed_db_dir):
             return proposed_db_dir
         else:
-            print("Cannot access the database directory for species '{}' at path: {}".format(species, proposed_db_dir))
+            logger.warning("Cannot access the database directory for species '%s' at path: %s", species, proposed_db_dir)
             return None

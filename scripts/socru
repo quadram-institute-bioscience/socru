@@ -10,6 +10,7 @@ The tool identifies rRNA operons using Barrnap, extracts inter-operon fragments,
 against a database, and determines the GS (Genome Structure) type based on fragment patterns.
 """
 
+import logging
 import sys
 # Add parent and current directories to path for module imports
 sys.path.append('../')
@@ -62,6 +63,12 @@ parser.add_argument('--version', action='version', version='%(prog)s ' + get_ver
 
 # Parse command-line arguments
 options = parser.parse_args()
+
+# Configure logging based on verbosity
+logging.basicConfig(
+    level=logging.DEBUG if options.verbose else logging.WARNING,
+    format='%(levelname)s: %(message)s'
+)
 
 # Run with profiling if debug mode is enabled
 if options.debug:

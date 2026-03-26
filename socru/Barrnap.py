@@ -11,6 +11,7 @@ Classes:
 
 import csv
 import gzip
+import logging
 import re
 import os
 import shutil
@@ -18,6 +19,8 @@ import subprocess
 from tempfile import mkstemp
 from socru.Fasta import Fasta
 from socru.Operon import Operon
+
+logger = logging.getLogger(__name__)
 
 class Barrnap:
     """
@@ -307,8 +310,7 @@ class Barrnap:
         """
         decompressed_file = self.decompress_to_file()
         cmd = ['barrnap', '--quiet', '--threads', str(self.threads), decompressed_file]
-        if self.verbose:
-            print("Run barrnap:\t" + ' '.join(cmd) + ' > ' + barrnap_outputfile)
+        logger.info("Run barrnap:\t%s > %s", ' '.join(cmd), barrnap_outputfile)
         with open(barrnap_outputfile, 'w') as out_fh:
             subprocess.run(cmd, stdout=out_fh, check=True)
 

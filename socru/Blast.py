@@ -11,11 +11,14 @@ Classes:
 """
 
 import gzip
+import logging
 import shutil
 from tempfile import mkstemp
 import subprocess
 import os
 import re
+
+logger = logging.getLogger(__name__)
 
 class Blast:
     """
@@ -74,8 +77,7 @@ class Blast:
             os.close(fd)
             self.files_to_cleanup.append(decompressed_input_file)
 
-            if self.verbose:
-                print("Decompress file before blasting:\tgunzip -c " + input_file + " > " + decompressed_input_file)
+            logger.info("Decompress file before blasting:\tgunzip -c %s > %s", input_file, decompressed_input_file)
 
             with gzip.open(input_file, 'rb') as gz_in:
                 with open(decompressed_input_file, 'wb') as f_out:
@@ -111,8 +113,7 @@ class Blast:
             '-num_threads', str(self.threads), '-task', self.task,
             '-query', decompressed_query,
         ]
-        if self.verbose:
-            print("Run blastn:\t" + ' '.join(cmd))
+        logger.info("Run blastn:\t%s", ' '.join(cmd))
 
         result = subprocess.run(cmd, capture_output=True, check=True, text=True)
 

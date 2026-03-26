@@ -9,11 +9,14 @@ Classes:
     DnaA: Identifies dnaA-containing fragments
 """
 
+import logging
 import sys
 
 from socru.Database import Database
 from socru.Blast import Blast
 from socru.FilterBlast import FilterBlast
+
+logger = logging.getLogger(__name__)
 
 class DnaA:
     """
@@ -68,8 +71,7 @@ class DnaA:
         and identifies which fragment contains the best match. Also determines
         the orientation of dnaA (forward or reverse strand).
         """
-        if self.verbose:
-            print("Finding fragment FASTA containing dnaA (origin of replication)")
+        logger.info("Finding fragment FASTA containing dnaA (origin of replication)")
         
         # Create BLAST database from fragments
         blastdb = Database(self.directory_of_fasta_files, self.verbose)
@@ -84,7 +86,7 @@ class DnaA:
         
         if top_result is None:
             # No match found - use defaults
-            sys.stderr.write("WARNING: Could not locate dnaA in any fragment, defaulting to fragment 1\n")
+            logger.warning("Could not locate dnaA in any fragment, defaulting to fragment 1")
             self.forward_orientation = None
             self.fragment_with_dnaa = 1
         else:
@@ -97,6 +99,5 @@ class DnaA:
             else:
                 self.forward_orientation = False
                 
-            if self.verbose:
-                print("Found dnaA on fragment:\t" + str(self.fragment_with_dnaa))
-                print("dnaA in forward orientation:\t" + str(self.forward_orientation))
+            logger.info("Found dnaA on fragment:\t%s", self.fragment_with_dnaa)
+            logger.info("dnaA in forward orientation:\t%s", self.forward_orientation)

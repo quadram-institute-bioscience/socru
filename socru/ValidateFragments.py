@@ -10,7 +10,10 @@ Classes:
     ValidateFragments: Validates fragment and operon orientation
 """
 
+import logging
 import sys
+
+logger = logging.getLogger(__name__)
 
 class ValidateFragments:
     """
@@ -49,7 +52,7 @@ class ValidateFragments:
             if frag.dna_A:
                 return i
         
-        sys.stderr.write("WARNING: DnaA could not be found in genome '{}'\n".format(self.genome_name))
+        logger.warning("DnaA could not be found in genome '%s'", self.genome_name)
         return -1
         
     def find_dif(self, frags):
@@ -66,7 +69,7 @@ class ValidateFragments:
             if frag.dif:
                 return i
         
-        sys.stderr.write("WARNING: Dif could not be found in genome '{}'\n".format(self.genome_name))
+        logger.warning("Dif could not be found in genome '%s'", self.genome_name)
         return -1
         
     def reorientate_ori(self):
