@@ -7,9 +7,10 @@ on:
     branches: [master]
 
 jobs:
-  test:
+  unit:
+    name: Unit tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
@@ -18,30 +19,44 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package
+        run: pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check socru/
+
+      - name: Run unit tests
+        run: pytest -m "not integration" --cov=socru --cov-report=term-missing -q
+
+  integration:
+    name: Integration tests (barrnap + BLAST)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.11"
           channels: conda-forge,bioconda,defaults
           activate-environment: test
           auto-activate-base: false
 
-      - name: Install bioinformatics dependencies
+      - name: Install barrnap and BLAST
         shell: bash -el {0}
-        run: |
-          conda install -y barrnap blast
+        run: conda install -y barrnap blast
 
-      - name: Install package with dev dependencies
+      - name: Install package
         shell: bash -el {0}
-        run: |
-          pip install -e ".[dev]"
+        run: pip install -e ".[dev]"
 
-      - name: Run ruff lint check
+      - name: Run integration tests
         shell: bash -el {0}
-        run: |
-          ruff check socru/
-
-      - name: Run tests with coverage
-        shell: bash -el {0}
-        run: |
-          pytest --cov=socru --cov-report=term-missing socru/tests/
+        run: pytest -m "integration" --cov=socru --cov-report=term-missing -q

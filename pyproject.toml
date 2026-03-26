@@ -52,6 +52,9 @@ socru = ["data/*", "data/*/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["socru/tests"]
+markers = [
+    "integration: tests requiring external tools (barrnap, BLAST+)",
+]
 filterwarnings = [
     "ignore::DeprecationWarning:pkg_resources",
 ]
