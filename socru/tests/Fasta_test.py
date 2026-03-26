@@ -1,6 +1,7 @@
 import unittest
 import os
 import shutil
+import tempfile
 from socru.Fasta  import Fasta
 from socru.Operon import Operon
 
@@ -55,6 +56,27 @@ class TestFasta(unittest.TestCase):
         
         f.populate_fragments_from_chromosome(fragments, 5)
         sequences = [str(f.sequence) for f in fragments]
-        self.assertEqual(sequences, ['TTTTTNNNAAAAA', 'CCCCCNNNCCCCC', 'GGGGGNNNGGGGG'])	
-        
-        
+        self.assertEqual(sequences, ['TTTTTNNNAAAAA', 'CCCCCNNNCCCCC', 'GGGGGNNNGGGGG'])
+
+    def test_nonexistent_file_raises(self):
+        with self.assertRaises(FileNotFoundError):
+            Fasta('/nonexistent/file.fa', False)
+
+    def test_empty_file_raises(self):
+        with tempfile.NamedTemporaryFile(suffix='.fa', delete=False) as tmp:
+            tmp_path = tmp.name
+        try:
+            with self.assertRaises(ValueError):
+                Fasta(tmp_path, False)
+        finally:
+            os.unlink(tmp_path)
+
+    def test_no_valid_sequences_raises(self):
+        with tempfile.NamedTemporaryFile(suffix='.fa', mode='w', delete=False) as tmp:
+            tmp.write("not a fasta file\n")
+            tmp_path = tmp.name
+        try:
+            with self.assertRaises(ValueError):
+                Fasta(tmp_path, False)
+        finally:
+            os.unlink(tmp_path)

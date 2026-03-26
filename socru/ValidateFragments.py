@@ -10,6 +10,8 @@ Classes:
     ValidateFragments: Validates fragment and operon orientation
 """
 
+import sys
+
 class ValidateFragments:
     """
     Validate genome fragment arrangement and operon orientations.
@@ -22,14 +24,16 @@ class ValidateFragments:
     Attributes:
         fragments (list): List of Fragment objects to validate
     """
-    def __init__(self, fragments):
+    def __init__(self, fragments, genome_name='unknown'):
         """
         Initialize validator with fragments to check.
-        
+
         Args:
             fragments (list): List of Fragment objects
+            genome_name (str): Name of genome being processed, for error messages
         """
         self.fragments = fragments
+        self.genome_name = genome_name
     
     def find_dnaa(self, frags):
         """
@@ -45,7 +49,7 @@ class ValidateFragments:
             if frag.dna_A:
                 return i
         
-        print("DnaA couldnt be found")
+        sys.stderr.write("WARNING: DnaA could not be found in genome '{}'\n".format(self.genome_name))
         return -1
         
     def find_dif(self, frags):
@@ -62,7 +66,7 @@ class ValidateFragments:
             if frag.dif:
                 return i
         
-        print("Dif couldnt be found")
+        sys.stderr.write("WARNING: Dif could not be found in genome '{}'\n".format(self.genome_name))
         return -1
         
     def reorientate_ori(self):

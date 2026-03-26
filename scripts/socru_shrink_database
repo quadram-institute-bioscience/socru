@@ -14,19 +14,11 @@ fragment combinations may not occur in practice.
 import sys
 import argparse
 import os
-import pkg_resources
+from importlib.metadata import version as get_version
 # Add parent and current directories to path for module imports
 sys.path.append('../')
 sys.path.append('./')
 from socru.SocruShrinkDatabase import SocruShrinkDatabase
-
-# Attempt to get the installed version from package metadata
-version = ''
-try:
-	version = pkg_resources.get_distribution("socru").version
-except pkg_resources.DistributionNotFound:
-	# If not installed as a package, use placeholder version
-	version = 'x.y.z'
 
 # Set up command-line argument parser
 parser = argparse.ArgumentParser(
@@ -45,7 +37,7 @@ parser.add_argument('--min_fragment_size', help="Minimum fragment size in bases"
 # Debugging and information options
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
-parser.add_argument('--version', action='version', version=str(version))
+parser.add_argument('--version', action='version', version='%(prog)s ' + get_version('socru'))
 
 # Parse command-line arguments
 options = parser.parse_args()

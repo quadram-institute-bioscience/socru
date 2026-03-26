@@ -18,7 +18,6 @@ import time
 import subprocess
 from tempfile import mkstemp
 from tempfile import mkdtemp
-import pkg_resources
 import shutil
 
 from socru.Fasta import Fasta
@@ -90,9 +89,9 @@ class Socru:
         # Locate and validate the species database
         self.db_dir =  Schemas(self.verbose).database_directory(options.db_dir, options.species)
         if self.db_dir is None:
-             print(
-             "Cannot access the database you specified, please check again")
-             sys.exit(1)
+             raise FileNotFoundError(
+                 "Cannot access the database for species '{}'. "
+                 "Please check the species name and database directory.".format(options.species))
         
         # Set chromosome circularity assumption
         if options.not_circular:
@@ -292,7 +291,7 @@ class Socru:
         reordered_frag_objs = gat_profile.reorder_fragment_objects_based_on_fragment_name_array( ff.ordered_fragments )
         
         # Step 6: Validate that fragments are ordered correctly
-        validate_fragments = ValidateFragments(ff.ordered_fragments)
+        validate_fragments = ValidateFragments(ff.ordered_fragments, genome_name=input_file)
         is_frag_valid = validate_fragments.validate()
         
         # Build operon direction string for output

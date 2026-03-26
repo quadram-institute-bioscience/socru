@@ -16,18 +16,10 @@ sys.path.append('../')
 sys.path.append('./')
 import argparse
 import os
-import pkg_resources
+from importlib.metadata import version as get_version
 sys.path.append('../')
 sys.path.append('./')
 from socru.Socru import Socru
-
-# Attempt to get the installed version from package metadata
-version = ''
-try:
-	version = pkg_resources.get_distribution("socru").version
-except pkg_resources.DistributionNotFound:
-	# If not installed as a package, use placeholder version
-	version = 'x.y.z'
 
 # Set up command-line argument parser with citation information
 parser = argparse.ArgumentParser(
@@ -63,7 +55,7 @@ parser.add_argument('--min_alignment_length',  help='Minimum alignment length', 
 # Debugging and information options
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
 parser.add_argument('--verbose', '-v', action='store_true', help='Turn on verbose output', default = False)
-parser.add_argument('--version', action='version', version=str(version))
+parser.add_argument('--version', action='version', version='%(prog)s ' + get_version('socru'))
 
 # Parse command-line arguments
 options = parser.parse_args()
@@ -78,9 +70,13 @@ if options.debug:
     pr.enable()
     
     # Run Socru analysis with profiling
-    g = Socru(options)
-    g.run()
-    
+    try:
+        g = Socru(options)
+        g.run()
+    except (FileNotFoundError, ValueError) as e:
+        print(str(e), file=sys.stderr)
+        sys.exit(1)
+
     # Disable profiler and output statistics
     pr.disable()
     s = io.StringIO()
@@ -90,5 +86,9 @@ if options.debug:
     print(s.getvalue())
 else:
     # Run Socru analysis normally (without profiling)
-    g = Socru(options) 
-    g.run()
+    try:
+        g = Socru(options)
+        g.run()
+    except (FileNotFoundError, ValueError) as e:
+        print(str(e), file=sys.stderr)
+        sys.exit(1)

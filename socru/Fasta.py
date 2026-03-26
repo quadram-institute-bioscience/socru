@@ -12,7 +12,9 @@ Classes:
 
 from Bio import SeqIO
 from socru.Fragment import Fragment
+import os
 import re
+import sys
 import gzip
 
 class Fasta:
@@ -41,6 +43,15 @@ class Fasta:
         self.input_file = input_file
         self.is_circular = is_circular
         self.verbose = verbose
+
+        # Validate input file exists
+        if not os.path.exists(input_file):
+            raise FileNotFoundError(f"Input file not found: {input_file}")
+
+        # Validate input file is not empty
+        if os.path.getsize(input_file) == 0:
+            raise ValueError(f"Input file is empty: {input_file}")
+
         self.chromosome = self.get_chromosome_from_fasta()
     
     def get_chromosome_from_fasta(self):
@@ -67,6 +78,16 @@ class Fasta:
             # Handle plain FASTA
             for record in SeqIO.parse(self.input_file, "fasta"):
                 largest_contig = self.largest_contig_check( largest_contig, record)
+
+        if largest_contig is None:
+            raise ValueError(f"No valid sequences found in {self.input_file}")
+
+        if len(largest_contig.seq) < 100000:
+            sys.stderr.write(
+                f"WARNING: Largest contig in {self.input_file} is only "
+                f"{len(largest_contig.seq)} bp, which is unlikely to be a "
+                f"complete chromosome\n"
+            )
 
         return largest_contig
         
