@@ -30,10 +30,10 @@ class GATProfile:
         dif_fragment_number (int): Fragment containing dif terminator (default 1)
     """
     
-    def __init__(self, verbose, gat_number = 0, fragments = [], orientation_number = 0, dnaA_fragment_number = 3, dif_fragment_number = 1 ):
+    def __init__(self, verbose, gat_number = 0, fragments = None, orientation_number = 0, dnaA_fragment_number = 3, dif_fragment_number = 1 ):
         """
         Initialize a GATProfile.
-        
+
         Args:
             verbose (bool): Enable verbose output
             gat_number: GS type number (default 0)
@@ -43,7 +43,7 @@ class GATProfile:
             dif_fragment_number (int): Terminus fragment ID (default 1)
         """
         self.gat_number = gat_number
-        self.fragments = fragments
+        self.fragments = fragments if fragments is not None else []
         self.verbose = verbose
         self.orientation_number = orientation_number
         self.dnaA_fragment_number = dnaA_fragment_number

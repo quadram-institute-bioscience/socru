@@ -60,27 +60,26 @@ class Results:
         with open(self.results_file, newline='') as csvfile:
             profile_reader = csv.reader(csvfile, delimiter='\t')
             for row in profile_reader:
-                for row in profile_reader:
-                    if len(row) > 3:
-                        # Parse results format:
-                        # 1: directory of schema
-                        # 2: GS number with GS at the start
-                        # 3..N: fragment pattern
-                        m = re.match("GS(.+)", row[1])
-                        if m:
-                            gat_number = m.group(1)
-                            fragments = [row[f] for f in range(2, len(row))]
-                            
-                            # Skip profiles with unknown fragments
-                            unknown = [f for f in fragments if f == '?' or f == "?'"]
-                            if len(unknown) > 0:
-                                continue
-                            
-                            # Create profile and check for duplicates
-                            g = GATProfile(self.verbose, gat_number = gat_number, fragments = fragments)
-                            if str(g) not in seen_profiles:
-                                seen_profiles.append(str(g))
-                                profiles.append(g)
+                if len(row) > 3:
+                    # Parse results format:
+                    # 1: directory of schema
+                    # 2: GS number with GS at the start
+                    # 3..N: fragment pattern
+                    m = re.match("GS(.+)", row[1])
+                    if m:
+                        gat_number = m.group(1)
+                        fragments = [row[f] for f in range(2, len(row))]
+
+                        # Skip profiles with unknown fragments
+                        unknown = [f for f in fragments if f == '?' or f == "?'"]
+                        if len(unknown) > 0:
+                            continue
+
+                        # Create profile and check for duplicates
+                        g = GATProfile(self.verbose, gat_number = gat_number, fragments = fragments)
+                        if str(g) not in seen_profiles:
+                            seen_profiles.append(str(g))
+                            profiles.append(g)
         return profiles
     
     def filter(self, num_fragments):

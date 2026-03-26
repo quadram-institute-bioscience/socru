@@ -89,7 +89,7 @@ class FilterBlast:
         """
         results = self.filter_results()
         if len(results) > 0:
-            return (self.filter_results())[0]
+            return results[0]
         else:
             return None
             

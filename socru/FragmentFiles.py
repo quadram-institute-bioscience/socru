@@ -90,7 +90,7 @@ class FragmentFiles:
                     # Reverse complement this fragment
                     reordered_fragments[i].number = m.group(1)
                     reordered_fragments[i].sequence = reordered_fragments[i].sequence.reverse_complement()
-                    reordered_fragments[i].reversed = True
+                    reordered_fragments[i].reversed_frag = True
                 else:
                     # Use fragment as-is
                     reordered_fragments[i].number = input_order[i]

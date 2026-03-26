@@ -11,10 +11,8 @@ Classes:
     TypeGenerator: Generates GS type assignments from fragment patterns
 """
 
-from Bio import SeqIO
 from socru.GATProfile  import GATProfile
 import re
-import gzip
 
 class TypeGenerator:
     """
