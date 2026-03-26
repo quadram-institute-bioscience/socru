@@ -10,7 +10,6 @@ Functions:
 
 from typing import Any, Dict, List, Optional
 
-
 # Color thresholds for BLAST identity
 _COLOR_EXCELLENT = "#2ca02c"   # green: >99%
 _COLOR_GOOD = "#f0c800"        # yellow: 95-99%

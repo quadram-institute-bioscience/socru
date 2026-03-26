@@ -1,10 +1,10 @@
-import unittest
 import os
 import shutil
 import tempfile
-import filecmp
-from socru.PlotProfile import PlotProfile
+import unittest
+
 from socru.Fragment import Fragment
+from socru.PlotProfile import PlotProfile
 
 test_modules_dir = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(test_modules_dir, 'data', 'plot_profile')

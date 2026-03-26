@@ -12,11 +12,12 @@ Classes:
 import csv
 import gzip
 import logging
-import re
 import os
+import re
 import shutil
 import subprocess
 from tempfile import mkstemp
+
 from socru.Fasta import Fasta
 from socru.Operon import Operon
 

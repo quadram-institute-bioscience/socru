@@ -15,7 +15,6 @@ Functions:
 
 from typing import Any, Dict, List, Optional
 
-
 # ColorBrewer Paired palette (same as SvgGenomePlot)
 _PALETTE = [
     "#a6cee3",  # light blue

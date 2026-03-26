@@ -13,7 +13,6 @@ Classes:
 from __future__ import annotations
 
 import logging
-import sys
 
 from socru.Fragment import Fragment
 
@@ -22,12 +21,12 @@ logger = logging.getLogger(__name__)
 class ValidateFragments:
     """
     Validate genome fragment arrangement and operon orientations.
-    
+
     This class checks that fragments are arranged correctly in relation to
     the chromosome's replication origin and terminus. In bacteria, rRNA
     operons should be transcribed in the direction of replication fork
     movement (away from origin, toward terminus).
-    
+
     Attributes:
         fragments (list): List of Fragment objects to validate
     """
@@ -41,48 +40,48 @@ class ValidateFragments:
         """
         self.fragments = fragments
         self.genome_name = genome_name
-    
+
     def find_dnaa(self, frags: list[Fragment]) -> int:
         """
         Find the fragment containing the dnaA origin marker.
-        
+
         Args:
             frags (list): List of Fragment objects
-            
+
         Returns:
             int: Index of dnaA-containing fragment, or -1 if not found
         """
         for i, frag in enumerate(frags):
             if frag.dna_A:
                 return i
-        
+
         logger.warning("DnaA could not be found in genome '%s'", self.genome_name)
         return -1
-        
+
     def find_dif(self, frags: list[Fragment]) -> int:
         """
         Find the fragment containing the dif terminus marker.
-        
+
         Args:
             frags (list): List of Fragment objects
-            
+
         Returns:
             int: Index of dif-containing fragment, or -1 if not found
         """
         for i, frag in enumerate(frags):
             if frag.dif:
                 return i
-        
+
         logger.warning("Dif could not be found in genome '%s'", self.genome_name)
         return -1
-        
+
     def reorientate_ori(self) -> list[Fragment]:
         """
         Rotate fragment list to start with the origin (dnaA).
-        
+
         This provides a consistent reference point for validation,
         starting from the replication origin.
-        
+
         Returns:
             list: Fragments reordered to start with dnaA
         """
@@ -93,25 +92,25 @@ class ValidateFragments:
         # Rotate to put dnaA at position 0
         reorientated_frags = self.fragments[dnaa_index: len(self.fragments)] + self.fragments[0: dnaa_index]
         return reorientated_frags
-        
+
     def validate(self) -> bool:
         """
         Validate that fragments and operons are correctly oriented.
-        
+
         Checks that:
         1. dnaA and dif markers are present
         2. Operons from origin to terminus are forward-oriented (-->)
         3. Operons from terminus back to origin are reverse-oriented (<--)
-        
+
         This validates the biological expectation that rRNA operons are
         transcribed in the direction of replication fork movement.
-        
+
         Returns:
             bool: True if arrangement is valid, False otherwise
-        """        
+        """
         # Reorient so that origin (dnaA) is at index zero
         reorientated_frags = self.reorientate_ori()
-        
+
         # Find positions of origin and terminus
         dnaa_index = self.find_dnaa(reorientated_frags)
         dif_index = self.find_dif(reorientated_frags)
@@ -119,7 +118,7 @@ class ValidateFragments:
         # Must have both markers
         if dnaa_index == -1 or dif_index == -1:
             return False
-            
+
         # Walk from the origin in both directions until the terminus
         # checking operon orientations
 
@@ -132,18 +131,17 @@ class ValidateFragments:
             if i >= dif_index:
                 # We have reached the terminus
                 break
-       
+
         # Reverse walk (left replichore): going backwards from end to terminus
         # All operons should be reverse (<--)
         for i in range( len(self.fragments) -1, dif_index, -1):
             # If the operon is forward (should be reverse) then invalid
             if reorientated_frags[i].operon_forward_start:
-                return False    
+                return False
             if i <= dif_index:
                 # We have reached the terminus
                 break
 
         # All checks passed
         return True
-        
-        
+

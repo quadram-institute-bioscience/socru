@@ -1,6 +1,7 @@
 """Tests for the SVG coverage pileup visualization."""
 
 import unittest
+
 from socru.SvgCoveragePileup import generate_coverage_pileup_svg
 
 

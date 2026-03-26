@@ -1,5 +1,6 @@
 import unittest
-from socru.NoveltyDetector import assess_novelty, NoveltyAssessment
+
+from socru.NoveltyDetector import NoveltyAssessment, assess_novelty
 
 
 class TestNoveltyDetector(unittest.TestCase):

@@ -1,6 +1,5 @@
 import unittest
-import os
-import shutil
+
 from socru.Fragment import Fragment
 
 

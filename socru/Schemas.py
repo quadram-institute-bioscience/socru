@@ -10,11 +10,12 @@ Classes:
     Schemas: Manages species database discovery and access
 """
 
+import importlib.resources
 import logging
 import os
 from os import listdir
 from os.path import isdir
-import importlib.resources
+
 import yaml
 
 from socru.DatabaseManager import DatabaseManager
@@ -49,45 +50,45 @@ class Schemas:
         self.base_directory = str(importlib.resources.files('socru') / 'data')
         # DatabaseManager for user-installed database fallback
         self.db_manager = DatabaseManager()
-    
+
     def all_available(self):
         """
         Get list of all available species databases.
-        
+
         Returns:
             list: Names of available species (directory names)
         """
         return [ d for d in listdir(self.base_directory) if isdir(os.path.join(self.base_directory, d))]
-        
+
     def print_all(self):
         """
         Print simple list of available species names.
         """
         for d in sorted(self.all_available()):
             print(d)
-            
+
     def extended(self):
         """
         Get extended metadata for all species databases.
-        
+
         Reads metadata YAML files to extract information about:
         - dnaA fragment number and orientation
         - dif fragment number
         - Reference genome used
-        
+
         Returns:
             dict: Species name -> [species, dnaA_frag, dnaA_orient, dif_frag, reference]
         """
         db_info = {}
         for species in listdir(self.base_directory):
-            
+
             db_dir = os.path.join(self.base_directory, species)
             db_file = os.path.join(self.base_directory, species,'profile.txt.yml')
 
             if not os.path.exists(db_file):
                 continue
-            
-            # Read metadata YAML file    
+
+            # Read metadata YAML file
             with open(db_file, 'r') as metadatafh:
                 try:
                     metadata = yaml.load(metadatafh, yaml.SafeLoader)
@@ -95,32 +96,32 @@ class Schemas:
                     dnaa_forward_orientation = False
                     dif_fragment_number = 0
                     reference_genome = ''
-                    
+
                     # Extract dnaA information
                     if 'dnaa_fragment' in metadata:
                         dnaA_fragment_number = int(metadata['dnaa_fragment'])
                         dnaa_forward_orientation = metadata['dnaa_forward_orientation']
-                    
+
                     # Extract dif information
                     if 'dif_fragment' in metadata:
                         dif_fragment_number = int(metadata['dif_fragment'])
-                    
-                    # Extract reference genome    
+
+                    # Extract reference genome
                     if 'reference_genome' in metadata:
                         reference_genome = str(metadata['reference_genome'])
-                    
-                    # Store database info    
+
+                    # Store database info
                     db_info[species] = [species, dnaA_fragment_number, dnaa_forward_orientation, dif_fragment_number, reference_genome]
-                    
-					
+
+
                 except yaml.YAMLError as exc:
                     logger.warning("Failed to parse YAML metadata: %s", exc)
         return db_info
-        
+
     def print_extended(self):
         """
         Print detailed table of all species databases with metadata.
-        
+
         Displays tab-delimited table with columns:
         Species, dnaA fragment No., dnaA forward orientation, dif fragment No., Reference
         """
@@ -130,8 +131,8 @@ class Schemas:
         # Print each species
         for species in sorted(extended_details):
             print("\t".join( [ str(a) for a in extended_details[species] ]))
-        
-        
+
+
     def database_directory(self, db_dir, species):
         """
         Locate database directory for a species.

@@ -1,4 +1,5 @@
 import unittest
+
 from socru.HtmlReport import HtmlReport
 
 
@@ -61,8 +62,8 @@ class TestHtmlReport(unittest.TestCase):
         self.assertIn('MISSING_FRAGMENT', html)
 
     def test_save_to_file(self):
-        import tempfile
         import os
+        import tempfile
 
         results = [{
             'genome_file': 'test.fasta', 'gs_type': 'GS1.0',

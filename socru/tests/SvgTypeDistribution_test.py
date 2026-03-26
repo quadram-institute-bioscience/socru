@@ -1,6 +1,7 @@
 """Tests for the SVG GS type distribution bar chart generator."""
 
 import unittest
+
 from socru.SvgTypeDistribution import generate_type_distribution_svg
 
 

@@ -1,5 +1,6 @@
 import unittest
-from socru.RearrangementDistance import rearrangement_distance, pairwise_distance_matrix
+
+from socru.RearrangementDistance import pairwise_distance_matrix, rearrangement_distance
 
 
 class TestRearrangementDistance(unittest.TestCase):

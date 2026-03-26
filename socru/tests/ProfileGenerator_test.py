@@ -1,8 +1,9 @@
-import unittest
+import filecmp
 import os
 import shutil
 import tempfile
-import filecmp
+import unittest
+
 from socru.ProfileGenerator import ProfileGenerator
 
 test_modules_dir = os.path.dirname(os.path.realpath(__file__))

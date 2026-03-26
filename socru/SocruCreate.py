@@ -9,17 +9,16 @@ Classes:
     SocruCreate: Manages database creation workflow
 """
 
-import os
-import sys
 import importlib.resources
+import os
 from tempfile import mkstemp
 
-
+from socru.Barrnap import Barrnap
 from socru.Fasta import Fasta
 from socru.FragmentFiles import FragmentFiles
-from socru.Barrnap  import Barrnap
 from socru.ProfileGenerator import ProfileGenerator
 from socru.SocruConfig import SocruCreateConfig
+
 
 class SocruCreate:
     """

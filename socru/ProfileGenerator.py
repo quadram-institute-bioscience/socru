@@ -12,24 +12,26 @@ Classes:
 
 from __future__ import annotations
 
-import re
 import csv
 import os
+
 import yaml
-from socru.DnaA  import DnaA
-from socru.Dif  import Dif
+
+from socru.Dif import Dif
+from socru.DnaA import DnaA
+
 
 class ProfileGenerator:
     """
     Generate initial profile database and metadata for new species.
-    
+
     This class creates the foundational files for a new species database:
     - profile.txt: Contains the default GS type (1.0 with forward fragments)
     - profile.txt.yml: Metadata including dnaA/dif positions
-    
+
     It BLASTs dnaA and dif sequences against the extracted fragments to
     identify their locations.
-    
+
     Attributes:
         output_directory (str): Database directory where files will be written
         output_filename (str): Full path to profile.txt
@@ -45,7 +47,7 @@ class ProfileGenerator:
     def __init__(self, output_directory: str, num_fragments: int, dnaa_fasta: str, dif_fasta: str, threads: int, input_file: str, verbose: bool, prefix: str = 'GS', output_filename: str = 'profile.txt', metadata_file_suffix: str = '.yml') -> None:
         """
         Initialize ProfileGenerator with output location and parameters.
-        
+
         Args:
             output_directory (str): Database directory
             num_fragments (int): Number of fragments
@@ -68,56 +70,56 @@ class ProfileGenerator:
         self.dif_fasta = dif_fasta
         self.threads = threads
         self.metadata_file_suffix = metadata_file_suffix
-        
+
     def header(self) -> list[str]:
         """
         Generate header row for profile file.
-        
+
         Returns:
             list: Header with GS type column followed by fragment columns
         """
         header_row = [self.prefix]
         for i in range(self.num_fragments):
-            header_row.append('Frag_'+str(i +1)) 
+            header_row.append('Frag_'+str(i +1))
         return header_row
-        
+
     def default_profile(self) -> list[str]:
         """
         Generate default profile (GS1.0 with all fragments forward).
-        
+
         The default profile represents the reference genome's structure
         with all fragments in order 1-2-3-... without reversals.
-        
+
         Returns:
             list: Default profile row [1.0, 1, 2, 3, ...]
         """
         default_row = ['1.0']
         for i in range(self.num_fragments):
-            default_row.append(str(i + 1)) 
+            default_row.append(str(i + 1))
         return default_row
-    
+
     def write_output_file(self) -> None:
         """
         Write profile.txt file with header and default profile.
-        
+
         Creates tab-delimited file with:
         - Header row
         - Default GS1.0 profile
-        
+
         Also triggers metadata file generation.
         """
         content = [self.header(), self.default_profile()]
         with open(self.output_filename, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile, delimiter='\t')
             writer.writerows(content)
-            
+
         # Generate metadata file
         self.write_metadata_file()
-    
+
     def write_metadata_file(self) -> None:
         """
         Create metadata YAML file with dnaA and dif positions.
-        
+
         BLASTs dnaA and dif sequences against fragments to identify their
         locations and orientations. Writes metadata including:
         - dnaa_fragment: Fragment number containing origin
@@ -129,16 +131,16 @@ class ProfileGenerator:
         d = DnaA(self.dnaa_fasta, self.output_directory, self.threads, self.verbose)
         # Find dif position
         dif = Dif(self.dif_fasta, self.output_directory, self.threads, self.verbose)
-        
+
         # Prepare metadata
         metadata_file =  self.output_filename + self.metadata_file_suffix
-        metadata_content = { 
-            'dnaa_fragment': int(d.fragment_with_dnaa), 
-            'dif_fragment': int(dif.fragment_with_dif), 
-            'dnaa_forward_orientation': d.forward_orientation, 
-            'reference_genome':  self.input_file 
+        metadata_content = {
+            'dnaa_fragment': int(d.fragment_with_dnaa),
+            'dif_fragment': int(dif.fragment_with_dif),
+            'dnaa_forward_orientation': d.forward_orientation,
+            'reference_genome':  self.input_file
         }
-        
+
         # Write YAML file
         with open(metadata_file, 'w') as yaml_file:
             yaml.dump(metadata_content, yaml_file, default_flow_style=False)

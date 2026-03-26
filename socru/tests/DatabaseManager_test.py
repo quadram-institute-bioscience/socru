@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from socru.DatabaseManager import DatabaseManager, DEFAULT_DATA_DIR
+from socru.DatabaseManager import DEFAULT_DATA_DIR, DatabaseManager
 
 
 class TestDatabaseManagerBundled(unittest.TestCase):

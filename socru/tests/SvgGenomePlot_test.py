@@ -1,6 +1,7 @@
 """Tests for the SVG circular genome diagram generator."""
 
 import unittest
+
 from socru.SvgGenomePlot import generate_genome_svg
 
 

@@ -14,8 +14,10 @@ from __future__ import annotations
 
 import csv
 import logging
-import yaml
 import os
+
+import yaml
+
 from socru.GATProfile import GATProfile
 
 logger = logging.getLogger(__name__)
@@ -24,17 +26,17 @@ logger = logging.getLogger(__name__)
 class Profiles:
     """
     Manage profile database of known genome arrangement types.
-    
+
     This class loads a profile database from a tab-delimited file, where each
     row represents a known GS type and its fragment pattern. It also reads
     metadata about special fragments like dnaA and dif positions. The profiles
     are used to match query genomes to known types.
-    
+
     Attributes:
         input_file (str): Path to profile database file (tab-delimited)
         metadata_file (str): Path to metadata YAML file
         dnaA_fragment_number (int): Fragment containing dnaA origin
-        dif_fragment_number (int): Fragment containing dif terminus  
+        dif_fragment_number (int): Fragment containing dif terminus
         dnaa_forward_orientation (bool): Expected orientation of dnaA
         verbose (bool): Enable verbose output
         gats (list): List of GATProfile objects from database
@@ -43,7 +45,7 @@ class Profiles:
     def __init__(self, input_file: str, verbose: bool, metadata_file_suffix: str = '.yml', default_dnaA_fragment_number: int = 3, default_dif_fragment_number: int = 1) -> None:
         """
         Initialize Profiles by loading database and metadata.
-        
+
         Args:
             input_file (str): Path to profile database file
             verbose (bool): Enable verbose output
@@ -57,28 +59,28 @@ class Profiles:
         self.dif_fragment_number = default_dif_fragment_number
         self.dnaa_forward_orientation = False
         self.verbose = verbose
-        
+
         # Load profiles from database file
         self.gats = self.read_profiles()
         # Load metadata (dnaA, dif positions)
         self.read_metadata()
         # Determine expected number of fragments
         self.num_fragments = self.expected_num_fragments()
-        
+
     def read_profiles(self) -> list[GATProfile]:
         """
         Read profile database from tab-delimited file.
-        
+
         File format: Each row has GS type in first column, followed by
         fragment pattern (e.g., "1  2'  3  4")
-        
+
         Returns:
             list: List of GATProfile objects from database
         """
         with open(self.input_file, newline='') as csvfile:
             profile_reader = csv.reader(csvfile, delimiter='\t')
             # skip the header line
-            next(profile_reader) 
+            next(profile_reader)
             profiles = []
             for row in profile_reader:
                 if len(row) > 2:
@@ -90,16 +92,16 @@ class Profiles:
                     g.orientate_for_dnaA()
                     profiles.append(g)
             return profiles
-            
+
     def read_metadata(self) -> None:
         """
         Read metadata YAML file for database configuration.
-        
+
         Metadata includes positions of special fragments:
         - dnaa_fragment: Fragment containing origin
         - dnaa_forward_orientation: Expected orientation
         - dif_fragment: Fragment containing terminus
-        
+
         Returns:
             None
         """
@@ -112,22 +114,22 @@ class Profiles:
                 if 'dnaa_fragment' in metadata:
                     self.dnaA_fragment_number = int(metadata['dnaa_fragment'])
                     self.dnaa_forward_orientation = metadata['dnaa_forward_orientation']
-                
-                # Load dif fragment information	
+
+                # Load dif fragment information
                 if 'dif_fragment' in metadata:
                     self.dif_fragment_number = int(metadata['dif_fragment'])
-					
+
             except yaml.YAMLError as exc:
                 logger.warning("Failed to parse YAML metadata: %s", exc)
         return
-        
+
     def expected_num_fragments(self) -> int:
         """
         Determine expected number of fragments from first profile.
-        
+
         All profiles should have the same number of fragments. This gets
         the count from the first profile to validate query genomes.
-        
+
         Returns:
             int: Expected number of fragments, or -1 if no profiles loaded
         """
@@ -135,16 +137,15 @@ class Profiles:
             return len(self.gats[0].fragments)
         else:
             return -1
-            
+
     def next_order_number(self) -> int:
         """
         Get next available GS type order number.
-        
+
         Used when creating new GS types for novel patterns. Returns one
         more than the highest existing order number.
-        
+
         Returns:
             int: Next available order number
         """
         return max([p.order() for p in self.gats]) + 1
-            

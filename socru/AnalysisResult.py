@@ -13,9 +13,9 @@ Classes:
     AnalysisResult: Complete result for one genome analysis
 """
 
-from dataclasses import dataclass, field, asdict
-from typing import List, Optional, Tuple
 import json
+from dataclasses import asdict, dataclass, field
+from typing import List, Optional
 
 
 @dataclass

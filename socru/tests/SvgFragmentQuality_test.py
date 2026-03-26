@@ -1,6 +1,7 @@
 """Tests for the SVG fragment quality bar chart generator."""
 
 import unittest
+
 from socru.SvgFragmentQuality import generate_fragment_quality_svg
 
 

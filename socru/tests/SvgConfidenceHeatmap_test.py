@@ -1,7 +1,8 @@
 """Tests for the SVG confidence heatmap visualization."""
 
 import unittest
-from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg, _identity_color
+
+from socru.SvgConfidenceHeatmap import _identity_color, generate_confidence_heatmap_svg
 
 
 class TestSvgConfidenceHeatmap(unittest.TestCase):

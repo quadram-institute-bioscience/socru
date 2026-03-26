@@ -1,13 +1,11 @@
 """Tests for context manager implementations across socru modules."""
 
-import unittest
-import tempfile
 import os
-import shutil
+import tempfile
+import unittest
 
 from socru.Barrnap import Barrnap
 from socru.Blast import Blast
-from socru.SocruCreate import SocruCreate
 from socru.SocruRebuildProfile import SocruRebuildProfile
 
 

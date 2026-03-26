@@ -8,8 +8,7 @@ Functions:
     generate_type_distribution_svg: Build an SVG string for a type distribution chart.
 """
 
-from typing import Any, Dict, List, Optional
-
+from typing import Dict, List, Optional
 
 _QUALITY_COLORS = {
     "GREEN": "#2ca02c",

@@ -1,7 +1,7 @@
 import unittest
-import os
-import shutil
-from socru.GATProfile  import GATProfile
+
+from socru.GATProfile import GATProfile
+
 
 class TestGATProfile(unittest.TestCase):
 

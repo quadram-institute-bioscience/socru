@@ -1,4 +1,5 @@
 import unittest
+
 from socru.BlastResult import BlastResult
 
 

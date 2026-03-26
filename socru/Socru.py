@@ -13,38 +13,35 @@ Classes:
 import json
 import logging
 import os
-import sys
-
-import subprocess
 
 logger = logging.getLogger(__name__)
-from tempfile import mkstemp
-from tempfile import mkdtemp
 import shutil
+from tempfile import mkdtemp, mkstemp
 
-from socru.Fasta import Fasta
-from socru.FragmentFiles import FragmentFiles
-from socru.Barrnap  import Barrnap
-from socru.Database import Database
-from socru.Blast import Blast
-from socru.FilterBlast import FilterBlast
-from socru.Profiles import Profiles
-from socru.GATProfile import GATProfile
-from socru.TypeGenerator import TypeGenerator
-from socru.Schemas import Schemas
-from socru.PlotProfile import PlotProfile
-from socru.ValidateFragments import ValidateFragments
 from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult
-from socru.ConfidenceScore import calculate_confidence
-from socru.QCFlags import generate_qc_flags
-from socru.HtmlReport import HtmlReport
-from socru.SocruConfig import SocruConfig
-from socru.NoveltyDetector import assess_novelty
+from socru.Barrnap import Barrnap
 from socru.BatchStats import BatchStats
-from socru.SvgTypeDistribution import generate_type_distribution_svg
+from socru.Blast import Blast
+from socru.ConfidenceScore import calculate_confidence
+from socru.Database import Database
+from socru.Fasta import Fasta
+from socru.FilterBlast import FilterBlast
+from socru.FragmentFiles import FragmentFiles
+from socru.GATProfile import GATProfile
+from socru.HtmlReport import HtmlReport
+from socru.NoveltyDetector import assess_novelty
+from socru.PlotProfile import PlotProfile
+from socru.Profiles import Profiles
+from socru.QCFlags import generate_qc_flags
+from socru.Schemas import Schemas
+from socru.SocruConfig import SocruConfig
 from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg
-from socru.SvgSynteny import generate_synteny_svg
 from socru.SvgFragmentQuality import generate_fragment_quality_svg
+from socru.SvgSynteny import generate_synteny_svg
+from socru.SvgTypeDistribution import generate_type_distribution_svg
+from socru.TypeGenerator import TypeGenerator
+from socru.ValidateFragments import ValidateFragments
+
 
 class Socru:
     """

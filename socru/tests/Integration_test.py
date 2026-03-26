@@ -10,15 +10,13 @@ import json
 import os
 import tempfile
 
-import pytest
-
-from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult, QCFlag
+from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult
 from socru.BatchStats import BatchStats
-from socru.NoveltyDetector import assess_novelty, NoveltyAssessment
-from socru.SvgTypeDistribution import generate_type_distribution_svg
+from socru.NoveltyDetector import assess_novelty
 from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg
-from socru.SvgSynteny import generate_synteny_svg
 from socru.SvgFragmentQuality import generate_fragment_quality_svg
+from socru.SvgSynteny import generate_synteny_svg
+from socru.SvgTypeDistribution import generate_type_distribution_svg
 
 
 def _make_fragment(number=1, reversed_=False, identity=99.5, length=50000):

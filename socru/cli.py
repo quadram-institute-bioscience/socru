@@ -5,9 +5,9 @@ Each function in this module serves as a console_scripts entry point,
 wrapping the logic previously found in the scripts/ directory.
 """
 
-import logging
-import sys
 import argparse
+import logging
+
 import pkg_resources
 
 

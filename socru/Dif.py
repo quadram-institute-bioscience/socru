@@ -11,10 +11,9 @@ Classes:
 """
 
 import logging
-import sys
 
-from socru.Database import Database
 from socru.Blast import Blast
+from socru.Database import Database
 from socru.FilterBlast import FilterBlast
 
 logger = logging.getLogger(__name__)
@@ -22,13 +21,13 @@ logger = logging.getLogger(__name__)
 class Dif:
     """
     Identify fragment containing the dif replication terminus.
-    
+
     This class searches for the dif site in a set of genome fragments by
     BLASTing a known dif sequence. The dif site marks the chromosomal
     terminus of replication (opposite the origin), where the two replication
     forks meet. This is used to validate that rRNA operons are correctly
     oriented relative to replication direction.
-    
+
     Attributes:
         dif_fasta (str): Path to dif query FASTA file
         directory_of_fasta_files (str): Directory containing fragment files
@@ -42,7 +41,7 @@ class Dif:
     def __init__(self, dif_fasta, directory_of_fasta_files, threads, verbose, min_bit_score = 30, min_alignment_length = 25):
         """
         Initialize Dif finder and search for dif site.
-        
+
         Args:
             dif_fasta (str): Path to dif query sequence
             directory_of_fasta_files (str): Directory with fragment files
@@ -53,40 +52,40 @@ class Dif:
         """
         self.dif_fasta = dif_fasta
         self.directory_of_fasta_files = directory_of_fasta_files
-        self.threads = threads 
+        self.threads = threads
         self.min_bit_score = min_bit_score
         self.min_alignment_length = min_alignment_length
         self.verbose = verbose
-        
+
         # Default values
         self.fragment_with_dif = 0
         self.dif_orientation = False
-        
+
         # Search for dif
         self.find_dif()
-    
+
     def find_dif(self):
         """
         BLAST dif sequence against fragments to find terminus location.
-        
+
         Creates a BLAST database from fragments, searches with dif query,
         and identifies which fragment contains the best match. Dif is much
         shorter than dnaA (~28bp), so lower thresholds are used. If not found,
         defaults to fragment 1 (usually the largest, often containing terminus).
         """
         logger.info("Finding fragment FASTA containing dif (near terminus of replication)")
-        
+
         # Create BLAST database from fragments
         blastdb = Database(self.directory_of_fasta_files, self.verbose)
-        
+
         # Run BLAST search with sensitive parameters for short sequence
         blast = Blast(blastdb.db_prefix, self.threads, self.verbose, task = 'blastn',  word_size = 11)
         blast_results = blast.run_blast(self.dif_fasta)
-        
+
         # Filter results and get top hit
         fb = FilterBlast(blast_results, self.min_bit_score, self.min_alignment_length, self.verbose)
         top_result = fb.return_top_result()
-        
+
         if top_result is None:
             # No match found - default to fragment 1
             # Fragment 1 is the largest, and usually contains the terminus
@@ -96,12 +95,12 @@ class Dif:
         else:
             # Record fragment containing dif
             self.fragment_with_dif  = top_result.subject
-            
+
             # Determine orientation
             if top_result.is_forward():
                 self.forward_orientation = True
             else:
                 self.forward_orientation = False
-                
+
             logger.info("Found dif on fragment:\t%s", self.fragment_with_dif)
             logger.info("dif in forward orientation:\t%s", self.forward_orientation)

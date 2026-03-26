@@ -12,13 +12,12 @@ Classes:
 import gzip
 import logging
 import os
+import re
+import shutil
+import subprocess
 from os import listdir
 from os.path import isfile, join
-import re
-from tempfile import mkstemp
-from tempfile import mkdtemp
-import subprocess
-import shutil
+from tempfile import mkdtemp, mkstemp
 
 logger = logging.getLogger(__name__)
 

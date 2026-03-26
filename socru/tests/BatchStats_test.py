@@ -1,6 +1,7 @@
 """Tests for the BatchStats module."""
 
 import unittest
+
 from socru.BatchStats import BatchStats
 
 

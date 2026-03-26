@@ -12,25 +12,24 @@ Classes:
 
 from __future__ import annotations
 
+import os
+import re
 from typing import Optional
 
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
-from Bio.Seq import Seq
 
 from socru.Fragment import Fragment
 
-import os
-import re
 
 class FragmentFiles:
     """
     Create and manage individual FASTA files for genome fragments.
-    
+
     This class takes a list of fragments, reorders them (starting with the
     largest), assigns fragment numbers, and creates individual FASTA files
     for each. Supports custom fragment ordering and reverse complementing.
-    
+
     Attributes:
         fragments (list): List of Fragment objects
         output_directory (str): Directory where FASTA files will be written
@@ -42,7 +41,7 @@ class FragmentFiles:
     def __init__(self, fragments: list[Fragment], output_directory: str, verbose: bool, fragment_order: Optional[str] = None) -> None:
         """
         Initialize FragmentFiles with fragments and output location.
-        
+
         Args:
             fragments (list): List of Fragment objects to process
             output_directory (str): Directory for output FASTA files
@@ -56,23 +55,23 @@ class FragmentFiles:
         # Reorder fragments with largest first and assign numbers
         self.ordered_fragments = self.fragments_with_largest_first()
         self.output_filenames = []
-        
+
     def fragments_with_largest_first(self) -> list[Fragment]:
         """
         Reorder fragments starting with the largest and assign numbers.
-        
+
         Rotates the fragment list so the largest fragment is first. This
         provides a consistent starting point for fragment numbering. If a
         custom fragment order is specified, applies it and handles reverse
         complementing (indicated by prime notation).
-        
+
         Returns:
             list: Reordered Fragment objects with numbers assigned
         """
         # Find the largest fragment
         fragment_sizes = [f.num_bases() for f in self.fragments]
         largest_size = max(fragment_sizes)
-        
+
         largest_index = 0
         for f in range(0,len(fragment_sizes)):
             if largest_size == fragment_sizes[f]:
@@ -81,7 +80,7 @@ class FragmentFiles:
 
         # Rotate list to start with largest fragment
         reordered_fragments = self.fragments[largest_index:len(self.fragments)] + self.fragments[0:largest_index]
-        
+
         if self.fragment_order is None:
             # Assign sequential numbers starting from 1
             for i in range(0,len(reordered_fragments)):
@@ -100,13 +99,13 @@ class FragmentFiles:
                 else:
                     # Use fragment as-is
                     reordered_fragments[i].number = input_order[i]
-                
+
         return reordered_fragments
-      
+
     def create_fragment_fastas(self) -> None:
         """
         Write each fragment to its own FASTA file.
-        
+
         Creates individual FASTA files in the output directory for each
         fragment. Files are named based on fragment number (e.g., "1.fa").
         Updates fragment objects with their output filenames.
@@ -114,24 +113,23 @@ class FragmentFiles:
         for f in self.ordered_fragments:
             # Create SeqRecord for BioPython
             record = [SeqRecord(f.sequence, str(f) , '', '')]
-            
+
             # Generate output filename and path
             outname = os.path.join(self.output_directory, f.output_filename())
             self.output_filenames.append(outname)
             f.output_filename = outname
-            
+
             # Write FASTA file
             SeqIO.write(record, outname, "fasta")
-    
+
     def split_fragment_order(self) -> list[str]:
         """
         Parse custom fragment order string into list.
-        
+
         Splits a dash-delimited string like "1-2-3'" into individual
         fragment identifiers.
-        
+
         Returns:
             list: Individual fragment identifiers
         """
         return self.fragment_order.split('-')
-        

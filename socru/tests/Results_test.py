@@ -1,9 +1,8 @@
-import unittest
 import os
-import shutil
 import tempfile
-from socru.Results  import Results
+import unittest
 
+from socru.Results import Results
 
 test_modules_dir = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(test_modules_dir, 'data','results')

@@ -2,7 +2,7 @@
 
 import unittest
 
-from socru.SvgSynteny import generate_synteny_svg, _fragment_color, _ribbon_path
+from socru.SvgSynteny import _fragment_color, _ribbon_path, generate_synteny_svg
 
 
 def _make_assembly(name, gs_type, fragments, quality="GREEN"):

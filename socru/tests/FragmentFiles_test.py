@@ -1,7 +1,8 @@
-import unittest
-import os
 import tempfile
+import unittest
+
 from Bio.Seq import Seq
+
 from socru.Fragment import Fragment
 from socru.FragmentFiles import FragmentFiles
 

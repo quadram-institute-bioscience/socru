@@ -1,15 +1,14 @@
-import unittest
 import os
-import shutil
-import filecmp
+import unittest
 from unittest.mock import patch
-from socru.FilterBlast  import FilterBlast
+
+from socru.FilterBlast import FilterBlast
 
 test_modules_dir = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(test_modules_dir, 'data','filter_blast')
 
 class TestFilterBlast(unittest.TestCase):
-   
+
     def test_filter_blast_valid(self):
         fb = FilterBlast(os.path.join(data_dir, 'blast_results_shrink'), 1, 1, False)
 

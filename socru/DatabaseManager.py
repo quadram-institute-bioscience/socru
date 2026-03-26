@@ -15,12 +15,11 @@ Classes:
 """
 
 import glob
+import importlib.resources
 import logging
 import os
 import shutil
 from typing import Dict, List, Optional
-
-import importlib.resources
 
 logger = logging.getLogger(__name__)
 
