@@ -1,38 +1,35 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Report a bug in socru
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Environment**
+- socru version: [output of `socru --version`]
+- OS: [e.g. Ubuntu 22.04]
+- Python version: [e.g. 3.11]
+- barrnap version: [e.g. 0.9]
+- BLAST+ version: [e.g. 2.14.0]
+- Installation method: [pip / conda / source]
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**Command run**
+```
+socru ...
+```
+
+**Input file details**
+- Organism / species database used:
+- Number of contigs:
+- Approximate genome size:
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+What you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+**Actual behavior**
+What actually happened. Include the full error message or traceback if applicable.
 
 **Additional context**
-Add any other context about the problem here.
+Any other relevant details (e.g. custom database, non-standard genome).

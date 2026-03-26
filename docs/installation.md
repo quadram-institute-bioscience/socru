@@ -1,97 +1,73 @@
-# Installation Guide
+# Installation
 
-This guide covers the different ways to install Socru on your system.
+## Requirements
 
-## System Requirements
+- Python 3.9+
+- Linux or macOS (not Windows)
+- External tools: BLAST+ (blastn, makeblastdb), barrnap
 
-Socru is designed to run on Linux and macOS. It will **not** run on Windows.
+## Install Socru
 
-**Python Requirements:**
-- Python >= 3.6
+### pip (from GitHub)
 
-**External Dependencies:**
-- barrnap
-- NCBI BLAST+ (blastn, makeblastdb)
+```bash
+pip install git+https://github.com/quadram-institute-bioscience/socru
+```
 
-## Installation Methods
+This installs Python dependencies (biopython, numpy, matplotlib, PyYAML) but not the external tools. Install those separately (see below).
 
-### Conda (Recommended)
-
-The easiest way to install Socru is through Conda with Python 3.
-
-First, install [Miniconda with Python 3](https://conda.io/en/latest/miniconda.html), then run:
+### conda (bioconda)
 
 ```bash
 conda install -c conda-forge -c bioconda socru
 ```
 
-This will automatically install all dependencies including Python packages and external tools.
+This installs everything, including BLAST+ and barrnap.
 
 ### Docker
 
-Docker provides an isolated environment for running Socru without installing dependencies on your host system.
-
-1. Install [Docker](https://www.docker.com/)
-
-2. Pull the Socru container:
 ```bash
 docker pull quadraminstitute/socru
+docker run --rm -v /path/to/data:/data quadraminstitute/socru Escherichia_coli /data/genome.fasta
 ```
 
-3. Run Socru with Docker:
+The Docker image is based on miniforge3 with Python 3.11, BLAST+ 2.15, and barrnap 0.9.
+
+## Install External Dependencies
+
+If you used pip, install BLAST+ and barrnap manually.
+
+### BLAST+
+
+| Platform | Command |
+|---|---|
+| Ubuntu/Debian | `sudo apt-get install ncbi-blast+` |
+| macOS (Homebrew) | `brew install blast` |
+| conda | `conda install -c bioconda blast` |
+
+### barrnap
+
+| Platform | Command |
+|---|---|
+| Ubuntu/Debian | `sudo apt-get install barrnap` |
+| conda | `conda install -c bioconda barrnap` |
+
+Both `blastn` and `barrnap` must be on your `PATH`.
+
+## Verify Installation
+
 ```bash
-docker run --rm -it -v /path/to/data:/data quadraminstitute/socru socru [options]
-```
-
-Replace `/path/to/data` with the actual path to your data files.
-
-### pip (Manual Installation)
-
-If you prefer manual installation, you can use pip to install Socru and its Python dependencies:
-
-```bash
-pip3 install git+https://github.com/quadram-institute-bioscience/socru
-```
-
-**Note:** This will install Python dependencies but you must manually install:
-- barrnap
-- NCBI BLAST+ (blastn and makeblastdb commands)
-
-Ensure these tools are available in your system's PATH.
-
-## Verifying Installation
-
-After installation, verify that Socru is working correctly:
-
-```bash
-# Check version
 socru --version
-
-# List available species databases
 socru_species
 ```
 
-If you see the version number and a list of species, the installation was successful.
+The first command prints the version. The second lists all bundled species databases. If both succeed, the installation is working.
 
 ## Troubleshooting
 
-### Command not found
-
-If you get a "command not found" error:
-- **Conda:** Ensure your conda environment is activated
-- **pip:** Check that `~/.local/bin` is in your PATH
-- **Docker:** Ensure Docker is running and the container was pulled successfully
-
-### BLAST not found
-
-If you get errors about missing BLAST tools:
-- Install NCBI BLAST+ using your system's package manager
-- For Ubuntu/Debian: `sudo apt-get install ncbi-blast+`
-- For macOS with Homebrew: `brew install blast`
-
-### barrnap not found
-
-If you get errors about barrnap:
-- Install barrnap using your system's package manager or conda
-- For Ubuntu/Debian: `sudo apt-get install barrnap`
-- For conda: `conda install -c bioconda barrnap`
+| Problem | Fix |
+|---|---|
+| `socru: command not found` | Activate your conda env, or ensure `~/.local/bin` is on `PATH` |
+| `blastn: command not found` | Install BLAST+ (see above) |
+| `barrnap: command not found` | Install barrnap (see above) |
+| Docker permission errors | Ensure Docker daemon is running; use `sudo` if needed |

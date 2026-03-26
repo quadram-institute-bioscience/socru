@@ -1,213 +1,205 @@
-# Socru
-![GitHub Actions](https://img.shields.io/github/actions/workflow/status/quadram-institute-bioscience/socru/ci.yml?branch=master)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/quadram-institute-bioscience/socru/blob/master/LICENSE)
-[![codecov](https://codecov.io/gh/andrewjpage/socru/branch/master/graph/badge.svg)](https://codecov.io/gh/andrewjpage/socru)
-[![Docker Pulls](https://img.shields.io/docker/pulls/quadraminstitute/socru.svg)](https://hub.docker.com/r/quadraminstitute/socru)
+# socru
 
-## Contents
-  * [Introduction](#introduction)
-  * [Quick Start](#quick-start)
-  * [Installation](#installation)
-  * [Documentation](#documentation)
-  * [Usage Examples](#usage-examples)
-  * [Output Formats](#output-formats)
-  * [CLI Options](#cli-options)
-  * [Testing](#testing)
-  * [License](#license)
-  * [Feedback/Issues](#feedbackissues)
-  * [Citation](#citation)
-
-## Introduction
-Socru allows you to easily identify and communicate the order and orientation of complete genomes around ribosomal operons. These large scale structural variants have real impacts on the phenotype of the organism, and with the advent of long read sequencing, we can now start to delve into the mechanisms at work.
+Typing of genome-level order and orientation around ribosomal operons in bacteria.
 
 ## Quick Start
 
 ```bash
-# Install via conda
-conda install -c conda-forge -c bioconda socru
-
-# List available species
-socru_species
-
-# Analyze a genome
-socru Escherichia_coli genome.fasta
+pip install git+https://github.com/quadram-institute-bioscience/socru
+socru_species                              # list available species
+socru Escherichia_coli genome.fasta        # analyze a genome
 ```
-
-## Documentation
-
-Comprehensive documentation is available in the [docs/](docs/) directory:
-
-- **[Installation Guide](docs/installation.md)** - Detailed installation instructions for all platforms
-- **[Tutorial](docs/tutorial.md)** - Step-by-step tutorial for new users
-- **[User Guide](docs/user_guide.md)** - Complete usage guide with all features
-- **[Work Instruction](docs/work_instruction.md)** - Standard operating procedures for analysis workflows
-- **[API Reference](docs/api_reference.md)** - Python API documentation for developers
 
 ## Installation
 
-**Requires Python 3.9+**, barrnap, and BLAST+.
+Requires **Python 3.9+** and two external tools: **barrnap** and **BLAST+**.
 
-### Conda (Recommended)
-
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/socru/badges/latest_release_date.svg)](https://anaconda.org/bioconda/socru)
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/socru/badges/platforms.svg)](https://anaconda.org/bioconda/socru)
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/socru/badges/downloads.svg)](https://anaconda.org/bioconda/socru)
+### conda (recommended)
 
 ```bash
 conda install -c conda-forge -c bioconda socru
 ```
+
+This installs socru, barrnap, and BLAST+ together.
+
+### pip
+
+```bash
+pip install git+https://github.com/quadram-institute-bioscience/socru
+```
+
+You must install barrnap and BLAST+ separately (e.g. `conda install -c bioconda barrnap blast`).
 
 ### Docker
 
 ```bash
 docker pull quadraminstitute/socru
-docker run --rm -it -v /path/to/data:/data quadraminstitute/socru socru <species> <genome.fasta>
+docker run --rm -v $(pwd):/data quadraminstitute/socru Escherichia_coli /data/genome.fasta
 ```
 
-### pip
+## Usage
+
+### Basic analysis
 
 ```bash
-pip3 install git+https://github.com/quadram-institute-bioscience/socru
+# Single genome
+socru Escherichia_coli genome.fasta
+
+# Multiple genomes
+socru Salmonella_enterica *.fasta -o results.txt
+
+# Use 4 threads
+socru Escherichia_coli genome.fasta -t 4
 ```
 
-**Note:** pip installation requires barrnap and BLAST+ to be installed separately.
+### Output formats
 
-For detailed installation instructions, see the [Installation Guide](docs/installation.md).
+```bash
+# JSON with confidence scores, QC flags, and BLAST details
+socru Escherichia_coli genome.fasta --output_json results.json
 
-## Usage Examples
+# SVG circular genome diagram
+socru Escherichia_coli genome.fasta --output_svg genome.svg
 
-### Basic Analysis
+# Self-contained HTML report
+socru Escherichia_coli genome.fasta --output_html report.html
+
+# Batch output directory with SVGs and stats
+socru Escherichia_coli *.fasta --output_dir results/
+
+# All formats at once
+socru Escherichia_coli genome.fasta \
+  -o results.txt \
+  --output_json results.json \
+  --output_svg genome.svg \
+  --output_html report.html
+```
+
+### Other commands
 
 ```bash
 # List available species databases
 socru_species
 
-# Analyze a single genome
-socru Escherichia_coli genome.fasta
+# Create a custom database from a reference genome
+socru_create reference.fasta
 
-# Analyze multiple genomes
-socru Salmonella_enterica *.fasta -o results.txt
-
-# Use multiple threads
-socru Klebsiella_pneumoniae genome.fasta -t 4
-```
-
-### Advanced Usage
-
-```bash
-# Save novel patterns and fragments
-socru Escherichia_coli genome.fasta \
-  -n novel_profiles.txt \
-  -f novel_fragments.fa
-
-# Export structured JSON results
-socru Escherichia_coli genome.fasta --output_json results.json
-
-# Generate an SVG circular genome diagram
-socru Escherichia_coli genome.fasta --output_svg genome.svg
-
-# Generate a self-contained HTML report
-socru Escherichia_coli genome.fasta --output_html report.html
-
-# Create a custom database
-socru_create my_species_db reference_genome.fasta
-
-# Update database with validated patterns
+# Update a profile database with new patterns
 socru_update_profile results.txt profile.txt -o updated_profile.txt
 
-# Optimize database size
+# Shrink a database by removing redundant BLAST entries
 socru_shrink_database blast_results.txt input_db/ output_db/
 ```
 
-For complete usage information, see the [User Guide](docs/user_guide.md) and [Tutorial](docs/tutorial.md).
-
 ## Output Formats
 
-Socru supports multiple output formats:
+| Format | Flag | Content |
+|--------|------|---------|
+| Text | default (stdout or `-o`) | Tab-delimited, one line per genome: filename, GS type, quality, fragments |
+| JSON | `--output_json FILE` | Structured results with confidence scores, QC flags, per-fragment BLAST details |
+| SVG | `--output_svg FILE` | Publication-quality circular genome diagram with fragment arrangement |
+| HTML | `--output_html FILE` | Self-contained report with embedded SVG and summary tables |
 
-| Format | Flag | Description |
-|--------|------|-------------|
-| **Tab-delimited text** | (default) | Backward-compatible one-line-per-genome results to stdout or `-o` file |
-| **JSON** | `--output_json results.json` | Structured output for programmatic consumption, including confidence scores, QC flags, and per-fragment BLAST details |
-| **SVG** | `--output_svg genome.svg` | Publication-quality circular genome diagram showing fragment arrangement and operon orientations |
-| **HTML** | `--output_html report.html` | Self-contained, shareable report with interactive summary tables |
+## Library Usage
 
-All formats can be used simultaneously in a single run.
+```python
+from socru import Socru, SocruConfig
 
-## CLI Options
+config = SocruConfig(
+    input_files=["genome.fasta"],
+    species="Escherichia_coli",
+    output_json="results.json",
+    output_svg="genome.svg",
+    threads=4,
+)
 
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--output_file` | `-o` | Output filename (default: stdout) |
-| `--output_json` | `-j` | JSON structured results output |
-| `--output_svg` | `-s` | SVG circular genome diagram |
-| `--output_html` | | Self-contained HTML report |
-| `--output_plot_file` | `-p` | Genome structure PDF plot |
-| `--threads` | `-t` | Number of threads (default: 1) |
-| `--novel_profiles` | `-n` | File for novel profiles |
-| `--new_fragments` | `-f` | File for novel fragments |
-| `--top_blast_hits` | `-b` | File for top BLAST hits |
-| `--not_circular` | `-c` | Assume chromosome is not circular |
-| `--min_bit_score` | | Minimum BLAST bit score (default: 100) |
-| `--min_alignment_length` | | Minimum alignment length (default: 100) |
-| `--verbose` | `-v` | Enable verbose logging output |
-| `--debug` | | Enable profiling output |
+with Socru(config) as s:
+    s.run()
+```
+
+The `SocruConfig` dataclass accepts all the same parameters as the CLI. See `socru/SocruConfig.py` for the full list.
+
+For structured access to results, use `AnalysisResult`:
+
+```python
+from socru import AnalysisResult
+
+# AnalysisResult fields include:
+#   gs_type, quality, confidence_score, is_novel,
+#   fragments (list of FragmentResult), operons (list of OperonResult),
+#   qc_flags (list of QCFlag), novelty_assessment
+```
+
+## New Features
+
+- **Confidence scoring** -- numeric 0-100 confidence for each GS type assignment
+- **QC flags** -- machine-readable warnings (e.g. `LOW_IDENTITY`, `SHORT_ALIGNMENT`) with severity levels
+- **Novelty detection** -- identifies previously unseen fragment arrangements with detailed assessment
+- **SVG genome plots** -- circular diagrams showing fragment order, orientation, and operon positions
+- **Additional SVG visualizations** -- synteny plots, fragment quality, type distribution, confidence heatmaps, coverage pileups
+- **HTML reports** -- self-contained single-file reports with embedded visualizations
+- **JSON output** -- structured results with full BLAST details for programmatic consumption
+- **Batch statistics** -- aggregate stats across multiple genomes via `--output_dir`
+- **Rearrangement distance** -- quantify structural differences between genome arrangements
+- **SocruConfig dataclass** -- clean typed configuration for library usage without argparse
+
+## CLI Reference
+
+All options for the `socru` command:
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `species` | | (required) | Species database name |
+| `input_files` | | (required) | One or more FASTA files |
+| `--output_file` | `-o` | stdout | Tab-delimited results output |
+| `--output_json` | `-j` | | JSON structured results |
+| `--output_svg` | `-s` | | SVG circular genome diagram |
+| `--output_html` | | | Self-contained HTML report |
+| `--output_dir` | | | Directory for batch visualizations and stats |
+| `--output_plot_file` | `-p` | `genome_structure.pdf` | PDF genome structure plot |
+| `--threads` | `-t` | `1` | Number of threads |
+| `--novel_profiles` | `-n` | `profile.txt.novel` | File for novel profiles |
+| `--new_fragments` | `-f` | `novel_fragments.fa` | File for novel fragments |
+| `--top_blast_hits` | `-b` | | File for top BLAST hits |
+| `--output_operon_directions_file` | `-r` | `operon_directions.txt` | Operon direction output |
+| `--not_circular` | `-c` | `false` | Treat chromosome as linear |
+| `--min_bit_score` | | `100` | Minimum BLAST bit score |
+| `--min_alignment_length` | | `100` | Minimum BLAST alignment length |
+| `--max_bases_from_ends` | `-m` | | Use only N bases from fragment ends |
+| `--db_dir` | `-d` | bundled | Custom database directory |
+| `--verbose` | `-v` | `false` | Verbose logging |
+| `--debug` | | `false` | Profiling output |
+| `--version` | | | Print version and exit |
+
+## Dependencies
+
+**Python packages** (installed automatically):
+
+- biopython >= 1.68
+- PyYAML
+- numpy
+- matplotlib
+
+**External tools** (must be on PATH):
+
+- [barrnap](https://github.com/tseemann/barrnap) -- rRNA operon prediction
+- [BLAST+](https://blast.ncbi.nlm.nih.gov/doc/blast-help/downloadblastdata.html) -- blastn and makeblastdb
 
 ## Testing
 
-Run the test suite with pytest:
-
 ```bash
-# Run all tests
-python3 -m pytest socru/tests/ -v
-
-# Run with coverage
-python3 -m pytest socru/tests/ --cov=socru --cov-report=term-missing
+python -m pytest socru/tests/ -v
 ```
 
-Current test coverage: **93%**
-
-## Output Files
-
-Socru generates several output files:
-
-- **results.txt** - Tab-delimited results with GS types and fragment patterns
-- **operon_directions.txt** - Direction of rRNA operons and origin location
-- **genome_structure.pdf** - Visual representation of genome structure
-- **profile.txt.novel** - Novel patterns requiring validation
-- **novel_fragments.fa** - Unclassified fragments for investigation
-
-## Command Reference
-
-For detailed command-line options and usage, see:
-- **socru** - Main analysis command ([User Guide](docs/user_guide.md#socru---analyze-genomes))
-- **socru_species** - List available databases ([User Guide](docs/user_guide.md#socru_species---list-available-databases))
-- **socru_create** - Create custom databases ([User Guide](docs/user_guide.md#socru_create---create-new-databases))
-- **socru_update_profile** - Update profiles ([User Guide](docs/user_guide.md#socru_update_profile---update-database-profiles))
-- **socru_shrink_database** - Optimize databases ([User Guide](docs/user_guide.md#socru_shrink_database---optimize-databases))
-
-## Resources
-
-- **Memory**: ~250MB for typical 5Mb bacterial genome
-- **Time**: ~20 seconds per genome (single thread)
-- **Threads**: Optimal with 2-4 threads
-
-## License
-Socru is free software, licensed under [GPLv3](LICENSE).
-
-## Feedback/Issues
-Please report issues or provide feedback via [GitHub Issues](https://github.com/quadram-institute-bioscience/socru/issues).
-
-Contributions welcome! Submit improvements via [pull requests](https://github.com/quadram-institute-bioscience/socru/pulls).
-
-## Etymology
-[socru](https://www.focloir.ie/en/dictionary/ei/arrangement) (sock-roo) is the Irish (Gaeilge) word for "arrangement".
+330+ tests. Some tests require barrnap and BLAST+ to be installed.
 
 ## Citation
-**socru: typing of genome-level order and orientation around ribosomal operons in bacteria**
-Andrew J. Page, Emma V. Ainsworth, Gemma C. Langridge
-*Microbial Genomics* (2020)
-https://doi.org/10.1099/mgen.0.000396
 
-## Authors
-See [AUTHORS](AUTHORS) and [CONTRIBUTORS](CONTRIBUTORS) files.
+> **socru: typing of genome-level order and orientation around ribosomal operons in bacteria**
+> Andrew J. Page, Emma V. Ainsworth, Gemma C. Langridge
+> *Microbial Genomics* (2020)
+> https://doi.org/10.1099/mgen.0.000396
+
+## License
+
+GPLv3. See [LICENSE](LICENSE).

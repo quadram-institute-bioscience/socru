@@ -1,322 +1,154 @@
 # User Guide
 
-This comprehensive guide covers how to use Socru to analyze bacterial genome arrangements.
+## Basic Usage
 
-## Overview
+### Single genome
 
-Socru identifies and communicates the order and orientation of complete bacterial genomes around ribosomal operons. These large-scale structural variants can impact organism phenotype, and with long-read sequencing, we can now investigate these mechanisms.
-
-## Quick Start
-
-For a quick introduction, see the [Tutorial](tutorial.md).
-
-## Core Concepts
-
-### Genome Structure (GS) Types
-
-Socru assigns a **GS identifier** to each genome arrangement pattern. The format is:
-- **GS1.0, GS1.1, etc.**: Known, validated patterns
-- **GS0.X**: Novel patterns that need validation
-
-### Fragments
-
-Complete genomes are divided into fragments between ribosomal operons. Each fragment is numbered sequentially (1, 2, 3, ...).
-
-### Orientation
-
-Fragments can be in forward or reverse orientation:
-- **No suffix**: Forward orientation (same as reference)
-- **Prime (')**: Reverse orientation (e.g., `3'` means fragment 3 is reversed)
-
-## Main Commands
-
-### socru - Analyze Genomes
-
-The main command for analyzing complete genome assemblies.
-
-**Basic Usage:**
 ```bash
-socru <species> <assembly.fasta>
+socru Escherichia_coli genome.fasta
 ```
 
-**Example:**
+### Multiple genomes
+
 ```bash
-socru Escherichia_coli K12.fasta
+socru Salmonella_enterica *.fasta -t 4 -o results.txt
 ```
 
-**Output:**
+Gzipped FASTA files are accepted. Use `-t` to set threads (2-4 is optimal).
+
+## Output Formats
+
+Socru can produce several output types simultaneously.
+
+| Flag | File | Description |
+|---|---|---|
+| (default) | stdout or `-o FILE` | Tab-delimited: filename, GS type, fragment order |
+| `-j FILE` | JSON | Structured results with BLAST details, QC flags, confidence |
+| `-s FILE` | SVG | Circular genome diagram per assembly |
+| `--output_html FILE` | HTML | Self-contained report with sortable table and QC summary |
+| `-p FILE` | PDF | Genome structure plot (default: `genome_structure.pdf`) |
+| `-r FILE` | text | Operon directions (default: `operon_directions.txt`) |
+| `--output_dir DIR` | directory | Batch output: per-assembly SVGs and stats JSON |
+
+### Tab-delimited output
+
 ```
-K12.fasta	GS1.0	1	2	3	4	5	6	7
-```
-
-This shows:
-- Input filename
-- GS identifier (GS1.0)
-- Fragment order and orientation (1 through 7, all forward)
-
-#### Command Options
-
-**Required Arguments:**
-- `species`: Species name (use `socru_species` to see available databases)
-- `input_files`: One or more FASTA files (can be gzipped)
-
-**Optional Arguments:**
-
-`--db_dir <path>` or `-d <path>`
-- Custom database location
-- Default: Uses bundled databases
-
-`--threads <n>` or `-t <n>`
-- Number of threads to use
-- Default: 1
-- Recommended: 4 or fewer (diminishing returns after this)
-
-`--output_file <file>` or `-o <file>`
-- Output filename
-- Default: Print to stdout
-- Note: Appends to file if it exists
-
-`--novel_profiles <file>` or `-n <file>`
-- File for novel profile patterns
-- Default: `profile.txt.novel`
-
-`--new_fragments <file>` or `-f <file>`
-- File for unclassified fragments
-- Default: `novel_fragments.fa`
-
-`--top_blast_hits <file>` or `-b <file>`
-- Output BLAST results (outfmt 6)
-- Useful for `socru_shrink_database`
-
-`--not_circular` or `-c`
-- Treat chromosome as linear (not circular)
-- Use for incomplete assemblies or linear chromosomes
-
-`--min_bit_score <value>`
-- Minimum BLAST bit score
-- Default: 100
-
-`--min_alignment_length <value>`
-- Minimum BLAST alignment length
-- Default: 100
-
-`--verbose` or `-v`
-- Enable debug output
-
-`--version`
-- Show version and exit
-
-#### Understanding Output
-
-**Primary Output (Tab-delimited):**
-```
-filename.fna	GS1.0	1	2	3	4	5
+genome.fasta    GS1.0    1    2    3    4    5    6    7
 ```
 
-Columns:
-1. Input filename
-2. GS identifier
-3+ Fragment order and orientation
+Columns: input filename, GS type identifier, then one column per fragment. A prime suffix (e.g. `3'`) means the fragment is in reverse orientation.
 
-**Operon Directions File (`operon_directions.txt`):**
+### Operon directions
+
 ```
-Ty2_1.fa	--> 1 <-- 2' <-- 4 <-- 5 <-- 3(Ori) --> 7'
+genome.fasta    --> 1 <-- 2' <-- 4 <-- 5 <-- 3(Ori) --> 7'
 ```
 
-Shows:
-- Direction of rRNA operons (arrows)
-- Fragment with origin of replication: `(Ori)`
-- Fragment orientations
+Arrows show rRNA operon transcription direction. `(Ori)` marks the fragment containing the replication origin.
 
-**Genome Structure Visualization:**
-- File: `genome_structure.pdf`
-- Visual representation of circular genome structure
+## Understanding Results
 
-### socru_species - List Available Databases
+### GS Types
 
-Lists all species databases bundled with Socru.
+- **GS1.0, GS1.1, ...**: Known, validated genome structure types in the database.
+- **GS0.X**: Novel patterns not yet in the database. Require validation.
 
-**Usage:**
+### Quality Tiers
+
+| Tier | Meaning |
+|---|---|
+| GREEN | Known type, all fragments matched, validation passed |
+| AMBER | Known fragment order but novel orientation, or novel pattern with good BLAST hits |
+| RED | Missing fragments, failed validation, or unrecognized arrangement |
+
+### Confidence Scores
+
+A 0-100 composite score combining:
+- Mean fragment BLAST identity (30%)
+- Mean alignment coverage ratio (25%)
+- Profile match level (25%)
+- Validation status (20%)
+
+Penalty: -10 points per unmatched fragment.
+
+### QC Flags
+
+Flags are generated automatically and included in JSON and HTML output.
+
+| Flag Code | Severity | Trigger |
+|---|---|---|
+| `LOW_IDENTITY` | warning | Fragment BLAST identity < 95% |
+| `SHORT_ALIGNMENT` | warning | Alignment covers < 80% of fragment |
+| `MISSING_FRAGMENT` | error | Fragment returned "?" |
+| `UNEXPECTED_OPERON_COUNT` | warning | Operon count differs from expected |
+| `NOVEL_PATTERN` | warning | Fragment order not in database |
+| `NOVEL_ORIENTATION` | warning | Order known, orientation is new |
+| `INVALID_ARRANGEMENT` | error | Operon orientations violate replichore rules |
+| `LOW_CONFIDENCE` | warning | Score below 50 |
+| `SMALL_CHROMOSOME` | warning | Chromosome < 500,000 bp |
+
+## Species Databases
+
+### List available databases
+
 ```bash
 socru_species
 ```
 
-**Example Output:**
-```
-Acinetobacter_baumannii
-Enterobacter_cloacae
-Enterococcus_faecium
-Klebsiella_pneumoniae
-Salmonella_enterica
-Staphylococcus_aureus
-```
+### Use a custom database directory
 
-Copy and paste the species name to use with `socru`.
-
-### socru_create - Create New Databases
-
-Create a custom database from a complete reference genome.
-
-**Usage:**
 ```bash
-socru_create [options] <output_directory> <assembly.fasta>
+socru MySpecies genome.fasta -d /path/to/my_database
 ```
 
-**Required Arguments:**
-- `output_directory`: Directory for new database (must not exist)
-- `assembly.fasta`: Complete reference genome (can be gzipped)
+### Create a new species database
 
-**Optional Arguments:**
-
-`--threads <n>` or `-t <n>`
-- Number of threads
-- Default: 1
-
-`--fragment_order <order>` or `-f <order>`
-- Force specific fragment numbering
-- Example: `1-2-3-4-5-6-7`
-- Not recommended for general use
-
-`--dnaa_fasta <file>` or `-d <file>`
-- Custom dnaA FASTA file
-- Default: Uses bundled dnaA database
-
-`--verbose` or `-v`
-- Enable debug output
-
-**Output:**
-- Fragment FASTA files (1.fa, 2.fa, 3.fa, ...)
-- `profile.txt`: Pattern definitions
-- `profile.txt.yml`: Metadata (dnaA location, orientation)
-
-### socru_update_profile - Update Database Profiles
-
-Add validated novel patterns to a database.
-
-**Usage:**
 ```bash
-socru_update_profile [options] <socru_output.txt> <profile.txt>
+socru_create my_new_db reference_genome.fasta
 ```
 
-**Arguments:**
-- `socru_output.txt`: Output from socru containing novel patterns
-- `profile.txt`: Current profile file from database
+This produces fragment FASTA files, `profile.txt`, and `profile.txt.yml`.
 
-**Optional Arguments:**
+### DatabaseManager and SOCRU_DATA_DIR
 
-`--output_file <file>` or `-o <file>`
-- Output filename
-- Default: `updated_profile.txt`
+User-installed databases are stored in `~/.socru/data/` by default. Override with the `SOCRU_DATA_DIR` environment variable. The search order is:
 
-**Workflow:**
-1. Run socru on multiple genomes
-2. Review novel patterns (GS0.X)
-3. Validate they're real (not assembly errors)
-4. Run socru_update_profile
-5. Replace database profile.txt with updated version
+1. User data directory (`SOCRU_DATA_DIR` or `~/.socru/data/`)
+2. Bundled package data
 
-### socru_shrink_database - Optimize Databases
+Install a custom database so it is auto-discovered:
 
-Reduce database size by keeping only conserved regions.
+```python
+from socru import DatabaseManager
+dm = DatabaseManager()
+dm.install_database('/path/to/my_db', 'My_species')
+print(dm.list_species())
+```
 
-**Usage:**
+## Common Workflows
+
+### Surveillance batch
+
 ```bash
-socru_shrink_database [options] <blast_results> <input_db> <output_db>
+socru Salmonella_enterica batch/*.fasta \
+    -o results.txt -j results.json --output_html report.html \
+    --output_dir batch_viz/ -t 4
 ```
 
-**Arguments:**
-- `blast_results`: BLAST results from `socru -b`
-- `input_db`: Directory of database to shrink
-- `output_db`: Output directory (must not exist)
+Review `report.html` in a browser. Check the QC summary for flagged assemblies.
 
-**Optional Arguments:**
+### Single genome investigation
 
-`--min_fragment_size <bases>`
-- Minimum fragment size in bases
-- Default: 100000
-- Smaller fragments copied in full
-
-**Typical Workflow:**
-1. Run socru with `-b` option on multiple assemblies
-2. Run socru_shrink_database
-3. Test new database
-4. Can reduce storage by 80%+
-
-## Quality Considerations
-
-### Complete vs. Draft Assemblies
-
-**Socru requires complete assemblies:**
-- One contig for chromosome
-- Can resolve large repeats (rRNA regions)
-- Long-read sequencing (PacBio, Nanopore) or hybrid assemblies
-
-**Do not use:**
-- Short-read draft assemblies
-- Scaffolded assemblies (unless truly complete)
-- Assemblies with gaps in rRNA regions
-
-### Identifying Assembly Errors
-
-Novel patterns may indicate:
-1. **Genuine biological variation** (exciting!)
-2. **Assembly errors** (unfortunately common)
-
-**Red flags:**
-- Missing fragments
-- Extra fragments (duplications)
-- Origin and terminus adjacent (unbalanced replichores)
-- Biologically improbable arrangements
-
-**Example of likely assembly error:**
+```bash
+socru Escherichia_coli isolate.fasta -s isolate.svg -j isolate.json
 ```
-Salmonella_enterica.fa	GS1.0	1	2	7	4	5	6	3
+
+Open the SVG for a circular diagram. Inspect JSON for per-fragment BLAST metrics.
+
+### Novel type assessment
+
+When a result shows GS0.X, check assembly quality first. Use the JSON output to inspect confidence scores and QC flags. If confidence > 80 and all BLAST identities > 95%, the novel type is likely real. Update the profile database after validation:
+
+```bash
+socru_update_profile results.txt /path/to/profile.txt -o updated_profile.txt
 ```
-Origin on fragment 3, adjacent to fragment 1 (circular) = improbable
-
-### Validation Steps
-
-For novel patterns:
-1. Check assembly quality metrics
-2. Look for chimeric contigs
-3. Verify with independent methods if possible
-4. Compare with closely related genomes
-5. Consider sequencing depth and coverage
-
-## Best Practices
-
-1. **Use appropriate databases**: Match species to database
-2. **Validate novel patterns**: Don't automatically trust GS0.X patterns
-3. **Check quality**: Review warnings in output
-4. **Use sufficient threads**: 2-4 threads optimal
-5. **Keep databases updated**: Submit novel validated patterns upstream
-6. **Document findings**: Note any unusual patterns
-
-## Common Issues
-
-### Missing Fragments
-
-Small fragments may not be detected by assemblers. Check:
-- Fragment size in database
-- Assembly parameters
-- Sequencing coverage
-
-### Extra Fragments
-
-Usually indicates:
-- Assembly error
-- Contamination
-- True biological duplication (rare)
-
-### Wrong Fragment Count
-
-Single rRNA segment detected when multiple expected:
-- Likely scaffolded short-read assembly
-- Cannot resolve rRNA repeats
-- Not a true complete assembly
-
-## Getting Help
-
-- Report issues: [GitHub Issues](https://github.com/quadram-institute-bioscience/socru/issues)
-- Pull requests welcome for improvements
-- Share new databases with the community
