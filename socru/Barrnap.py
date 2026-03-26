@@ -121,7 +121,11 @@ class Barrnap:
                 m = re.search(r"Name=([\d]+)S_rRNA", row[8])
                 if m:
                     # Store (start, end, rRNA_type, strand)
-                    coords.append((int(row[3]), int(row[4]), int(m.group(1)), row[6] ))
+                    # GFF uses 1-based inclusive coordinates; convert start to
+                    # 0-based so that Python slicing works correctly. The end
+                    # coordinate needs no adjustment because GFF's 1-based
+                    # inclusive end equals Python's 0-based exclusive end.
+                    coords.append((int(row[3]) - 1, int(row[4]), int(m.group(1)), row[6] ))
             return coords
 
     def filter_out_close_start_coords(self, coords):

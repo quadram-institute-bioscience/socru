@@ -23,10 +23,10 @@ class TestSocruUpdateProfile(unittest.TestCase):
         s = SocruUpdateProfile(TestOptions(os.path.join(data_dir, 'yersinia'),os.path.join(data_dir, 'profile.txt'), 'output_profile.txt'))
         s.run()
         self.assertTrue(os.path.exists('output_profile.txt'))
-        self.assertTrue(filecmp.cmp('output_profile.txt', os.path.join(data_dir, 'expected_output_profile.txt')))
-    
+        self.assertTrue(filecmp.cmp('output_profile.txt', os.path.join(data_dir, 'expected_output_profile_from_partial.txt')))
+
         os.remove('output_profile.txt')
-        
+
     def test_same_update_twice(self):
         if os.path.exists('output_profile.txt'):
             os.remove('output_profile.txt')
