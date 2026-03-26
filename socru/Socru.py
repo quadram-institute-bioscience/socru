@@ -13,8 +13,6 @@ Classes:
 import json
 import logging
 import os
-
-logger = logging.getLogger(__name__)
 import shutil
 from tempfile import mkdtemp, mkstemp
 
@@ -35,13 +33,15 @@ from socru.Profiles import Profiles
 from socru.QCFlags import generate_qc_flags
 from socru.Schemas import Schemas
 from socru.SocruConfig import SocruConfig
-from socru.ToolCheck import check_all_tools
 from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg
 from socru.SvgFragmentQuality import generate_fragment_quality_svg
 from socru.SvgSynteny import generate_synteny_svg
 from socru.SvgTypeDistribution import generate_type_distribution_svg
+from socru.ToolCheck import check_all_tools
 from socru.TypeGenerator import TypeGenerator
 from socru.ValidateFragments import ValidateFragments
+
+logger = logging.getLogger(__name__)
 
 
 class Socru:

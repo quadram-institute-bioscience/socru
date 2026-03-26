@@ -9,8 +9,8 @@ the saved snapshots.
 import json
 import os
 import unittest
-from unittest.mock import patch
 from datetime import datetime
+from unittest.mock import patch
 
 SNAPSHOT_DIR = os.path.join(os.path.dirname(__file__), 'data', 'snapshots')
 

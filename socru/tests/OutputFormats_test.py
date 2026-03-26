@@ -7,8 +7,8 @@ serialization and rendering paths end-to-end.
 
 import json
 import os
-import tempfile
 import shutil
+import tempfile
 import unittest
 
 from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult, QCFlag

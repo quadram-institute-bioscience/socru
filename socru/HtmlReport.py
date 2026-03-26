@@ -349,7 +349,7 @@ tr.clickable:hover { background: #eaeef2; }
         blocks = ""
         for p in parts:
             if p == "?":
-                blocks += f'<div class="frag-block frag-unknown">?</div>'
+                blocks += '<div class="frag-block frag-unknown">?</div>'
             elif p.endswith("'"):
                 blocks += f'<div class="frag-block frag-rev">{_esc(p)}</div>'
             else:

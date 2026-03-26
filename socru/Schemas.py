@@ -82,7 +82,6 @@ class Schemas:
         db_info = {}
         for species in listdir(self.base_directory):
 
-            db_dir = os.path.join(self.base_directory, species)
             db_file = os.path.join(self.base_directory, species,'profile.txt.yml')
 
             if not os.path.exists(db_file):

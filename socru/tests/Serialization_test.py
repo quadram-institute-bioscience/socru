@@ -6,7 +6,6 @@ SocruConfig fields match the CLI argparse options.
 
 import argparse
 import json
-import types
 import unittest
 from dataclasses import fields as dc_fields
 

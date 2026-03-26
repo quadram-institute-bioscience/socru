@@ -236,11 +236,11 @@ class FilterBlast:
         block_end = 0
 
         for b in range(0, len(pileup)):
-            if pileup[b] >= coverage_threshold and in_block == False:
+            if pileup[b] >= coverage_threshold and not in_block:
                 # Start of a high-coverage block
                 in_block = True
                 block_start = b+1
-            elif in_block == True and pileup[b] < coverage_threshold:
+            elif in_block and pileup[b] < coverage_threshold:
                 # End of a high-coverage block
                 in_block = False
                 block_end = b+1

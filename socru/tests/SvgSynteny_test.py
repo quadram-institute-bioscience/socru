@@ -18,8 +18,8 @@ def _make_assembly(name, gs_type, fragments, quality="GREEN"):
 def _make_frags(*specs):
     """Build a fragment list from (number, reversed, length) tuples."""
     return [
-        {"number": n, "reversed": r, "length": l}
-        for n, r, l in specs
+        {"number": n, "reversed": r, "length": length}
+        for n, r, length in specs
     ]
 
 

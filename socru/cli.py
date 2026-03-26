@@ -4,7 +4,8 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
-from importlib.metadata import version as get_version, PackageNotFoundError
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as get_version
 
 
 def _version():
@@ -154,8 +155,8 @@ def socru_shrink_database_main():
 
 def socru_species_main():
     """Entry point for socru_species command."""
-    from socru.Schemas import Schemas
     from socru.DatabaseManager import DatabaseManager
+    from socru.Schemas import Schemas
 
     parser = argparse.ArgumentParser(
         description='List all available Socru species databases',

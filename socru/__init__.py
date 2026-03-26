@@ -11,7 +11,7 @@ Usage as a library:
     with Socru(config) as s:
         s.run()
 """
-from importlib.metadata import version, PackageNotFoundError
+from importlib.metadata import PackageNotFoundError, version
 
 try:
     __version__ = version("socru")
@@ -19,35 +19,34 @@ except PackageNotFoundError:
     __version__ = "unknown"
 
 # Core analysis
-from socru.Socru import Socru
-from socru.SocruCreate import SocruCreate
-from socru.SocruConfig import SocruConfig, SocruCreateConfig
-
 # Data models
 from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult, QCFlag
-from socru.Fragment import Fragment
+from socru.BatchStats import BatchStats
 from socru.BlastResult import BlastResult
-from socru.Operon import Operon
-from socru.GATProfile import GATProfile
 
 # Analysis modules
 from socru.ConfidenceScore import calculate_confidence
-from socru.QCFlags import generate_qc_flags
-from socru.NoveltyDetector import assess_novelty, NoveltyAssessment
-from socru.RearrangementDistance import rearrangement_distance, pairwise_distance_matrix
-from socru.BatchStats import BatchStats
 from socru.DatabaseManager import DatabaseManager
+from socru.Fragment import Fragment
+from socru.GATProfile import GATProfile
+
+# Reporting
+from socru.HtmlReport import HtmlReport
+from socru.NoveltyDetector import NoveltyAssessment, assess_novelty
+from socru.Operon import Operon
+from socru.QCFlags import generate_qc_flags
+from socru.RearrangementDistance import pairwise_distance_matrix, rearrangement_distance
+from socru.Socru import Socru
+from socru.SocruConfig import SocruConfig, SocruCreateConfig
+from socru.SocruCreate import SocruCreate
+from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg
+from socru.SvgCoveragePileup import generate_coverage_pileup_svg
+from socru.SvgFragmentQuality import generate_fragment_quality_svg
 
 # Visualization
 from socru.SvgGenomePlot import generate_genome_svg, save_genome_svg
 from socru.SvgSynteny import generate_synteny_svg
-from socru.SvgFragmentQuality import generate_fragment_quality_svg
 from socru.SvgTypeDistribution import generate_type_distribution_svg
-from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg
-from socru.SvgCoveragePileup import generate_coverage_pileup_svg
-
-# Reporting
-from socru.HtmlReport import HtmlReport
 
 __all__ = [
     # Core

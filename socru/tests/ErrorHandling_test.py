@@ -10,7 +10,6 @@ from socru.FilterBlast import FilterBlast
 from socru.SocruConfig import SocruConfig
 from socru.ToolCheck import MissingToolError
 
-
 test_modules_dir = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(test_modules_dir, 'data', 'filter_blast')
 

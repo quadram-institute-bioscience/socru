@@ -61,7 +61,7 @@ class TestEndToEndAnalysis(unittest.TestCase):
 
     def test_single_genome_produces_result(self):
         """Run Socru on a test genome and verify it returns a non-empty result string."""
-        s = self._run_analysis()
+        self._run_analysis()
         output_path = os.path.join(self.tmpdir, 'output.txt')
         self.assertTrue(os.path.exists(output_path))
         with open(output_path) as fh:
@@ -94,7 +94,7 @@ class TestEndToEndAnalysis(unittest.TestCase):
     def test_json_output_is_valid(self):
         """Use output_json, verify file is valid JSON with expected structure."""
         json_path = os.path.join(self.tmpdir, 'results.json')
-        s = self._run_analysis(output_json=json_path)
+        self._run_analysis(output_json=json_path)
         self.assertTrue(os.path.exists(json_path))
         with open(json_path) as fh:
             data = json.load(fh)
@@ -113,7 +113,7 @@ class TestEndToEndAnalysis(unittest.TestCase):
     def test_svg_output_is_valid(self):
         """Use output_svg, verify file contains <svg tag."""
         svg_path = os.path.join(self.tmpdir, 'genome.svg')
-        s = self._run_analysis(output_svg=svg_path)
+        self._run_analysis(output_svg=svg_path)
         self.assertTrue(os.path.exists(svg_path))
         with open(svg_path) as fh:
             content = fh.read()
@@ -127,7 +127,7 @@ class TestEndToEndAnalysis(unittest.TestCase):
     def test_html_output_is_valid(self):
         """Use output_html, verify file contains <!DOCTYPE html>."""
         html_path = os.path.join(self.tmpdir, 'report.html')
-        s = self._run_analysis(output_html=html_path)
+        self._run_analysis(output_html=html_path)
         self.assertTrue(os.path.exists(html_path))
         with open(html_path) as fh:
             content = fh.read()
