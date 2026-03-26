@@ -3,6 +3,7 @@
 import os
 import types
 import unittest
+from unittest.mock import patch
 
 from socru.SocruConfig import SocruConfig, SocruCreateConfig
 
@@ -201,7 +202,8 @@ class TestSocruCreateConfigFromOptions(unittest.TestCase):
 class TestSocruAcceptsSocruConfig(unittest.TestCase):
     """Verify that the Socru class accepts a SocruConfig directly."""
 
-    def test_socru_init_with_config(self):
+    @patch('socru.ToolCheck.shutil.which', return_value='/usr/bin/fake')
+    def test_socru_init_with_config(self, _mock_which):
         """Socru.__init__ should work when given a SocruConfig object."""
         test_modules_dir = os.path.dirname(os.path.realpath(__file__))
         data_dir = os.path.join(test_modules_dir, "data", "socru")
@@ -244,7 +246,8 @@ class TestSocruAcceptsSocruConfig(unittest.TestCase):
             if os.path.exists(fn):
                 os.remove(fn)
 
-    def test_socru_init_with_legacy_namespace(self):
+    @patch('socru.ToolCheck.shutil.which', return_value='/usr/bin/fake')
+    def test_socru_init_with_legacy_namespace(self, _mock_which):
         """Socru.__init__ should still work with a plain namespace object."""
         test_modules_dir = os.path.dirname(os.path.realpath(__file__))
         data_dir = os.path.join(test_modules_dir, "data", "socru")

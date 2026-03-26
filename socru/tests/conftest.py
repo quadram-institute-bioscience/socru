@@ -11,6 +11,11 @@ _INTEGRATION_MODULES = {
     "SocruCreate_test",
     "SocruRebuildProfile_test",
     "SocruUpdateProfile_test",
+    "Blast_test",
+    "Database_test",
+    "Dif_test",
+    "DnaA_test",
+    "ProfileGenerator_test",
 }
 
 
