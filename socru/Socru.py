@@ -237,6 +237,7 @@ class Socru:
         4. Matches fragment pattern to known profiles
         5. Validates fragment ordering
         6. Generates plots and saves novel data
+        7. Builds a structured AnalysisResult
 
         Args:
             input_file (str): Path to input genome FASTA
@@ -244,15 +245,29 @@ class Socru:
             d (Database): Fragment BLAST database
 
         Returns:
-            str: Type output string (quality + GS type + fragment pattern)
+            tuple: (type_output_string, AnalysisResult or None)
         """
         # Step 1: Find rRNA operon boundaries
         boundries = self.find_rrna_boundries(input_file)
         if not boundries:
-            return ''
+            return '', None
+
+        # Collect operon results for structured output
+        operon_results = [
+            OperonResult(
+                start=op.start,
+                end=op.end,
+                direction='forward' if op.direction else 'reverse',
+            )
+            for op in boundries
+        ]
 
         # Step 2: Extract fragment sequences
         fragments = self.populate_fragments_from_chromosome(input_file, boundries)
+
+        # Determine genome length from the Fasta object
+        fasta_obj = Fasta(input_file, self.verbose, is_circular=self.is_circular)
+        genome_length = len(fasta_obj.chromosome.seq)
 
         # Step 3: Create temporary FASTA files for each fragment
         tmpdir = mkdtemp()
@@ -263,9 +278,10 @@ class Socru:
         # Step 4: BLAST each fragment against the database
         blast = Blast(d.db_prefix, self.threads, self.verbose)
 
-        # Build the fragment profile pattern
+        # Build the fragment profile pattern, collecting BLAST results per fragment
         gat_profile = GATProfile(self.verbose, fragments = [])
-        for current_fragment in ff.ordered_fragments:
+        blast_results_map = {}  # fragment index -> BlastResult
+        for frag_idx, current_fragment in enumerate(ff.ordered_fragments):
             fasta_file = current_fragment.output_filename
 
             # BLAST the fragment and filter results
@@ -277,6 +293,7 @@ class Socru:
                 # No match found - mark as unknown and save for manual review
                 gat_profile.fragments.append('?')
                 current_fragment.number = '?'
+                blast_results_map[frag_idx] = None
 
                 with open(fasta_file, "r") as fasta_file_fh:
                     with open(self.new_fragments, "a+") as newfrag_fh:
@@ -284,6 +301,7 @@ class Socru:
                 continue
             else:
                 self.top_results.append(top_result)
+                blast_results_map[frag_idx] = top_result
 
                 # Record fragment number from BLAST hit
                 current_fragment.number = str(top_result.subject)
@@ -324,7 +342,8 @@ class Socru:
 
         # Step 7: Match profile pattern to known GS type
         tg = TypeGenerator(p, gat_profile, self.verbose, is_frag_valid)
-        type_output_string  =  tg.quality + "\t" + tg.calculate_type() + "\t" + str(gat_profile)
+        gs_type = tg.calculate_type()
+        type_output_string  =  tg.quality + "\t" + gs_type + "\t" + str(gat_profile)
         self.write_novel_profile_to_file(tg, type_output_string)
 
         # Step 8: Generate genome structure plot for high-quality results
@@ -343,7 +362,93 @@ class Socru:
                 genome_name=os.path.basename(input_file),
             )
 
-        return type_output_string
+        # Step 10: Build structured AnalysisResult
+        fragment_results = []
+        for frag_idx, current_fragment in enumerate(ff.ordered_fragments):
+            br = blast_results_map.get(frag_idx)
+            fr = FragmentResult(
+                number=current_fragment.number,
+                reversed=current_fragment.reversed_frag,
+                is_dnaA=current_fragment.dna_A,
+                is_dif=current_fragment.dif,
+                length=current_fragment.num_bases(),
+                coords=current_fragment.coords,
+                blast_identity=br.identity if br else None,
+                blast_alignment_length=br.alignment_length if br else None,
+                blast_bit_score=br.bit_score if br else None,
+                blast_e_value=br.e_value if br else None,
+                blast_mismatches=br.mismatches if br else None,
+                blast_subject=str(br.subject) if br else None,
+            )
+            fragment_results.append(fr)
+
+        is_novel = not tg.has_previously_seen
+
+        # Calculate confidence score
+        confidence = calculate_confidence(
+            fragment_results,
+            tg.quality,
+            is_frag_valid,
+            is_novel=is_novel,
+        )
+
+        # Build analysis result (without QC flags initially)
+        analysis_result = AnalysisResult(
+            genome_file=input_file,
+            genome_length=genome_length,
+            is_circular=self.is_circular,
+            num_operons=len(boundries),
+            gs_type=gs_type,
+            quality=tg.quality,
+            is_novel=is_novel,
+            fragment_pattern=str(gat_profile),
+            orientation_binary=gat_profile.orientation_binary(),
+            confidence_score=confidence,
+            fragments=fragment_results,
+            operons=operon_results,
+            validation_passed=is_frag_valid,
+            operon_direction_string=operon_directions_str,
+        )
+
+        # Generate QC flags
+        analysis_result.qc_flags = generate_qc_flags(
+            analysis_result,
+            expected_fragment_count=p.num_fragments,
+        )
+
+        return type_output_string, analysis_result
+
+    def _print_summary_table(self):
+        """
+        Print a summary table of all analysis results to stdout.
+
+        Formatted as a fixed-width table suitable for terminal display.
+        Only printed when multiple input files are processed.
+        """
+        if not self.analysis_results:
+            return
+
+        header = "{:<25s} {:<12s} {:>7s} {:>10s} {:>7s} {:>10s} {:>5s}  {}".format(
+            'Assembly', 'GS Type', 'Quality', 'Confidence',
+            'Operons', 'Fragments', 'Novel', 'Flags',
+        )
+        print("\n" + header)
+        print("-" * len(header))
+
+        for r in self.analysis_results:
+            basename = os.path.basename(r.genome_file)
+            if len(basename) > 24:
+                basename = basename[:21] + "..."
+            total_frags = len(r.fragments)
+            matched_frags = sum(1 for f in r.fragments if str(f.number) != '?')
+            frag_str = "{}/{}".format(matched_frags, total_frags)
+            novel_str = "Yes" if r.is_novel else "No"
+            flag_codes = ",".join(sorted({f.code for f in r.qc_flags}))
+
+            print("{:<25s} {:<12s} {:>7s} {:>10.1f} {:>7d} {:>10s} {:>5s}  {}".format(
+                basename, r.gs_type, r.quality, r.confidence_score,
+                r.num_operons, frag_str, novel_str, flag_codes,
+            ))
 
     def output_operon_direction(self, input_file, operon_directions):
         """
