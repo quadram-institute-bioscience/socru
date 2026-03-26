@@ -12,6 +12,8 @@ Classes:
 
 import matplotlib.pyplot as plt
 
+from socru.SvgGenomePlot import generate_genome_svg, save_genome_svg
+
 class PlotProfile:
     """
     Create circular visualization of genome structure.
@@ -88,3 +90,77 @@ class PlotProfile:
         p=plt.gcf()
         p.gca().add_artist(my_circle)
         plt.savefig( self.output_file )
+
+    def _build_fragment_dicts(self):
+        """Convert Fragment objects to dicts for the SVG generator.
+
+        Returns:
+            list: List of fragment dictionaries.
+        """
+        frag_dicts = []
+        for f in self.fragments:
+            total_len = f.num_bases()
+            coords = [(c[0], c[1]) for c in f.coords] if f.coords else [(0, total_len)]
+            frag_dicts.append({
+                "number": f.number,
+                "reversed": f.reversed_frag,
+                "length": total_len,
+                "coords": coords,
+                "is_dnaA": f.dna_A,
+                "is_dif": f.dif,
+            })
+        return frag_dicts
+
+    def _build_operon_dicts(self):
+        """Infer operon positions from fragment boundaries.
+
+        Operons sit between adjacent fragments. Their direction is derived
+        from the operon_forward_end / operon_forward_start flags on the
+        surrounding fragments.
+
+        Returns:
+            list: List of operon dictionaries.
+        """
+        operons = []
+        for idx in range(len(self.fragments)):
+            frag = self.fragments[idx]
+            next_frag = self.fragments[(idx + 1) % len(self.fragments)]
+            # The operon sits at the end of this fragment / start of next
+            if frag.coords:
+                end_coord = frag.coords[-1][1]
+            else:
+                end_coord = 0
+            if next_frag.coords:
+                start_coord = next_frag.coords[0][0]
+            else:
+                start_coord = end_coord
+            direction = "forward" if frag.operon_forward_end else "reverse"
+            operons.append({
+                "start": end_coord,
+                "end": start_coord,
+                "direction": direction,
+            })
+        return operons
+
+    def create_svg(self, svg_output_file, gs_type="", quality="GREEN", genome_name=""):
+        """Create and save an SVG circular genome diagram.
+
+        Args:
+            svg_output_file (str): Path to output SVG file.
+            gs_type (str): GS type label, e.g. "GS1.0".
+            quality (str): Quality category: "GREEN", "AMBER", or "RED".
+            genome_name (str): Genome filename or label.
+        """
+        frag_dicts = self._build_fragment_dicts()
+        operon_dicts = self._build_operon_dicts()
+        genome_length = self.total_bases()
+
+        save_genome_svg(
+            svg_output_file,
+            fragments=frag_dicts,
+            operons=operon_dicts,
+            genome_length=genome_length,
+            gs_type=gs_type,
+            quality=quality,
+            genome_name=genome_name,
+        )

@@ -10,6 +10,7 @@ Classes:
     Socru: Main class that runs the complete analysis pipeline
 """
 
+import json
 import logging
 import os
 import sys
@@ -31,6 +32,9 @@ from socru.TypeGenerator import TypeGenerator
 from socru.Schemas import Schemas
 from socru.PlotProfile import PlotProfile
 from socru.ValidateFragments import ValidateFragments
+from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult
+from socru.ConfidenceScore import calculate_confidence
+from socru.QCFlags import generate_qc_flags
 
 class Socru:
     """
@@ -82,8 +86,11 @@ class Socru:
         self.output_operon_directions_file = options.output_operon_directions_file
 
         self.verbose = options.verbose
+        self.output_svg = getattr(options, 'output_svg', None)
+        self.output_json = getattr(options, 'output_json', None)
         self.dirs_to_cleanup = []
         self.top_results = []
+        self.analysis_results = []
 
         # Locate and validate the species database
         self.db_dir =  Schemas(self.verbose).database_directory(options.db_dir, options.species)
@@ -122,14 +129,28 @@ class Socru:
         for i in self.input_files:
             if self.verbose:
                 print("Beginning analysis of input file:\t" + i)
-            output_type = self.run_analysis(i, p, d)
+            output_type, analysis_result = self.run_analysis(i, p, d)
             self.output_results(i, output_type)
+            if analysis_result is not None:
+                self.analysis_results.append(analysis_result)
 
         # Write all top BLAST hits to file if requested
         if self.top_blast_hits is not None:
             with open(self.top_blast_hits, "a+") as output_fh:
                 for h in self.top_results:
                     output_fh.write(str(h)+"\n")
+
+        # Write JSON output if requested
+        if self.output_json is not None:
+            with open(self.output_json, 'w') as json_fh:
+                json_fh.write(json.dumps(
+                    [r.to_dict() for r in self.analysis_results],
+                    indent=2,
+                ))
+
+        # Print summary table for batch mode (multiple files)
+        if len(self.input_files) > 1:
+            self._print_summary_table()
 
     def output_results(self, input_file, profile_type):
         """
@@ -310,6 +331,17 @@ class Socru:
         if tg.quality == 'GREEN':
             pp = PlotProfile(reordered_frag_objs, self.output_plot_file, self.verbose)
             pp.create_plot()
+
+        # Step 9: Generate SVG circular genome diagram if requested
+        if self.output_svg is not None:
+            pp_svg = PlotProfile(reordered_frag_objs, self.output_plot_file, self.verbose)
+            gs_label = "GS" + str(tg.calculate_type())
+            pp_svg.create_svg(
+                self.output_svg,
+                gs_type=gs_label,
+                quality=tg.quality,
+                genome_name=os.path.basename(input_file),
+            )
 
         return type_output_string
 

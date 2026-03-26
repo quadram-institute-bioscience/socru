@@ -44,6 +44,7 @@ parser.add_argument('--novel_profiles', '-n',  help='Filename for novel profiles
 parser.add_argument('--new_fragments', '-f',  help='Filename for novel fragments', type=str, default = 'novel_fragments.fa')
 parser.add_argument('--top_blast_hits', '-b',  help='Filename for top blast hits', type=str)
 parser.add_argument('--output_operon_directions_file', '-r',  help='Filename of directions of operons', type=str, default = 'operon_directions.txt')
+parser.add_argument('--output_svg', '-s',  help='Filename of SVG circular genome diagram', type=str)
 
 # Advanced options - fine-tune analysis parameters
 
