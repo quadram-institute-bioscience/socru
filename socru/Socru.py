@@ -35,6 +35,7 @@ from socru.Profiles import Profiles
 from socru.QCFlags import generate_qc_flags
 from socru.Schemas import Schemas
 from socru.SocruConfig import SocruConfig
+from socru.ToolCheck import check_all_tools
 from socru.SvgConfidenceHeatmap import generate_confidence_heatmap_svg
 from socru.SvgFragmentQuality import generate_fragment_quality_svg
 from socru.SvgSynteny import generate_synteny_svg
@@ -77,6 +78,11 @@ class Socru:
             options_or_config: A ``SocruConfig`` instance for library use,
                 or an argparse ``Namespace`` for backward compatibility.
         """
+        # Initialize cleanup list early so __del__ never fails
+        self.dirs_to_cleanup = []
+
+        check_all_tools()
+
         if isinstance(options_or_config, SocruConfig):
             config = options_or_config
         else:
@@ -101,7 +107,6 @@ class Socru:
         self.verbose = config.verbose
         self.output_svg = config.output_svg
         self.output_json = config.output_json
-        self.dirs_to_cleanup = []
         self.top_results = []
         self.analysis_results = []
         self.html_results = []
@@ -189,7 +194,7 @@ class Socru:
 
         # Generate HTML report if requested
         if self.output_html is not None:
-            species = os.path.basename(self.db_dir) if self.db_dir else "Unknown"
+            species = os.path.basename(self.db_dir) if self.db_dir is not None else "Unknown"
             # Use AnalysisResult data if available, otherwise fall back to parsed data
             html_data = self.html_results
             if self.analysis_results:

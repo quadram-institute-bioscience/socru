@@ -13,12 +13,15 @@ Classes:
 from __future__ import annotations
 
 import csv
+import logging
 from typing import Optional, Union
 
 import numpy
 import numpy.typing as npt
 
 from socru.BlastResult import BlastResult
+
+logger = logging.getLogger(__name__)
 
 
 class FilterBlast:
@@ -65,9 +68,24 @@ class FilterBlast:
         results = []
         with open(self.results_file , newline='') as blastfile:
             blastreader = csv.reader(blastfile, delimiter='\t')
-            for row in blastreader:
-                # Create BlastResult from 12 standard BLAST columns
-                results.append(BlastResult(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
+            for line_num, row in enumerate(blastreader, start=1):
+                if not row or (len(row) == 1 and not row[0].strip()):
+                    # Skip blank lines
+                    continue
+                if len(row) < 12:
+                    logger.warning(
+                        "Skipping malformed BLAST line %d in %s: expected 12 columns, got %d",
+                        line_num, self.results_file, len(row),
+                    )
+                    continue
+                try:
+                    # Create BlastResult from 12 standard BLAST columns
+                    results.append(BlastResult(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
+                except (ValueError, IndexError) as e:
+                    logger.warning(
+                        "Skipping unparseable BLAST line %d in %s: %s",
+                        line_num, self.results_file, e,
+                    )
         return results
 
     def filter_results(self) -> list[BlastResult]:

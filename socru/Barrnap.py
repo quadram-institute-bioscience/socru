@@ -20,6 +20,7 @@ from tempfile import mkstemp
 
 from socru.Fasta import Fasta
 from socru.Operon import Operon
+from socru.ToolCheck import MissingToolError
 
 logger = logging.getLogger(__name__)
 
@@ -316,8 +317,15 @@ class Barrnap:
         decompressed_file = self.decompress_to_file()
         cmd = ['barrnap', '--quiet', '--threads', str(self.threads), decompressed_file]
         logger.info("Run barrnap:\t%s > %s", ' '.join(cmd), barrnap_outputfile)
-        with open(barrnap_outputfile, 'w') as out_fh:
-            subprocess.run(cmd, stdout=out_fh, check=True)
+        try:
+            with open(barrnap_outputfile, 'w') as out_fh:
+                result = subprocess.run(cmd, stdout=out_fh)
+                result.check_returncode()
+        except subprocess.CalledProcessError as e:
+            logger.error("barrnap failed with exit code %d on %s", e.returncode, self.input_file)
+            raise
+        except FileNotFoundError:
+            raise MissingToolError(f"Tool not found: {cmd[0]}")
 
     def __enter__(self):
         return self

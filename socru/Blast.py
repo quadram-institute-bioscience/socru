@@ -18,6 +18,8 @@ import shutil
 import subprocess
 from tempfile import mkstemp
 
+from socru.ToolCheck import MissingToolError
+
 logger = logging.getLogger(__name__)
 
 class Blast:
@@ -115,10 +117,20 @@ class Blast:
         ]
         logger.info("Run blastn:\t%s", ' '.join(cmd))
 
-        result = subprocess.run(cmd, capture_output=True, check=True, text=True)
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            result.check_returncode()
+        except subprocess.CalledProcessError as e:
+            logger.error("blastn failed with exit code %d on %s", e.returncode, query)
+            raise
+        except FileNotFoundError:
+            raise MissingToolError(f"Tool not found: {cmd[0]}")
 
         # Sort output by bit score (column 12, 0-indexed 11) descending
         lines = result.stdout.strip().split('\n') if result.stdout.strip() else []
+        if not lines or (len(lines) == 1 and not lines[0].strip()):
+            logger.warning("blastn produced no output for query %s", query)
+            lines = []
         sorted_lines = sorted(
             lines,
             key=lambda line: float(line.split('\t')[11]) if len(line.split('\t')) > 11 else 0.0,

@@ -18,6 +18,7 @@ from socru.Fasta import Fasta
 from socru.FragmentFiles import FragmentFiles
 from socru.ProfileGenerator import ProfileGenerator
 from socru.SocruConfig import SocruCreateConfig
+from socru.ToolCheck import check_all_tools
 
 
 class SocruCreate:
@@ -51,6 +52,11 @@ class SocruCreate:
             options_or_config: A ``SocruCreateConfig`` instance for library
                 use, or an argparse ``Namespace`` for backward compatibility.
         """
+        # Initialize cleanup list early so __del__ never fails
+        self.files_to_cleanup = []
+
+        check_all_tools()
+
         if isinstance(options_or_config, SocruCreateConfig):
             config = options_or_config
         else:
@@ -64,7 +70,6 @@ class SocruCreate:
         self.dif_fasta = config.dif_fasta
         self.verbose = config.verbose
         self.max_bases_from_ends = config.max_bases_from_ends
-        self.files_to_cleanup = []
 
         # Validate output directory doesn't exist
         if os.path.exists(self.output_directory):
