@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<style>
+  text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+</style>
+<defs>
+<pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+  <line x1="0" y1="0" x2="0" y2="6" stroke="#000" stroke-width="1.5" opacity="0.35"/>
+</pattern>
+</defs>
+<rect width="800" height="800" fill="white"/>
+<circle cx="400.0" cy="400.0" r="320" fill="none" stroke="#cccccc" stroke-width="1.5"/>
+<line x1="400.00" y1="80.00" x2="400.00" y2="60.00" stroke="#999" stroke-width="1"/>
+<text x="400.00" y="46.00" font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central">0</text>
+<line x1="640.22" y1="188.58" x2="655.23" y2="175.37" stroke="#999" stroke-width="1"/>
+<text x="665.74" y="166.12" font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central">500kb</text>
+<line x1="717.41" y1="440.65" x2="737.25" y2="443.19" stroke="#999" stroke-width="1"/>
+<text x="751.13" y="444.96" font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central">1000kb</text>
+<line x1="579.19" y1="665.12" x2="590.39" y2="681.69" stroke="#999" stroke-width="1"/>
+<text x="598.23" y="693.29" font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central">1500kb</text>
+<line x1="319.37" y1="709.67" x2="314.33" y2="729.03" stroke="#999" stroke-width="1"/>
+<text x="310.80" y="742.58" font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central">2000kb</text>
+<line x1="114.26" y1="544.07" x2="96.41" y2="553.07" stroke="#999" stroke-width="1"/>
+<text x="83.90" y="559.37" font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central">2500kb</text>
+<line x1="103.08" y1="280.69" x2="84.52" y2="273.23" stroke="#999" stroke-width="1"/>
+<text x="71.53" y="268.01" font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central">3000kb</text>
+<path d="M 400.00 100.00 A 300.00 300.00 0 0 1 555.63 656.47 L 524.51 605.18 A 240.00 240.00 0 0 0 400.00 160.00 Z" fill="#a6cee3" stroke="white" stroke-width="1"/>
+<text x="660.02" y="327.28" font-size="13" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">1</text>
+<line x1="690.84" y1="318.66" x2="741.88" y2="304.38" stroke="#d62728" stroke-width="2"/>
+<text x="755.36" y="300.61" font-size="12" font-weight="bold" fill="#d62728" text-anchor="middle" dominant-baseline="central">Ori</text>
+<path d="M 551.13 659.15 A 300.00 300.00 0 0 1 100.07 406.54 L 160.06 405.24 A 240.00 240.00 0 0 0 520.91 607.32 Z" fill="#1f78b4" stroke="white" stroke-width="1"/>
+<path d="M 551.13 659.15 A 300.00 300.00 0 0 1 100.07 406.54 L 160.06 405.24 A 240.00 240.00 0 0 0 520.91 607.32 Z" fill="url(#hatch)" stroke="none"/>
+<text x="268.07" y="635.57" font-size="13" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">2</text>
+<path d="M 100.00 401.31 A 300.00 300.00 0 0 1 394.76 100.05 L 395.81 160.04 A 240.00 240.00 0 0 0 160.00 401.05 Z" fill="#b2df8a" stroke="white" stroke-width="1"/>
+<text x="207.01" y="211.18" font-size="13" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">3</text>
+<line x1="184.14" y1="188.80" x2="146.25" y2="151.73" stroke="#1f78b4" stroke-width="2"/>
+<text x="136.25" y="141.94" font-size="12" font-weight="bold" fill="#1f78b4" text-anchor="middle" dominant-baseline="central">Ter</text>
+<polygon points="526.87,589.44 527.91,574.06 512.25,584.54" fill="#555" stroke="white" stroke-width="0.5"/>
+<polygon points="189.39,424.25 178.80,435.30 176.56,415.89" fill="#555" stroke="white" stroke-width="0.5"/>
+<circle cx="400.0" cy="370.0" r="10" fill="#2ca02c"/>
+<text x="400.0" y="400.0" font-size="22" font-weight="bold" fill="#333" text-anchor="middle" dominant-baseline="central">GS1.1</text>
+<text x="400.0" y="428.0" font-size="11" fill="#666" text-anchor="middle" dominant-baseline="central">Test_genome</text>
+<text x="400.0" y="448.0" font-size="10" fill="#999" text-anchor="middle" dominant-baseline="central">3.70 Mb</text>
+<text x="20" y="690" font-size="12" font-weight="bold" fill="#333">Fragments</text>
+<rect x="20" y="700" width="14" height="14" fill="#a6cee3" rx="2"/>
+<text x="40" y="711" font-size="11" fill="#333">Fragment 1</text>
+<rect x="20" y="720" width="14" height="14" fill="#1f78b4" rx="2"/>
+<text x="40" y="731" font-size="11" fill="#333">Fragment 2 (reversed)</text>
+<rect x="20" y="740" width="14" height="14" fill="#b2df8a" rx="2"/>
+<text x="40" y="751" font-size="11" fill="#333">Fragment 3</text>
+<rect x="20" y="766" width="14" height="14" fill="#ccc" rx="2"/>
+<rect x="20" y="766" width="14" height="14" fill="url(#hatch)" rx="2"/>
+<text x="40" y="777" font-size="11" fill="#333">= reversed orientation</text>
+</svg>

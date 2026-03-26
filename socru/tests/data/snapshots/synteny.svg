@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" width="1000" height="200">
+<style>
+  text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+</style>
+<defs>
+<pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+  <line x1="0" y1="0" x2="0" y2="6" stroke="#000" stroke-width="1.5" opacity="0.35"/>
+</pattern>
+</defs>
+<rect width="1000" height="200" fill="white"/>
+<path d="M 180.00 70.00 C 180.00 100.00, 180.00 100.00, 180.00 130.00 L 513.33 130.00 C 513.33 100.00, 513.33 100.00, 513.33 70.00 Z" fill="#a6cee3" fill-opacity="0.3" stroke="#a6cee3" stroke-width="0.5"/>
+<path d="M 513.33 70.00 C 513.33 100.00, 713.33 100.00, 713.33 130.00 L 980.00 130.00 C 980.00 100.00, 780.00 100.00, 780.00 70.00 Z" fill="#1f78b4" fill-opacity="0.3" stroke="#1f78b4" stroke-width="0.5"/>
+<path d="M 780.00 70.00 C 780.00 100.00, 513.33 100.00, 513.33 130.00 L 713.33 130.00 C 713.33 100.00, 980.00 100.00, 980.00 70.00 Z" fill="#b2df8a" fill-opacity="0.3" stroke="#b2df8a" stroke-width="0.5"/>
+<circle cx="14" cy="55.00" r="5" fill="#2ca02c"/>
+<text x="24" y="55.00" font-size="11" fill="#333" dominant-baseline="central">ref</text>
+<text x="170" y="55.00" font-size="11" font-weight="bold" fill="#555" text-anchor="end" dominant-baseline="central">GS1.0</text>
+<rect x="180.00" y="40" width="333.33" height="30" fill="#a6cee3" stroke="white" stroke-width="1"/>
+<text x="346.67" y="55.00" font-size="12" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">1</text>
+<rect x="513.33" y="40" width="266.67" height="30" fill="#1f78b4" stroke="white" stroke-width="1"/>
+<text x="646.67" y="55.00" font-size="12" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">2</text>
+<rect x="780.00" y="40" width="200.00" height="30" fill="#b2df8a" stroke="white" stroke-width="1"/>
+<text x="880.00" y="55.00" font-size="12" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">3</text>
+<circle cx="14" cy="145.00" r="5" fill="#ff9900"/>
+<text x="24" y="145.00" font-size="11" fill="#333" dominant-baseline="central">query</text>
+<text x="170" y="145.00" font-size="11" font-weight="bold" fill="#555" text-anchor="end" dominant-baseline="central">GS2.1</text>
+<rect x="180.00" y="130" width="333.33" height="30" fill="#a6cee3" stroke="white" stroke-width="1"/>
+<rect x="180.00" y="130" width="333.33" height="30" fill="url(#hatch)" stroke="none"/>
+<text x="346.67" y="145.00" font-size="12" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">1</text>
+<rect x="513.33" y="130" width="200.00" height="30" fill="#b2df8a" stroke="white" stroke-width="1"/>
+<text x="613.33" y="145.00" font-size="12" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">3</text>
+<rect x="713.33" y="130" width="266.67" height="30" fill="#1f78b4" stroke="white" stroke-width="1"/>
+<text x="846.67" y="145.00" font-size="12" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" stroke="#333" stroke-width="0.3">2</text>
+</svg>
