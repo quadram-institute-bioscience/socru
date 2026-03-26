@@ -672,7 +672,7 @@ class Socru:
 
     def cleanup(self):
         """Clean up temporary files and directories."""
-        for f in self.dirs_to_cleanup:
+        for f in getattr(self, 'dirs_to_cleanup', []):
             if os.path.exists(f):
                 shutil.rmtree(f, ignore_errors=True)
         self.dirs_to_cleanup = []

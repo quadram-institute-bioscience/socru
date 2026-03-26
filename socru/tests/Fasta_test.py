@@ -1,6 +1,9 @@
 import os
 import tempfile
 import unittest
+import warnings
+
+from Bio import BiopythonDeprecationWarning
 
 from socru.Fasta import Fasta
 from socru.Operon import Operon
@@ -76,7 +79,9 @@ class TestFasta(unittest.TestCase):
             tmp.write("not a fasta file\n")
             tmp_path = tmp.name
         try:
-            with self.assertRaises(ValueError):
-                Fasta(tmp_path, False)
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", BiopythonDeprecationWarning)
+                with self.assertRaises(ValueError):
+                    Fasta(tmp_path, False)
         finally:
             os.unlink(tmp_path)

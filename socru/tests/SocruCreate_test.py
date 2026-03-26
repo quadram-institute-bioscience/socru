@@ -9,7 +9,7 @@ test_modules_dir = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(test_modules_dir, 'data','create')
 
 
-class TestOptions:
+class MockOptions:
     def __init__(self, output_directory, input_file, threads,dnaa_fasta, dif_fasta, max_bases_from_ends, fragment_order = None):
         self.output_directory = output_directory
         self.input_file = input_file
@@ -26,7 +26,7 @@ class TestSocruCreate(unittest.TestCase):
         if os.path.exists('test_output'):
             shutil.rmtree('test_output')
 
-        g = SocruCreate(TestOptions('test_output', os.path.join(data_dir, 'test.fa.gz'), 1, os.path.join(data_dir, 'dnaA.fa.gz'), os.path.join(data_dir, 'dif.fa.gz'), None, fragment_order = None))
+        g = SocruCreate(MockOptions('test_output', os.path.join(data_dir, 'test.fa.gz'), 1, os.path.join(data_dir, 'dnaA.fa.gz'), os.path.join(data_dir, 'dif.fa.gz'), None, fragment_order = None))
         g.run()
         self.assertTrue(os.path.exists('test_output/1.fa'))
         self.assertTrue(os.path.exists('test_output/2.fa'))
@@ -47,7 +47,7 @@ class TestSocruCreate(unittest.TestCase):
         if os.path.exists('test_output'):
             shutil.rmtree('test_output')
 
-        g = SocruCreate(TestOptions('test_output', os.path.join(data_dir, 'test.fa'), 1, os.path.join(data_dir, 'dnaA.fa.gz'), os.path.join(data_dir, 'dif.fa.gz'), None, fragment_order = None))
+        g = SocruCreate(MockOptions('test_output', os.path.join(data_dir, 'test.fa'), 1, os.path.join(data_dir, 'dnaA.fa.gz'), os.path.join(data_dir, 'dif.fa.gz'), None, fragment_order = None))
         g.run()
         self.assertTrue(os.path.exists('test_output/1.fa'))
         self.assertTrue(os.path.exists('test_output/2.fa'))
@@ -69,7 +69,7 @@ class TestSocruCreate(unittest.TestCase):
         if os.path.exists('test_output_reorder'):
             shutil.rmtree('test_output_reorder')
 
-        g = SocruCreate(TestOptions('test_output_reorder', os.path.join(data_dir, 'test.fa'), 1,os.path.join(data_dir, 'dnaA.fa.gz'), os.path.join(data_dir, 'dif.fa.gz'), None, fragment_order = "1-4-3'-2"))
+        g = SocruCreate(MockOptions('test_output_reorder', os.path.join(data_dir, 'test.fa'), 1,os.path.join(data_dir, 'dnaA.fa.gz'), os.path.join(data_dir, 'dif.fa.gz'), None, fragment_order = "1-4-3'-2"))
         g.run()
 
         self.assertTrue(filecmp.cmp('test_output_reorder/1.fa', os.path.join(data_dir, 'expected_fragment_order', '1.fa')))

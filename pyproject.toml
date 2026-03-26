@@ -52,6 +52,9 @@ socru = ["data/*", "data/*/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["socru/tests"]
+filterwarnings = [
+    "ignore::DeprecationWarning:pkg_resources",
+]
 
 [tool.ruff]
 target-version = "py39"

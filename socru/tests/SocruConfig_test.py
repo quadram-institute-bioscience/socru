@@ -30,6 +30,7 @@ class TestSocruConfigDefaults(unittest.TestCase):
         self.assertEqual(cfg.threads, 1)
         self.assertFalse(cfg.not_circular)
         self.assertFalse(cfg.verbose)
+        self.assertIsNone(cfg.output_dir)
 
     def test_custom_construction(self):
         cfg = SocruConfig(
@@ -77,6 +78,7 @@ class TestSocruConfigFromOptions(unittest.TestCase):
             threads=8,
             not_circular=True,
             verbose=True,
+            output_dir="/batch/output",
         )
         defaults.update(overrides)
         return types.SimpleNamespace(**defaults)
@@ -103,6 +105,7 @@ class TestSocruConfigFromOptions(unittest.TestCase):
         self.assertEqual(cfg.threads, 8)
         self.assertTrue(cfg.not_circular)
         self.assertTrue(cfg.verbose)
+        self.assertEqual(cfg.output_dir, "/batch/output")
 
     def test_missing_optional_attrs_use_defaults(self):
         """from_options should tolerate a namespace that lacks optional attrs."""
@@ -127,6 +130,7 @@ class TestSocruConfigFromOptions(unittest.TestCase):
         self.assertIsNone(cfg.output_svg)
         self.assertIsNone(cfg.output_html)
         self.assertIsNone(cfg.top_blast_hits)
+        self.assertIsNone(cfg.output_dir)
 
 
 class TestSocruCreateConfigDefaults(unittest.TestCase):
