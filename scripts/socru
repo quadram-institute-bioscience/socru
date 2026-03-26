@@ -48,6 +48,7 @@ parser.add_argument('--output_html',  help='Filename for self-contained HTML rep
 parser.add_argument('--output_operon_directions_file', '-r',  help='Filename of directions of operons', type=str, default = 'operon_directions.txt')
 parser.add_argument('--output_svg', '-s',  help='Filename of SVG circular genome diagram', type=str)
 parser.add_argument('--output_json', '-j',  help='Filename for JSON structured results output', type=str)
+parser.add_argument('--output_dir',  help='Directory for batch visualization outputs (SVGs and stats JSON)', type=str)
 
 # Advanced options - fine-tune analysis parameters
 

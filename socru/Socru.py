@@ -571,6 +571,85 @@ class Socru:
                 r.num_operons, frag_str, novel_str, flag_codes,
             ))
 
+    def _generate_batch_outputs(self, batch_stats_dict):
+        """Generate batch visualization files to the output directory.
+
+        Creates type distribution, confidence heatmap, synteny, and
+        per-assembly fragment quality SVGs, plus a batch_stats.json file.
+
+        Args:
+            batch_stats_dict: Pre-computed batch statistics dictionary,
+                or None if not yet computed.
+        """
+        output_dir = self.output_dir
+        os.makedirs(output_dir, exist_ok=True)
+
+        result_dicts = [r.to_dict() for r in self.analysis_results]
+
+        # Batch stats JSON
+        if batch_stats_dict is not None:
+            stats_path = os.path.join(output_dir, 'batch_stats.json')
+            with open(stats_path, 'w') as fh:
+                fh.write(json.dumps(batch_stats_dict, indent=2))
+            logger.info("Batch stats written to:\t%s", stats_path)
+
+        # Build assembly data for SVG generators
+        assemblies = []
+        for rd in result_dicts:
+            frags = []
+            for f in rd.get('fragments', []):
+                fnum = f.get('number', 0)
+                try:
+                    fnum = int(fnum)
+                except (ValueError, TypeError):
+                    fnum = 0
+                frags.append({
+                    'number': fnum,
+                    'reversed': f.get('reversed', False),
+                    'length': f.get('length', 1),
+                    'blast_identity': f.get('blast_identity'),
+                    'blast_alignment_length': f.get('blast_alignment_length'),
+                    'is_dnaA': f.get('is_dnaA', False),
+                    'is_dif': f.get('is_dif', False),
+                })
+            assemblies.append({
+                'name': os.path.basename(rd.get('genome_file', '')),
+                'gs_type': rd.get('gs_type', ''),
+                'quality': rd.get('quality', 'RED'),
+                'fragments': frags,
+            })
+
+        # Type distribution SVG
+        stats = BatchStats(result_dicts)
+        type_dist = stats.type_distribution()
+        svg_path = os.path.join(output_dir, 'type_distribution.svg')
+        with open(svg_path, 'w') as fh:
+            fh.write(generate_type_distribution_svg(type_dist))
+        logger.info("Type distribution SVG written to:\t%s", svg_path)
+
+        # Confidence heatmap SVG
+        svg_path = os.path.join(output_dir, 'confidence_heatmap.svg')
+        with open(svg_path, 'w') as fh:
+            fh.write(generate_confidence_heatmap_svg(assemblies))
+        logger.info("Confidence heatmap SVG written to:\t%s", svg_path)
+
+        # Synteny SVG
+        svg_path = os.path.join(output_dir, 'synteny.svg')
+        with open(svg_path, 'w') as fh:
+            fh.write(generate_synteny_svg(assemblies))
+        logger.info("Synteny SVG written to:\t%s", svg_path)
+
+        # Per-assembly fragment quality SVGs
+        for asm in assemblies:
+            name = asm.get('name', 'unknown')
+            safe_name = name.replace('/', '_').replace(' ', '_')
+            svg_path = os.path.join(output_dir, f'fragment_quality_{safe_name}.svg')
+            with open(svg_path, 'w') as fh:
+                fh.write(generate_fragment_quality_svg(
+                    asm['fragments'], genome_name=name,
+                ))
+            logger.info("Fragment quality SVG written to:\t%s", svg_path)
+
     def output_operon_direction(self, input_file, operon_directions):
         """
         Write operon direction information to output file.

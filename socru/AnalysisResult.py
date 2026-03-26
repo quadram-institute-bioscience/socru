@@ -124,6 +124,7 @@ class AnalysisResult:
     qc_flags: List[QCFlag] = field(default_factory=list)
     validation_passed: bool = True
     operon_direction_string: str = ''
+    novelty_assessment: Optional[dict] = None
 
     def to_dict(self) -> dict:
         """Convert to a plain dictionary suitable for JSON serialization.
