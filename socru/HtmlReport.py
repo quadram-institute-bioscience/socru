@@ -289,13 +289,17 @@ tr.clickable:hover { background: #eaeef2; }
             frag_rows = ""
             for f in fragments:
                 orient = "Reversed" if f.get("reversed") else "Forward"
+                identity = f.get('blast_identity')
+                identity_str = f"{identity:.1f}" if identity is not None else "N/A"
+                align_len = f.get('blast_alignment_length') or 0
+                bit_score = f.get('blast_bit_score') or 0
                 frag_rows += (
                     f"<tr>"
                     f"<td>{_esc(str(f.get('number', '')))}</td>"
                     f"<td>{orient}</td>"
-                    f"<td>{f.get('blast_identity', 0):.1f}</td>"
-                    f"<td>{f.get('blast_alignment_length', 0)}</td>"
-                    f"<td>{f.get('blast_bit_score', 0)}</td>"
+                    f"<td>{identity_str}</td>"
+                    f"<td>{align_len}</td>"
+                    f"<td>{bit_score}</td>"
                     f"<td>{f.get('length', 0):,}</td>"
                     f"</tr>\n"
                 )
