@@ -16,6 +16,7 @@ from importlib.metadata import version as get_version
 sys.path.append('../')
 sys.path.append('./')
 from socru.Schemas import Schemas
+from socru.DatabaseManager import DatabaseManager
 
 # Set up command-line argument parser
 parser = argparse.ArgumentParser(
@@ -23,8 +24,9 @@ parser = argparse.ArgumentParser(
 	usage = 'socru_species [options]',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-# Output format options    
+# Output format options
 parser.add_argument('--extended', '-e', action='store_true', help='Extended information about the species databases', default = False)
+parser.add_argument('--detailed', '-d', action='store_true', help='Show detailed database info (fragment count, known types, path)', default = False)
 
 # Debugging and information options
 parser.add_argument('--debug', action='store_true', help='Turn on debugging', default = False)
@@ -34,8 +36,27 @@ parser.add_argument('--version', action='version', version='%(prog)s ' + get_ver
 # Parse command-line arguments
 options = parser.parse_args()
 
-# Display species databases - either extended format or simple list
-if options.extended:
+# Display species databases in the requested format
+if options.detailed:
+    # Show detailed database info using DatabaseManager
+    dm = DatabaseManager()
+    species_list = dm.list_species()
+    header = ['Species', 'Fragments', 'Known Types', 'Bundled', 'Path']
+    print("\t".join(header))
+    for species in species_list:
+        info = dm.database_info(species)
+        if info is not None:
+            known_types = str(info.get('known_types', 'N/A'))
+            bundled = 'yes' if info.get('is_bundled', False) else 'no'
+            row = [
+                info['species'],
+                str(info['fragment_count']),
+                known_types,
+                bundled,
+                info['path'],
+            ]
+            print("\t".join(row))
+elif options.extended:
     # Show detailed information about each species database
     Schemas(options.verbose).print_extended()
 else:

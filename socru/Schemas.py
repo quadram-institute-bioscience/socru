@@ -17,30 +17,38 @@ from os.path import isdir
 import importlib.resources
 import yaml
 
+from socru.DatabaseManager import DatabaseManager
+
 logger = logging.getLogger(__name__)
 
 class Schemas:
     """
     Manage species database schemas and metadata.
-    
+
     This class provides access to the bundled species databases included
     with Socru. It can list available species, display extended metadata
     (dnaA/dif positions, reference genomes), and locate database directories.
-    
+
+    Also delegates to DatabaseManager for user-installed databases when
+    bundled databases are not found.
+
     Attributes:
         verbose (bool): Enable verbose output
         base_directory (str): Path to bundled database directory
+        db_manager (DatabaseManager): Manager for user-installed databases
     """
     def __init__(self, verbose):
         """
         Initialize Schemas with database base directory.
-        
+
         Args:
             verbose (bool): Enable verbose output
         """
         self.verbose = verbose
         # Get path to bundled data directory from package resources
         self.base_directory = str(importlib.resources.files('socru') / 'data')
+        # DatabaseManager for user-installed database fallback
+        self.db_manager = DatabaseManager()
     
     def all_available(self):
         """
@@ -127,20 +135,21 @@ class Schemas:
     def database_directory(self, db_dir, species):
         """
         Locate database directory for a species.
-        
-        First checks custom db_dir if provided, otherwise uses bundled
-        databases. Returns path if directory exists.
-        
+
+        First checks custom db_dir if provided, then bundled databases,
+        then falls back to DatabaseManager for user-installed databases.
+        Returns path if directory exists.
+
         Args:
             db_dir (str): Custom database directory (optional)
             species (str): Species name
-            
+
         Returns:
             str: Path to database directory, or None if not found
         """
         # Default to bundled database
         proposed_db_dir = os.path.join(self.base_directory, species)
-        
+
         # Use custom directory if provided
         if db_dir is not None:
             proposed_db_dir = os.path.join(db_dir, species)
@@ -148,6 +157,11 @@ class Schemas:
         # Check if directory exists
         if isdir(proposed_db_dir):
             return proposed_db_dir
-        else:
-            logger.warning("Cannot access the database directory for species '%s' at path: %s", species, proposed_db_dir)
-            return None
+
+        # Fall back to DatabaseManager (user-installed databases)
+        dm_dir = self.db_manager.get_database_dir(species)
+        if dm_dir is not None:
+            return dm_dir
+
+        logger.warning("Cannot access the database directory for species '%s' at path: %s", species, proposed_db_dir)
+        return None
