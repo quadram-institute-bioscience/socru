@@ -10,6 +10,8 @@ Classes:
     ProfileGenerator: Creates initial profile and metadata files
 """
 
+from __future__ import annotations
+
 import re
 import csv
 import os
@@ -40,7 +42,7 @@ class ProfileGenerator:
         threads (int): Number of CPU threads
         metadata_file_suffix (str): Suffix for metadata file (default '.yml')
     """
-    def __init__(self, output_directory, num_fragments, dnaa_fasta, dif_fasta, threads, input_file,verbose, prefix = 'GS', output_filename = 'profile.txt', metadata_file_suffix = '.yml'):
+    def __init__(self, output_directory: str, num_fragments: int, dnaa_fasta: str, dif_fasta: str, threads: int, input_file: str, verbose: bool, prefix: str = 'GS', output_filename: str = 'profile.txt', metadata_file_suffix: str = '.yml') -> None:
         """
         Initialize ProfileGenerator with output location and parameters.
         
@@ -67,7 +69,7 @@ class ProfileGenerator:
         self.threads = threads
         self.metadata_file_suffix = metadata_file_suffix
         
-    def header(self):
+    def header(self) -> list[str]:
         """
         Generate header row for profile file.
         
@@ -79,7 +81,7 @@ class ProfileGenerator:
             header_row.append('Frag_'+str(i +1)) 
         return header_row
         
-    def default_profile(self):
+    def default_profile(self) -> list[str]:
         """
         Generate default profile (GS1.0 with all fragments forward).
         
@@ -94,7 +96,7 @@ class ProfileGenerator:
             default_row.append(str(i + 1)) 
         return default_row
     
-    def write_output_file(self):
+    def write_output_file(self) -> None:
         """
         Write profile.txt file with header and default profile.
         
@@ -112,7 +114,7 @@ class ProfileGenerator:
         # Generate metadata file
         self.write_metadata_file()
     
-    def write_metadata_file(self):
+    def write_metadata_file(self) -> None:
         """
         Create metadata YAML file with dnaA and dif positions.
         

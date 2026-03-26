@@ -10,7 +10,10 @@ Classes:
     GATProfile: Represents and manipulates genome arrangement profiles
 """
 
+from __future__ import annotations
+
 import re
+from typing import Any, Union
 
 class GATProfile:
     """
@@ -30,7 +33,7 @@ class GATProfile:
         dif_fragment_number (int): Fragment containing dif terminator (default 1)
     """
     
-    def __init__(self, verbose, gat_number = 0, fragments = None, orientation_number = 0, dnaA_fragment_number = 3, dif_fragment_number = 1 ):
+    def __init__(self, verbose: bool, gat_number: Union[str, int] = 0, fragments: list[str] | None = None, orientation_number: int = 0, dnaA_fragment_number: int = 3, dif_fragment_number: int = 1) -> None:
         """
         Initialize a GATProfile.
 
@@ -49,7 +52,7 @@ class GATProfile:
         self.dnaA_fragment_number = dnaA_fragment_number
         self.dif_fragment_number = dif_fragment_number
         
-    def order(self):
+    def order(self) -> int:
         """
         Extract the major order number from GS type (e.g., 1 from "1.2").
         
@@ -63,7 +66,7 @@ class GATProfile:
         else:
             return 0
         
-    def fragment_str(self):
+    def fragment_str(self) -> str:
         """
         Format fragments as tab-delimited string.
         
@@ -72,7 +75,7 @@ class GATProfile:
         """
         return "\t".join(self.fragments)
         
-    def invert_fragments(self):
+    def invert_fragments(self) -> list[str]:
         """
         Invert the fragment profile (reverse order and orientations).
         
@@ -99,7 +102,7 @@ class GATProfile:
         # Reorient to start with fragment 1
         return self.reorientate_list_to_start_with_one(inverted)
         
-    def reorientate_list_to_start_with_one(self, raw_fragments):
+    def reorientate_list_to_start_with_one(self, raw_fragments: list[str]) -> list[str]:
         """
         Rotate fragment list to start with fragment 1 or 1'.
         
@@ -125,7 +128,7 @@ class GATProfile:
             reorientated = raw_fragments[chop_index:len(raw_fragments)] + raw_fragments[0:chop_index]
         return reorientated
         
-    def inverted_fragment_str(self):
+    def inverted_fragment_str(self) -> str:
         """
         Get inverted profile as tab-delimited string.
         
@@ -134,7 +137,7 @@ class GATProfile:
         """
         return "\t".join(self.invert_fragments())
         
-    def is_profile_in_correct_orientation(self):
+    def is_profile_in_correct_orientation(self) -> bool:
         """
         Check if profile starts in correct orientation relative to dnaA.
         
@@ -154,7 +157,7 @@ class GATProfile:
         # dnaA hasnt been found - assume correct (should perhaps raise exception)
         return True
         
-    def reorder_fragment_objects_based_on_fragment_name_array(self, fragment_objects):
+    def reorder_fragment_objects_based_on_fragment_name_array(self, fragment_objects: list[Any]) -> list[Any]:
         """
         Reorder Fragment objects to match this profile's fragment order.
         
@@ -193,7 +196,7 @@ class GATProfile:
                     
         return reordered_fragment_objects
         
-    def orientate_for_dnaA(self):
+    def orientate_for_dnaA(self) -> None:
         """
         Ensure profile is oriented correctly relative to dnaA origin.
         
@@ -203,7 +206,7 @@ class GATProfile:
         if not self.is_profile_in_correct_orientation():
             self.fragments  = self.invert_fragments()
         
-    def does_the_profile_match(self, gat_query):
+    def does_the_profile_match(self, gat_query: GATProfile) -> bool:
         """
         Check if another profile matches this one exactly.
         
@@ -218,7 +221,7 @@ class GATProfile:
         else:
             return False
     
-    def __str__(self):
+    def __str__(self) -> str:
         """
         String representation as tab-delimited fragments.
         
@@ -227,7 +230,7 @@ class GATProfile:
         """
         return self.fragment_str()
 
-    def remove_orientation(self, fragments):
+    def remove_orientation(self, fragments: list[str]) -> list[str]:
         """
         Remove orientation indicators (primes) from fragment list.
         
@@ -250,7 +253,7 @@ class GATProfile:
                 orientationless.append(f)
         return orientationless
         
-    def orientationless_fragments(self):
+    def orientationless_fragments(self) -> list[str]:
         """
         Get current fragments without orientation information.
         
@@ -259,7 +262,7 @@ class GATProfile:
         """
         return self.remove_orientation(self.fragments)
         
-    def inverted_orientationless_fragments(self):
+    def inverted_orientationless_fragments(self) -> list[str]:
         """
         Get inverted fragments without orientation information.
         
@@ -269,7 +272,7 @@ class GATProfile:
         inverted = self.invert_fragments()
         return self.remove_orientation(inverted)
 		
-    def orientation_binary(self):
+    def orientation_binary(self) -> int:
         """
         Encode fragment orientations as binary number.
         
@@ -298,7 +301,7 @@ class GATProfile:
                 total += 1 << bits_to_shift
         return total 
         
-    def orientation_array(self):
+    def orientation_array(self) -> list[bool]:
         """
         Get fragment orientations as boolean array.
         

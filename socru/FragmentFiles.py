@@ -10,9 +10,15 @@ Classes:
     FragmentFiles: Manages fragment ordering and FASTA file creation
 """
 
+from __future__ import annotations
+
+from typing import Optional
+
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
+
+from socru.Fragment import Fragment
 
 import os
 import re
@@ -33,7 +39,7 @@ class FragmentFiles:
         ordered_fragments (list): Fragments reordered starting with largest
         output_filenames (list): Paths to created FASTA files
     """
-    def __init__(self, fragments, output_directory, verbose, fragment_order = None):
+    def __init__(self, fragments: list[Fragment], output_directory: str, verbose: bool, fragment_order: Optional[str] = None) -> None:
         """
         Initialize FragmentFiles with fragments and output location.
         
@@ -51,7 +57,7 @@ class FragmentFiles:
         self.ordered_fragments = self.fragments_with_largest_first()
         self.output_filenames = []
         
-    def fragments_with_largest_first(self):
+    def fragments_with_largest_first(self) -> list[Fragment]:
         """
         Reorder fragments starting with the largest and assign numbers.
         
@@ -97,7 +103,7 @@ class FragmentFiles:
                 
         return reordered_fragments
       
-    def create_fragment_fastas(self):
+    def create_fragment_fastas(self) -> None:
         """
         Write each fragment to its own FASTA file.
         
@@ -117,7 +123,7 @@ class FragmentFiles:
             # Write FASTA file
             SeqIO.write(record, outname, "fasta")
     
-    def split_fragment_order(self):
+    def split_fragment_order(self) -> list[str]:
         """
         Parse custom fragment order string into list.
         

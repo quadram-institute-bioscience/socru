@@ -9,6 +9,11 @@ Classes:
     BlastResult: Represents a single BLAST alignment result
 """
 
+from __future__ import annotations
+
+from typing import Union
+
+
 class BlastResult:
     """
     Represents a single BLAST hit from tabular output.
@@ -31,7 +36,7 @@ class BlastResult:
         e_value (float): E-value (expectation value)
         bit_score (float): Bit score
     """
-    def __init__(self, query_name, subject, identity, alignment_length, mismatches, gap_openings, query_start, query_end, subject_start, subject_end, e_value, bit_score):
+    def __init__(self, query_name: str, subject: str, identity: Union[str, float], alignment_length: Union[str, int], mismatches: Union[str, int], gap_openings: Union[str, int], query_start: Union[str, int], query_end: Union[str, int], subject_start: Union[str, int], subject_end: Union[str, int], e_value: Union[str, float], bit_score: Union[str, float]) -> None:
         """
         Initialize BlastResult from BLAST tabular output fields.
         
@@ -67,7 +72,7 @@ class BlastResult:
         # Example reverse hit (subject_start > subject_end):
         # query7	7	100.000	2520	0	0	1	2520	4740	2221	0.04654
     
-    def is_forward(self):
+    def is_forward(self) -> bool:
         """
         Determine if the hit is in forward or reverse orientation.
         
@@ -82,7 +87,7 @@ class BlastResult:
         else:
             return True
 			
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Format as tab-delimited string matching BLAST tabular output.
         

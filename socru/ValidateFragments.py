@@ -10,8 +10,12 @@ Classes:
     ValidateFragments: Validates fragment and operon orientation
 """
 
+from __future__ import annotations
+
 import logging
 import sys
+
+from socru.Fragment import Fragment
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +31,7 @@ class ValidateFragments:
     Attributes:
         fragments (list): List of Fragment objects to validate
     """
-    def __init__(self, fragments, genome_name='unknown'):
+    def __init__(self, fragments: list[Fragment], genome_name: str = 'unknown') -> None:
         """
         Initialize validator with fragments to check.
 
@@ -38,7 +42,7 @@ class ValidateFragments:
         self.fragments = fragments
         self.genome_name = genome_name
     
-    def find_dnaa(self, frags):
+    def find_dnaa(self, frags: list[Fragment]) -> int:
         """
         Find the fragment containing the dnaA origin marker.
         
@@ -55,7 +59,7 @@ class ValidateFragments:
         logger.warning("DnaA could not be found in genome '%s'", self.genome_name)
         return -1
         
-    def find_dif(self, frags):
+    def find_dif(self, frags: list[Fragment]) -> int:
         """
         Find the fragment containing the dif terminus marker.
         
@@ -72,7 +76,7 @@ class ValidateFragments:
         logger.warning("Dif could not be found in genome '%s'", self.genome_name)
         return -1
         
-    def reorientate_ori(self):
+    def reorientate_ori(self) -> list[Fragment]:
         """
         Rotate fragment list to start with the origin (dnaA).
         
@@ -90,7 +94,7 @@ class ValidateFragments:
         reorientated_frags = self.fragments[dnaa_index: len(self.fragments)] + self.fragments[0: dnaa_index]
         return reorientated_frags
         
-    def validate(self):
+    def validate(self) -> bool:
         """
         Validate that fragments and operons are correctly oriented.
         

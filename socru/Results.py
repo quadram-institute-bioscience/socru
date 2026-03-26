@@ -9,6 +9,8 @@ Classes:
     Results: Parses and validates novel profile results
 """
 
+from __future__ import annotations
+
 import os
 import csv
 import re
@@ -28,7 +30,7 @@ class Results:
         verbose (bool): Enable verbose output
         profiles (list): List of GATProfile objects extracted from results
     """
-    def __init__(self, results_file, verbose):
+    def __init__(self, results_file: str, verbose: bool) -> None:
         """
         Initialize Results parser and extract profiles.
         
@@ -41,7 +43,7 @@ class Results:
         # Parse profiles from results file
         self.profiles = self.create_profiles()
     
-    def create_profiles(self):
+    def create_profiles(self) -> list[GATProfile]:
         """
         Parse Socru results file to extract genome structure profiles.
         
@@ -82,7 +84,7 @@ class Results:
                             profiles.append(g)
         return profiles
     
-    def filter(self, num_fragments):
+    def filter(self, num_fragments: int) -> list[GATProfile]:
         """
         Filter profiles to keep only valid, novel patterns.
         
@@ -102,7 +104,7 @@ class Results:
         valid_profiles = self.all_fragments_present_once(num_fragments, profiles_novel)
         return valid_profiles
         
-    def all_fragments_present_once(self, num_fragments, profiles):
+    def all_fragments_present_once(self, num_fragments: int, profiles: list[GATProfile]) -> list[GATProfile]:
         """
         Validate that each profile has all fragments 1..N exactly once.
         
@@ -135,7 +137,7 @@ class Results:
         return filtered_profiles
         
 
-    def filter_previously_seen_profiles(self, profiles):
+    def filter_previously_seen_profiles(self, profiles: list[GATProfile]) -> list[GATProfile]:
         """
         Keep only truly novel profiles (major order number is 0).
         

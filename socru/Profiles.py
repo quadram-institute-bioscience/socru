@@ -10,6 +10,8 @@ Classes:
     Profiles: Manages profile database loading and access
 """
 
+from __future__ import annotations
+
 import csv
 import logging
 import yaml
@@ -38,7 +40,7 @@ class Profiles:
         gats (list): List of GATProfile objects from database
         num_fragments (int): Expected number of fragments in profiles
     """
-    def __init__(self, input_file, verbose, metadata_file_suffix = '.yml', default_dnaA_fragment_number = 3, default_dif_fragment_number = 1):
+    def __init__(self, input_file: str, verbose: bool, metadata_file_suffix: str = '.yml', default_dnaA_fragment_number: int = 3, default_dif_fragment_number: int = 1) -> None:
         """
         Initialize Profiles by loading database and metadata.
         
@@ -63,7 +65,7 @@ class Profiles:
         # Determine expected number of fragments
         self.num_fragments = self.expected_num_fragments()
         
-    def read_profiles(self):
+    def read_profiles(self) -> list[GATProfile]:
         """
         Read profile database from tab-delimited file.
         
@@ -89,7 +91,7 @@ class Profiles:
                     profiles.append(g)
             return profiles
             
-    def read_metadata(self):
+    def read_metadata(self) -> None:
         """
         Read metadata YAML file for database configuration.
         
@@ -119,7 +121,7 @@ class Profiles:
                 logger.warning("Failed to parse YAML metadata: %s", exc)
         return
         
-    def expected_num_fragments(self):
+    def expected_num_fragments(self) -> int:
         """
         Determine expected number of fragments from first profile.
         
@@ -134,7 +136,7 @@ class Profiles:
         else:
             return -1
             
-    def next_order_number(self):
+    def next_order_number(self) -> int:
         """
         Get next available GS type order number.
         

@@ -9,6 +9,11 @@ Classes:
     Fragment: Represents an inter-operon genomic fragment
 """
 
+from __future__ import annotations
+
+from typing import Any
+
+
 class Fragment:
     """
     Represents a genomic fragment between rRNA operons.
@@ -28,7 +33,7 @@ class Fragment:
         operon_forward_start (bool): Orientation of operon at fragment start
         operon_forward_end (bool): Orientation of operon at fragment end
     """
-    def __init__(self, coords, sequence = "", number = 0, reversed_frag = False, dna_A = False, operon_forward_start = True, operon_forward_end = True, dif = False):
+    def __init__(self, coords: list[list[int]], sequence: Any = "", number: int = 0, reversed_frag: bool = False, dna_A: bool = False, operon_forward_start: bool = True, operon_forward_end: bool = True, dif: bool = False) -> None:
         """
         Initialize a Fragment object.
         
@@ -52,25 +57,25 @@ class Fragment:
         self.operon_forward_start = operon_forward_start
         self.operon_forward_end = operon_forward_end
         
-    def num_bases(self):
+    def num_bases(self) -> int:
         """
         Get the length of the fragment sequence.
-        
+
         Returns:
             int: Number of bases in the sequence
         """
         return len(self.sequence)
-        
-    def output_filename(self):
+
+    def output_filename(self) -> str:
         """
         Generate output filename for this fragment.
-        
+
         Returns:
             str: Filename in format "{number}.fa"
         """
         return str(self.number) + '.fa'
-        
-    def operon_direction_str(self):
+
+    def operon_direction_str(self) -> str:
         """
         Create a string representation of fragment with operon orientations.
         
@@ -106,7 +111,7 @@ class Fragment:
             
         return output_str
         
-    def __str__(self):
+    def __str__(self) -> str:
         """
         String representation for debugging/logging.
         

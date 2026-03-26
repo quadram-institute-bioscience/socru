@@ -10,8 +10,13 @@ Classes:
     FilterBlast: Filters BLAST results and analyzes alignment coverage
 """
 
-import csv         
+from __future__ import annotations
+
+from typing import Optional, Union
+
+import csv
 import numpy
+import numpy.typing as npt
 import math
 from socru.BlastResult  import BlastResult
 
@@ -30,7 +35,7 @@ class FilterBlast:
         verbose (bool): Enable verbose output
         results (list): List of BlastResult objects from input file
     """
-    def __init__(self, results_file, min_bit_score, min_alignment_length, verbose):
+    def __init__(self, results_file: str, min_bit_score: int, min_alignment_length: int, verbose: bool) -> None:
         """
         Initialize FilterBlast with results file and thresholds.
         
@@ -46,7 +51,7 @@ class FilterBlast:
         self.verbose = verbose
         self.results = self.readin_results()
     
-    def readin_results(self):
+    def readin_results(self) -> list[BlastResult]:
         """
         Parse BLAST tabular output file into BlastResult objects.
         
@@ -64,7 +69,7 @@ class FilterBlast:
                 results.append(BlastResult(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
         return results
                 
-    def filter_results(self):
+    def filter_results(self) -> list[BlastResult]:
         """
         Apply quality filters to BLAST results.
         
@@ -77,7 +82,7 @@ class FilterBlast:
         filtered = [r for r in self.results if r.bit_score > self.min_bit_score and r.alignment_length > self.min_alignment_length ]
         return filtered
         
-    def return_top_result(self):
+    def return_top_result(self) -> Optional[BlastResult]:
         """
         Get the best BLAST hit after filtering.
         
@@ -93,7 +98,7 @@ class FilterBlast:
         else:
             return None
             
-    def max_coord_from_blast_results(self, blast_result_objs):
+    def max_coord_from_blast_results(self, blast_result_objs: list[BlastResult]) -> int:
         """
         Find the maximum coordinate across all BLAST hits.
         
@@ -109,7 +114,7 @@ class FilterBlast:
         end = [int(r.subject_end) for r in blast_result_objs]
         return max(start + end)
     
-    def pileup_fragment(self, fragment_number):
+    def pileup_fragment(self, fragment_number: Union[str, int]) -> npt.NDArray[numpy.floating]:
         """
         Create coverage pileup array for a specific fragment.
         
@@ -144,7 +149,7 @@ class FilterBlast:
                 fragment_pileup[i-1] += 1
         return fragment_pileup
         
-    def num_bases_with_at_least_this_coverage(self, target_coverage, pileup):
+    def num_bases_with_at_least_this_coverage(self, target_coverage: int, pileup: npt.NDArray[numpy.floating]) -> int:
         """
         Count bases meeting minimum coverage threshold.
         
@@ -160,7 +165,7 @@ class FilterBlast:
         base_count = sum([1 for p in pileup if p >= target_coverage])
         return base_count
         
-    def calc_coverage_threshold(self, max_coverage, pileup, target_bases):
+    def calc_coverage_threshold(self, max_coverage: float, pileup: npt.NDArray[numpy.floating], target_bases: int) -> int:
         """
         Calculate coverage threshold to achieve target number of bases.
         
@@ -184,7 +189,7 @@ class FilterBlast:
                 return coverage_threshold
         return coverage_threshold
         
-    def identify_regions(self, fragment_number, target_bases):
+    def identify_regions(self, fragment_number: Union[str, int], target_bases: int) -> list[list[int]]:
         """
         Identify high-coverage regions in a fragment.
         

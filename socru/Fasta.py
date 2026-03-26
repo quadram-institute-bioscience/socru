@@ -10,8 +10,13 @@ Classes:
     Fasta: Main class for FASTA parsing and fragment extraction
 """
 
+from __future__ import annotations
+
+from typing import Any, Optional
+
 from Bio import SeqIO
 from socru.Fragment import Fragment
+from socru.Operon import Operon
 import logging
 import os
 import re
@@ -34,7 +39,7 @@ class Fasta:
         verbose (bool): Enable verbose output
         chromosome (SeqRecord): BioPython sequence record for the chromosome
     """
-    def __init__(self, input_file,verbose, is_circular=True):
+    def __init__(self, input_file: str, verbose: bool, is_circular: bool = True) -> None:
         """
         Initialize Fasta parser.
         
@@ -57,7 +62,7 @@ class Fasta:
 
         self.chromosome = self.get_chromosome_from_fasta()
     
-    def get_chromosome_from_fasta(self):
+    def get_chromosome_from_fasta(self) -> Any:
         """
         Extract the largest contig from FASTA file as the chromosome.
         
@@ -94,7 +99,7 @@ class Fasta:
 
         return largest_contig
         
-    def fragment_number(self):
+    def fragment_number(self) -> int:
         """
         Get fragment number from chromosome ID.
         
@@ -103,7 +108,7 @@ class Fasta:
         """
         return int(self.chromosome.id)
         
-    def largest_contig_check(self, largest_contig, record):
+    def largest_contig_check(self, largest_contig: Optional[Any], record: Any) -> Any:
         """
         Compare current record to largest seen so far, update if bigger.
         
@@ -120,7 +125,7 @@ class Fasta:
            largest_contig = record
         return largest_contig
         
-    def calc_fragment_coords(self, boundries):
+    def calc_fragment_coords(self, boundries: list[Operon]) -> list[Fragment]:
         """
         Calculate coordinates of inter-operon fragments from rRNA boundaries.
         
@@ -169,7 +174,7 @@ class Fasta:
             fragments.append(Fragment([[boundries[i].end, boundries[i+1].start]], operon_forward_start = boundries[i].direction, operon_forward_end = boundries[i+1].direction))
         return fragments
 
-    def populate_fragments_from_chromosome(self, fragments, max_bases_from_ends):
+    def populate_fragments_from_chromosome(self, fragments: list[Fragment], max_bases_from_ends: Optional[int]) -> None:
         """
         Extract actual DNA sequences for all fragments from chromosome.
         

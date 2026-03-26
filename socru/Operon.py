@@ -9,6 +9,8 @@ Classes:
     Operon: Represents a single ribosomal operon
 """
 
+from __future__ import annotations
+
 import re
 
 class Operon:
@@ -24,7 +26,7 @@ class Operon:
         direction (bool): True if operon is on forward strand, False if reverse
     """
     
-    def __init__(self, start, end, direction ):
+    def __init__(self, start: int, end: int, direction: bool) -> None:
         """
         Initialize an Operon object.
         
@@ -38,7 +40,7 @@ class Operon:
         # Forward - boolean True
         self.direction = direction
         
-    def __str__(self):
+    def __str__(self) -> str:
         """
         String representation for debugging/logging.
         

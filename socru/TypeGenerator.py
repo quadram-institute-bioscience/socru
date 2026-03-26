@@ -11,7 +11,12 @@ Classes:
     TypeGenerator: Generates GS type assignments from fragment patterns
 """
 
+from __future__ import annotations
+
+from typing import Union
+
 from socru.GATProfile  import GATProfile
+from socru.Profiles import Profiles
 import re
 
 class TypeGenerator:
@@ -40,7 +45,7 @@ class TypeGenerator:
         quality (str): Quality score (RED/AMBER/GREEN)
         gs_type (str): Assigned GS type string
     """
-    def __init__(self, profile_db, gat_profile, verbose, is_frag_valid, prefix = 'GS'):
+    def __init__(self, profile_db: Profiles, gat_profile: GATProfile, verbose: bool, is_frag_valid: bool, prefix: str = 'GS') -> None:
         """
         Initialize TypeGenerator with database and query profile.
         
@@ -67,7 +72,7 @@ class TypeGenerator:
         # Calculate the GS type
         self.gs_type = self.calculate_type()
         
-    def find_order_orientationless(self, orientationless_fragment):
+    def find_order_orientationless(self, orientationless_fragment: GATProfile) -> int:
         """
         Find matching order number ignoring fragment orientations.
         
@@ -87,7 +92,7 @@ class TypeGenerator:
                 return db_profile.order()
         return 0
         
-    def calculate_orientationless_order(self):
+    def calculate_orientationless_order(self) -> int:
         """
         Calculate order number by matching without considering orientations.
         
@@ -114,7 +119,7 @@ class TypeGenerator:
         else:
             return 0
 
-    def calculate_type(self):
+    def calculate_type(self) -> str:
         """
         Calculate the GS type for the query genome.
         
@@ -143,7 +148,7 @@ class TypeGenerator:
         # Create final GS type string
         return self.create_gs_type(self.gat_profile.gat_number, self.gat_profile.orientation_binary())
     
-    def previously_seen(self, gat_number, orientation_binary):
+    def previously_seen(self, gat_number: Union[str, int], orientation_binary: int) -> bool:
         """
         Check if exact pattern (order + orientation) is in database.
         
@@ -178,7 +183,7 @@ class TypeGenerator:
         else:
             return False
     
-    def create_gs_type(self, gat_number, orientation_binary):
+    def create_gs_type(self, gat_number: Union[str, int], orientation_binary: int) -> str:
         """
         Create GS type string from order and orientation numbers.
         

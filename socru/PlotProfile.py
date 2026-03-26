@@ -10,8 +10,11 @@ Classes:
     PlotProfile: Creates circular genome structure plots
 """
 
+from __future__ import annotations
+
 import matplotlib.pyplot as plt
 
+from socru.Fragment import Fragment
 from socru.SvgGenomePlot import generate_genome_svg, save_genome_svg
 
 class PlotProfile:
@@ -29,7 +32,7 @@ class PlotProfile:
         verbose (bool): Enable verbose output
     """
     
-    def __init__(self, fragments, output_file, verbose):
+    def __init__(self, fragments: list[Fragment], output_file: str, verbose: bool) -> None:
         """
         Initialize PlotProfile with fragments and output path.
         
@@ -42,7 +45,7 @@ class PlotProfile:
         self.output_file = output_file
         self.verbose = verbose
         
-    def total_bases(self):
+    def total_bases(self) -> int:
         """
         Calculate total genome size from all fragments.
         
@@ -51,7 +54,7 @@ class PlotProfile:
         """
         return sum([f.num_bases() for f in self.fragments])
     
-    def create_plot(self):
+    def create_plot(self) -> None:
         """
         Create and save circular genome structure plot.
         
@@ -91,7 +94,7 @@ class PlotProfile:
         p.gca().add_artist(my_circle)
         plt.savefig( self.output_file )
 
-    def _build_fragment_dicts(self):
+    def _build_fragment_dicts(self) -> list[dict[str, object]]:
         """Convert Fragment objects to dicts for the SVG generator.
 
         Returns:
@@ -111,7 +114,7 @@ class PlotProfile:
             })
         return frag_dicts
 
-    def _build_operon_dicts(self):
+    def _build_operon_dicts(self) -> list[dict[str, object]]:
         """Infer operon positions from fragment boundaries.
 
         Operons sit between adjacent fragments. Their direction is derived
@@ -142,7 +145,7 @@ class PlotProfile:
             })
         return operons
 
-    def create_svg(self, svg_output_file, gs_type="", quality="GREEN", genome_name=""):
+    def create_svg(self, svg_output_file: str, gs_type: str = "", quality: str = "GREEN", genome_name: str = "") -> None:
         """Create and save an SVG circular genome diagram.
 
         Args:
