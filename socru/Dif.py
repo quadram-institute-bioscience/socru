@@ -10,6 +10,8 @@ Classes:
     Dif: Identifies dif-containing fragments
 """
 
+import sys
+
 from socru.Database import Database
 from socru.Blast import Blast
 from socru.FilterBlast import FilterBlast
@@ -86,9 +88,9 @@ class Dif:
         if top_result is None:
             # No match found - default to fragment 1
             # Fragment 1 is the largest, and usually contains the terminus
+            sys.stderr.write("WARNING: Could not locate dif in any fragment, defaulting to fragment 1\n")
             self.forward_orientation = None
             self.fragment_with_dif = 1
-            print("Dif cannot be found in\t" + self.directory_of_fasta_files)
         else:
             # Record fragment containing dif
             self.fragment_with_dif  = top_result.subject

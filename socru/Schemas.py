@@ -13,7 +13,7 @@ Classes:
 import os
 from os import listdir
 from os.path import isdir
-import pkg_resources
+import importlib.resources
 import yaml
 
 class Schemas:
@@ -37,7 +37,7 @@ class Schemas:
         """
         self.verbose = verbose
         # Get path to bundled data directory from package resources
-        self.base_directory = str(pkg_resources.resource_filename( __name__, 'data/'))
+        self.base_directory = str(importlib.resources.files('socru') / 'data')
     
     def all_available(self):
         """
@@ -146,5 +146,5 @@ class Schemas:
         if isdir(proposed_db_dir):
             return proposed_db_dir
         else:
-            print("Cannot access the database directory for the given species")
+            print("Cannot access the database directory for species '{}' at path: {}".format(species, proposed_db_dir))
             return None

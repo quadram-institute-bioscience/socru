@@ -9,6 +9,8 @@ Classes:
     DnaA: Identifies dnaA-containing fragments
 """
 
+import sys
+
 from socru.Database import Database
 from socru.Blast import Blast
 from socru.FilterBlast import FilterBlast
@@ -82,6 +84,7 @@ class DnaA:
         
         if top_result is None:
             # No match found - use defaults
+            sys.stderr.write("WARNING: Could not locate dnaA in any fragment, defaulting to fragment 1\n")
             self.forward_orientation = None
             self.fragment_with_dnaa = 1
         else:

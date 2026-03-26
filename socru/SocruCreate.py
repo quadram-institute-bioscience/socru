@@ -11,7 +11,7 @@ Classes:
 
 import os
 import sys
-import pkg_resources
+import importlib.resources
 from tempfile import mkstemp
 
 
@@ -62,21 +62,19 @@ class SocruCreate:
 
         # Validate output directory doesn't exist
         if os.path.exists(self.output_directory):
-             print(
-             "The output directory already exists, "
-             "please choose another name: "
-             + self.output_directory)
-             sys.exit(1)
-
+             raise FileExistsError(
+                 "The output directory already exists, "
+                 "please choose another name: "
+                 + self.output_directory)
         else:
             # Create output directory
             os.makedirs(self.output_directory)
 
         # Use bundled dnaA and dif sequences if not provided
         if self.dnaa_fasta is None:
-            self.dnaa_fasta = str(pkg_resources.resource_filename( __name__, 'data/dnaA.fa.gz'))
+            self.dnaa_fasta = str(importlib.resources.files('socru') / 'data' / 'dnaA.fa.gz')
         if self.dif_fasta is None:
-            self.dif_fasta = str(pkg_resources.resource_filename( __name__, 'data/dif.fa.gz'))
+            self.dif_fasta = str(importlib.resources.files('socru') / 'data' / 'dif.fa.gz')
 
     def run(self):
         """
