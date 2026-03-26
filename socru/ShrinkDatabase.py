@@ -10,12 +10,12 @@ Classes:
     ShrinkDatabase: Optimizes databases based on coverage analysis
 """
 
+import gzip as gzip_module
 import os
 from os import listdir
 from os.path import isfile, join
 import re
 import shutil
-import subprocess
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from socru.FilterBlast import FilterBlast
@@ -145,8 +145,11 @@ class ShrinkDatabase:
             # Check if file needs compression
             m = re.search(r"[\d]+\.fa$", filename)
             if m:
-                # Compress with gzip
-                subprocess.check_output( 'gzip '+ filename,  shell=True)
+                # Compress with gzip using Python gzip module
+                with open(filename, 'rb') as f_in:
+                    with gzip_module.open(filename + '.gz', 'wb') as f_out:
+                        shutil.copyfileobj(f_in, f_out)
+                os.remove(filename)
                 compressed_filenames.append(filename + '.gz')
             else:
                 # Already compressed

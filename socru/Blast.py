@@ -10,6 +10,8 @@ Classes:
     Blast: Wrapper for executing BLAST searches
 """
 
+import gzip
+import shutil
 from tempfile import mkstemp
 import subprocess
 import os
@@ -18,11 +20,11 @@ import re
 class Blast:
     """
     Wrapper for NCBI BLAST+ blastn command-line tool.
-    
+
     This class manages BLAST database searching for fragment identification.
     It handles compressed input files, constructs optimized BLAST commands,
     and sorts results by bit score for downstream filtering.
-    
+
     Attributes:
         blast_db (str): Path to BLAST database prefix
         evalue (float): E-value threshold for BLAST
@@ -36,7 +38,7 @@ class Blast:
     def __init__(self, blast_db, threads, verbose, word_size = 28, exec = 'blastn', evalue = 0.000001, task = 'megablast'):
         """
         Initialize BLAST wrapper.
-        
+
         Args:
             blast_db (str): Path to BLAST database
             threads (int): Number of CPU threads
@@ -58,10 +60,10 @@ class Blast:
     def decompress_file_to_tmp(self, input_file):
         """
         Decompress gzipped query file if necessary.
-        
+
         Args:
             input_file (str): Path to query file (possibly gzipped)
-            
+
         Returns:
             str: Path to decompressed file or original if not compressed
         """
@@ -69,49 +71,63 @@ class Blast:
         if m:
             # Create temporary file and decompress
             fd, decompressed_input_file = mkstemp()
+            os.close(fd)
             self.files_to_cleanup.append(decompressed_input_file)
-            cmd = " ".join(['gunzip', '-c', input_file, '>', decompressed_input_file])
+
             if self.verbose:
-                print("Decompress file before blasting:\t" + cmd)
-            subprocess.check_output( cmd,  shell=True)
-            
+                print("Decompress file before blasting:\tgunzip -c " + input_file + " > " + decompressed_input_file)
+
+            with gzip.open(input_file, 'rb') as gz_in:
+                with open(decompressed_input_file, 'wb') as f_out:
+                    shutil.copyfileobj(gz_in, f_out)
+
             return decompressed_input_file
         else:
             return input_file
 
-    def blast_command(self, query, blast_results):
-        """
-        Construct the BLAST command line.
-        
-        Builds a blastn command with tabular output (format 6), sorts results
-        by bit score in descending order.
-        
-        Args:
-            query (str): Path to query FASTA file
-            blast_results (str): Path where results should be written
-            
-        Returns:
-            str: Complete shell command to run BLAST
-        """
-        return " ".join([self.exec, '-outfmt', str(6), '-evalue', str(self.evalue), '-db', self.blast_db, '-word_size', str(self.word_size), '-num_threads', str(self.threads), '-task', self.task, '-query', self.decompress_file_to_tmp(query), '|', 'sort', '-k', str(12), '-g', '-r', '>', blast_results])
-        
     def run_blast(self, query):
         """
         Execute BLAST search and return path to results.
-        
+
+        Runs blastn as a subprocess with safe argument list, captures output,
+        sorts by bit score (column 12) in descending order, and writes to
+        a temporary results file.
+
         Args:
             query (str): Path to query FASTA file
-            
+
         Returns:
             str: Path to BLAST results file (tabular format, sorted by bit score)
         """
         # Create temporary results file
         fd, blast_results = mkstemp()
-        cmd = self.blast_command(query, blast_results)
-        if self.verbose:
-            print("Run blastn:\t" + cmd )
-        subprocess.check_output( cmd,  shell=True)
         os.close(fd)
+
+        decompressed_query = self.decompress_file_to_tmp(query)
+
+        cmd = [
+            self.exec, '-outfmt', str(6), '-evalue', str(self.evalue),
+            '-db', self.blast_db, '-word_size', str(self.word_size),
+            '-num_threads', str(self.threads), '-task', self.task,
+            '-query', decompressed_query,
+        ]
+        if self.verbose:
+            print("Run blastn:\t" + ' '.join(cmd))
+
+        result = subprocess.run(cmd, capture_output=True, check=True, text=True)
+
+        # Sort output by bit score (column 12, 0-indexed 11) descending
+        lines = result.stdout.strip().split('\n') if result.stdout.strip() else []
+        sorted_lines = sorted(
+            lines,
+            key=lambda line: float(line.split('\t')[11]) if len(line.split('\t')) > 11 else 0.0,
+            reverse=True,
+        )
+
+        with open(blast_results, 'w') as f:
+            for line in sorted_lines:
+                f.write(line + '\n')
+
         return blast_results
 
     def __del__(self):
@@ -120,5 +136,4 @@ class Blast:
         """
         for f in self.files_to_cleanup:
             if os.path.exists(f):
-                os.remove(f)    
-                
+                os.remove(f)
