@@ -54,6 +54,7 @@ testpaths = ["socru/tests"]
 markers = [
     "integration: tests requiring external tools (barrnap, BLAST+)",
 ]
+addopts = ["-p", "no:asyncio"]
 filterwarnings = [
     "ignore::DeprecationWarning:pkg_resources",
 ]
