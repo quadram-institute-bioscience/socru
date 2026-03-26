@@ -74,8 +74,8 @@ if options.debug:
     
     # Run Socru analysis with profiling
     try:
-        g = Socru(options)
-        g.run()
+        with Socru(options) as g:
+            g.run()
     except (FileNotFoundError, ValueError) as e:
         print(str(e), file=sys.stderr)
         sys.exit(1)
@@ -90,8 +90,8 @@ if options.debug:
 else:
     # Run Socru analysis normally (without profiling)
     try:
-        g = Socru(options)
-        g.run()
+        with Socru(options) as g:
+            g.run()
     except (FileNotFoundError, ValueError) as e:
         print(str(e), file=sys.stderr)
         sys.exit(1)

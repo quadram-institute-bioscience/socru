@@ -534,10 +534,20 @@ class Socru:
         with open(self.output_operon_directions_file, "a+") as output_fh:
             output_fh.write(input_file + "\t" + operon_directions + "\n")
 
-    def __del__(self):
-        """
-        Cleanup temporary directories when object is destroyed.
-        """
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+        return False
+
+    def cleanup(self):
+        """Clean up temporary files and directories."""
         for f in self.dirs_to_cleanup:
             if os.path.exists(f):
                 shutil.rmtree(f, ignore_errors=True)
+        self.dirs_to_cleanup = []
+
+    def __del__(self):
+        """Safety net cleanup -- prefer using as context manager."""
+        self.cleanup()

@@ -51,8 +51,8 @@ options = parser.parse_args()
 
 # Create the new species database
 try:
-    g = SocruCreate(options)
-    g.run()
+    with SocruCreate(options) as g:
+        g.run()
 except (FileNotFoundError, FileExistsError, ValueError) as e:
     print(str(e), file=sys.stderr)
     sys.exit(1)

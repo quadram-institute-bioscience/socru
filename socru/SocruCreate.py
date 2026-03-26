@@ -112,10 +112,20 @@ class SocruCreate:
         default_profile = ProfileGenerator(self.output_directory, len(ff.ordered_fragments), self.dnaa_fasta, self.dif_fasta, self.threads, self.input_file, self.verbose )
         default_profile.write_output_file()
 
-    def __del__(self):
-        """
-        Clean up temporary files when object is destroyed.
-        """
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+        return False
+
+    def cleanup(self):
+        """Clean up temporary files and directories."""
         for f in self.files_to_cleanup:
             if os.path.exists(f):
                 os.remove(f)
+        self.files_to_cleanup = []
+
+    def __del__(self):
+        """Safety net cleanup -- prefer using as context manager."""
+        self.cleanup()

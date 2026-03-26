@@ -124,13 +124,24 @@ class Database:
         subprocess.run(cmd, check=True, capture_output=True)
         return output_prefix
 
-    def __del__(self):
-        """
-        Clean up temporary BLAST database and concatenated FASTA.
-        """
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+        return False
+
+    def cleanup(self):
+        """Clean up temporary files and directories."""
         # Remove BLAST database directory
         if self._tmpdir is not None and os.path.exists(self._tmpdir):
             shutil.rmtree(self._tmpdir, ignore_errors=True)
+            self._tmpdir = None
         # Remove concatenated FASTA file
-        if os.path.exists(self.concat_fasta):
+        if hasattr(self, 'concat_fasta') and self.concat_fasta and os.path.exists(self.concat_fasta):
             os.remove(self.concat_fasta)
+            self.concat_fasta = None
+
+    def __del__(self):
+        """Safety net cleanup -- prefer using as context manager."""
+        self.cleanup()

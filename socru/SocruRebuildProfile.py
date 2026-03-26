@@ -157,10 +157,20 @@ class SocruRebuildProfile:
         
 
         
-    def __del__(self):
-        """
-        Clean up temporary files.
-        """
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+        return False
+
+    def cleanup(self):
+        """Clean up temporary files and directories."""
         for f in self.files_to_cleanup:
             if os.path.exists(f):
                 os.remove(f)
+        self.files_to_cleanup = []
+
+    def __del__(self):
+        """Safety net cleanup -- prefer using as context manager."""
+        self.cleanup()

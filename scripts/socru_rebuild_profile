@@ -45,5 +45,5 @@ parser.add_argument('--version', action='version', version='%(prog)s ' + get_ver
 options = parser.parse_args()
 
 # Rebuild the profile with standardized numbering
-g = SocruRebuildProfile(options)
-g.run()
+with SocruRebuildProfile(options) as g:
+    g.run()
