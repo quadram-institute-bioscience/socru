@@ -35,6 +35,7 @@ from socru.ValidateFragments import ValidateFragments
 from socru.AnalysisResult import AnalysisResult, FragmentResult, OperonResult
 from socru.ConfidenceScore import calculate_confidence
 from socru.QCFlags import generate_qc_flags
+from socru.HtmlReport import HtmlReport
 
 class Socru:
     """
@@ -91,6 +92,8 @@ class Socru:
         self.dirs_to_cleanup = []
         self.top_results = []
         self.analysis_results = []
+        self.html_results = []
+        self.output_html = getattr(options, 'output_html', None)
 
         # Locate and validate the species database
         self.db_dir =  Schemas(self.verbose).database_directory(options.db_dir, options.species)
@@ -133,6 +136,7 @@ class Socru:
             self.output_results(i, output_type)
             if analysis_result is not None:
                 self.analysis_results.append(analysis_result)
+            self._collect_html_result(i, output_type)
 
         # Write all top BLAST hits to file if requested
         if self.top_blast_hits is not None:
@@ -151,6 +155,75 @@ class Socru:
         # Print summary table for batch mode (multiple files)
         if len(self.input_files) > 1:
             self._print_summary_table()
+
+        # Generate HTML report if requested
+        if self.output_html is not None:
+            species = os.path.basename(self.db_dir) if self.db_dir else "Unknown"
+            # Use AnalysisResult data if available, otherwise fall back to parsed data
+            html_data = self.html_results
+            if self.analysis_results:
+                html_data = [r.to_dict() for r in self.analysis_results]
+            report = HtmlReport(html_data, species=species)
+            report.save(self.output_html)
+            if self.verbose:
+                print("HTML report written to:\t" + self.output_html)
+
+    def _collect_html_result(self, input_file, profile_type):
+        """Collect structured result data for the HTML report (fallback when AnalysisResult not available).
+
+        Args:
+            input_file (str): Name of input genome file.
+            profile_type (str): Tab-separated quality, GS type, and fragment pattern.
+        """
+        if self.output_html is None:
+            return
+
+        parts = profile_type.split("\t") if profile_type else []
+        quality = parts[0] if len(parts) > 0 else "RED"
+        gs_type = parts[1] if len(parts) > 1 else "GS0.0"
+        fragment_pattern = parts[2] if len(parts) > 2 else ""
+
+        # Build fragment list from top_results collected during analysis
+        fragments = []
+        for tr in self.top_results:
+            fragments.append({
+                "number": str(getattr(tr, "subject", "?")),
+                "reversed": not tr.is_forward() if hasattr(tr, "is_forward") else False,
+                "blast_identity": getattr(tr, "percentage_identity", 0),
+                "blast_alignment_length": getattr(tr, "alignment_length", 0),
+                "blast_bit_score": getattr(tr, "bit_score", 0),
+                "length": getattr(tr, "alignment_length", 0),
+            })
+
+        num_operons = len(fragment_pattern.split()) if fragment_pattern else 0
+        is_novel = quality != "GREEN"
+        qc_flags = []
+        if "?" in fragment_pattern:
+            qc_flags.append({
+                "code": "MISSING_FRAGMENT",
+                "severity": "warning",
+                "message": "One or more fragments could not be identified",
+            })
+        if quality == "RED":
+            qc_flags.append({
+                "code": "LOW_QUALITY",
+                "severity": "error",
+                "message": "Result did not pass quality thresholds",
+            })
+
+        self.html_results.append({
+            "genome_file": input_file,
+            "gs_type": gs_type,
+            "quality": quality,
+            "confidence_score": 100.0 if quality == "GREEN" else (50.0 if quality == "AMBER" else 0.0),
+            "fragment_pattern": fragment_pattern,
+            "num_operons": num_operons,
+            "is_novel": is_novel,
+            "qc_flags": qc_flags,
+            "fragments": fragments,
+            "genome_length": 0,
+            "validation_passed": quality == "GREEN",
+        })
 
     def output_results(self, input_file, profile_type):
         """
