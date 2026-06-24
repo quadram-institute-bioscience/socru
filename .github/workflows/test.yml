@@ -1,0 +1,57 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  unit:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check socru/
+
+      - name: Run unit tests
+        run: pytest -m "not integration" --cov=socru --cov-report=term-missing -q
+
+  integration:
+    name: Integration tests (barrnap + BLAST)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: "3.11"
+          channels: conda-forge,bioconda,defaults
+          activate-environment: test
+          auto-activate-base: false
+
+      - name: Install barrnap and BLAST
+        shell: bash -el {0}
+        run: conda install -y barrnap blast
+
+      - name: Install package
+        shell: bash -el {0}
+        run: pip install -e ".[dev]"
+
+      - name: Run integration tests
+        shell: bash -el {0}
+        run: pytest -m "integration" --cov=socru --cov-report=term-missing -q

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Socru Genome Structure Analysis Report</title>
+<style>
+:root {
+  --green: #2da44e;
+  --green-bg: #dafbe1;
+  --amber: #bf8700;
+  --amber-bg: #fff8c5;
+  --red: #cf222e;
+  --red-bg: #ffebe9;
+  --border: #d0d7de;
+  --bg-subtle: #f6f8fa;
+  --fg: #1f2328;
+  --fg-muted: #656d76;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Noto Sans, Helvetica, Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: var(--font); color: var(--fg); margin: 0; padding: 24px; max-width: 1280px; margin: 0 auto; line-height: 1.5; }
+h1, h2, h3 { margin-top: 0; }
+a { color: #0969da; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.report-header { border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; }
+.report-header h1 { font-size: 24px; font-weight: 600; }
+.meta { color: var(--fg-muted); font-size: 14px; }
+.meta span { margin-right: 20px; }
+
+/* Summary cards */
+.cards { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; }
+.card { flex: 1 1 180px; border: 1px solid var(--border); border-radius: 6px; padding: 16px; background: var(--bg-subtle); min-width: 160px; }
+.card .label { font-size: 12px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.card .value { font-size: 28px; font-weight: 600; }
+
+/* Badges */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.5; }
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-amber { background: var(--amber-bg); color: var(--amber); }
+.badge-red { background: var(--red-bg); color: var(--red); }
+.badge-info { background: #ddf4ff; color: #0969da; }
+.badge-warning { background: var(--amber-bg); color: var(--amber); }
+.badge-error { background: var(--red-bg); color: var(--red); }
+
+/* Table */
+.table-wrap { overflow-x: auto; margin-bottom: 32px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+th { background: var(--bg-subtle); font-weight: 600; cursor: pointer; user-select: none; white-space: nowrap; }
+th:hover { background: #eaeef2; }
+th .sort-arrow { margin-left: 4px; font-size: 10px; color: var(--fg-muted); }
+tr.row-green { background: #f6fef9; }
+tr.row-amber { background: #fffdf5; }
+tr.row-red { background: #fff5f5; }
+tr.clickable { cursor: pointer; }
+tr.clickable:hover { background: #eaeef2; }
+
+/* Detail panel */
+.detail-panel { display: none; }
+.detail-panel td { padding: 16px 12px; background: var(--bg-subtle); }
+.detail-content { max-width: 900px; }
+.detail-content h3 { font-size: 14px; margin: 12px 0 6px; }
+.detail-content table { font-size: 13px; margin-bottom: 12px; }
+.detail-content th { background: #eaeef2; }
+
+/* Fragment visualisation */
+.frag-viz { display: flex; gap: 2px; margin: 8px 0; }
+.frag-block { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; color: #fff; text-align: center; }
+.frag-fwd { background: #0969da; }
+.frag-rev { background: #8250df; }
+.frag-unknown { background: #656d76; }
+
+/* QC Summary */
+.qc-summary { margin-bottom: 32px; }
+.qc-summary table { max-width: 640px; }
+
+/* Footer */
+.report-footer { border-top: 1px solid var(--border); padding-top: 12px; font-size: 12px; color: var(--fg-muted); margin-top: 32px; }
+
+/* Print */
+@media print {
+  body { padding: 0; }
+  .detail-panel { display: table-row !important; }
+  th { background: #eee !important; }
+  tr.clickable:hover { background: inherit; }
+}
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>Socru Genome Structure Analysis Report</h1>
+  <div class="meta">
+    <span>Species: <strong>Test_species</strong></span>
+    <span>Date: 2025-01-15 10:30</span>
+    <span>Socru v2.2.4</span>
+    <span>Assemblies: 1</span>
+  </div>
+</div>
+<div class="cards">
+  <div class="card">
+    <div class="label">Total Assemblies</div>
+    <div class="value">1</div>
+  </div>
+  <div class="card">
+    <div class="label">GREEN</div>
+    <div class="value"><span class="badge badge-green">1</span></div>
+  </div>
+  <div class="card">
+    <div class="label">AMBER</div>
+    <div class="value"><span class="badge badge-amber">0</span></div>
+  </div>
+  <div class="card">
+    <div class="label">RED</div>
+    <div class="value"><span class="badge badge-red">0</span></div>
+  </div>
+  <div class="card">
+    <div class="label">Novel Types</div>
+    <div class="value">0</div>
+  </div>
+  <div class="card">
+    <div class="label">Avg Confidence</div>
+    <div class="value">97.5</div>
+  </div>
+</div>
+<h2>Results</h2>
+<div class="table-wrap">
+<table id="results-table">
+<thead><tr>
+  <th data-col="0">Assembly <span class="sort-arrow"></span></th>
+  <th data-col="1">GS Type <span class="sort-arrow"></span></th>
+  <th data-col="2">Quality <span class="sort-arrow"></span></th>
+  <th data-col="3">Confidence <span class="sort-arrow"></span></th>
+  <th data-col="4">Operons <span class="sort-arrow"></span></th>
+  <th data-col="5">Fragments <span class="sort-arrow"></span></th>
+  <th data-col="6">Novel <span class="sort-arrow"></span></th>
+  <th data-col="7">QC Flags <span class="sort-arrow"></span></th>
+</tr></thead>
+<tbody>
+<tr class="clickable row-green" data-idx="0">
+  <td>test.fasta</td>
+  <td>GS1.0</td>
+  <td><span class="badge badge-green">GREEN</span></td>
+  <td>97.5</td>
+  <td>3</td>
+  <td>1 2 3</td>
+  <td>No</td>
+  <td>0</td>
+</tr>
+<tr class="detail-panel" id="detail-0"><td colspan="8">
+<div class="detail-content">
+<h3>Fragment Pattern</h3>
+<div class="frag-viz"><div class="frag-block frag-fwd">1</div><div class="frag-block frag-fwd">2</div><div class="frag-block frag-fwd">3</div></div>
+<h3>Fragment Details</h3>
+<table><thead><tr><th>Fragment</th><th>Orientation</th><th>BLAST Identity</th><th>Alignment Length</th><th>Bit Score</th><th>Length</th></tr></thead><tbody>
+<tr><td>1</td><td>Forward</td><td>99.5</td><td>50000</td><td>90000</td><td>50,000</td></tr>
+</tbody></table>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="qc-summary">
+<h2>QC Summary</h2>
+<p>No QC flags were raised across any assembly.</p>
+</div>
+<div class="report-footer">
+  Generated by Socru v2.2.4 on 2025-01-15 10:30
+</div>
+<script>
+(function() {
+  /* Expand / collapse detail rows */
+  document.querySelectorAll('tr.clickable').forEach(function(row) {
+    row.addEventListener('click', function() {
+      var idx = this.getAttribute('data-idx');
+      var panel = document.getElementById('detail-' + idx);
+      if (panel) {
+        panel.style.display = panel.style.display === 'table-row' ? 'none' : 'table-row';
+      }
+    });
+  });
+
+  /* Column sorting */
+  var table = document.getElementById('results-table');
+  if (!table) return;
+  var headers = table.querySelectorAll('th');
+  var sortState = {};
+
+  headers.forEach(function(th) {
+    th.addEventListener('click', function() {
+      var col = parseInt(this.getAttribute('data-col'), 10);
+      if (isNaN(col)) return;
+      var asc = sortState[col] !== 'asc';
+      sortState = {};
+      sortState[col] = asc ? 'asc' : 'desc';
+
+      var tbody = table.querySelector('tbody');
+      var mainRows = [];
+      var detailMap = {};
+      tbody.querySelectorAll('tr').forEach(function(tr) {
+        if (tr.classList.contains('detail-panel')) {
+          detailMap[tr.id] = tr;
+        } else if (tr.classList.contains('clickable')) {
+          mainRows.push(tr);
+        }
+      });
+
+      mainRows.sort(function(a, b) {
+        var aVal = a.children[col] ? a.children[col].textContent.trim() : '';
+        var bVal = b.children[col] ? b.children[col].textContent.trim() : '';
+        var aNum = parseFloat(aVal);
+        var bNum = parseFloat(bVal);
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          return asc ? aNum - bNum : bNum - aNum;
+        }
+        return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+      });
+
+      while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+      mainRows.forEach(function(row) {
+        tbody.appendChild(row);
+        var idx = row.getAttribute('data-idx');
+        var detail = detailMap['detail-' + idx];
+        if (detail) tbody.appendChild(detail);
+      });
+
+      /* Update sort arrows */
+      headers.forEach(function(h) {
+        var arrow = h.querySelector('.sort-arrow');
+        if (arrow) arrow.textContent = '';
+      });
+      var arrow = th.querySelector('.sort-arrow');
+      if (arrow) arrow.textContent = asc ? '\u25B2' : '\u25BC';
+    });
+  });
+})();
+</script>
+</body>
+</html>

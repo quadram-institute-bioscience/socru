@@ -1,0 +1,183 @@
+{
+  "genome_file": "test.fasta",
+  "genome_length": 4800000,
+  "is_circular": true,
+  "num_operons": 7,
+  "gs_type": "GS1.0",
+  "quality": "GREEN",
+  "is_novel": false,
+  "fragment_pattern": "1 2 3 4 5 6 7",
+  "orientation_binary": 0,
+  "confidence_score": 97.5,
+  "fragments": [
+    {
+      "number": 1,
+      "reversed": false,
+      "is_dnaA": true,
+      "is_dif": false,
+      "length": 550000,
+      "coords": [
+        [
+          600000,
+          1100000
+        ]
+      ],
+      "blast_identity": null,
+      "blast_alignment_length": null,
+      "blast_bit_score": null,
+      "blast_e_value": null,
+      "blast_mismatches": null,
+      "blast_subject": null
+    },
+    {
+      "number": 2,
+      "reversed": false,
+      "is_dnaA": false,
+      "is_dif": false,
+      "length": 600000,
+      "coords": [
+        [
+          1200000,
+          1700000
+        ]
+      ],
+      "blast_identity": null,
+      "blast_alignment_length": null,
+      "blast_bit_score": null,
+      "blast_e_value": null,
+      "blast_mismatches": null,
+      "blast_subject": null
+    },
+    {
+      "number": 3,
+      "reversed": false,
+      "is_dnaA": false,
+      "is_dif": false,
+      "length": 650000,
+      "coords": [
+        [
+          1800000,
+          2300000
+        ]
+      ],
+      "blast_identity": null,
+      "blast_alignment_length": null,
+      "blast_bit_score": null,
+      "blast_e_value": null,
+      "blast_mismatches": null,
+      "blast_subject": null
+    },
+    {
+      "number": 4,
+      "reversed": false,
+      "is_dnaA": false,
+      "is_dif": true,
+      "length": 700000,
+      "coords": [
+        [
+          2400000,
+          2900000
+        ]
+      ],
+      "blast_identity": null,
+      "blast_alignment_length": null,
+      "blast_bit_score": null,
+      "blast_e_value": null,
+      "blast_mismatches": null,
+      "blast_subject": null
+    },
+    {
+      "number": 5,
+      "reversed": false,
+      "is_dnaA": false,
+      "is_dif": false,
+      "length": 750000,
+      "coords": [
+        [
+          3000000,
+          3500000
+        ]
+      ],
+      "blast_identity": null,
+      "blast_alignment_length": null,
+      "blast_bit_score": null,
+      "blast_e_value": null,
+      "blast_mismatches": null,
+      "blast_subject": null
+    },
+    {
+      "number": 6,
+      "reversed": false,
+      "is_dnaA": false,
+      "is_dif": false,
+      "length": 800000,
+      "coords": [
+        [
+          3600000,
+          4100000
+        ]
+      ],
+      "blast_identity": null,
+      "blast_alignment_length": null,
+      "blast_bit_score": null,
+      "blast_e_value": null,
+      "blast_mismatches": null,
+      "blast_subject": null
+    },
+    {
+      "number": 7,
+      "reversed": false,
+      "is_dnaA": false,
+      "is_dif": false,
+      "length": 850000,
+      "coords": [
+        [
+          4200000,
+          4700000
+        ]
+      ],
+      "blast_identity": null,
+      "blast_alignment_length": null,
+      "blast_bit_score": null,
+      "blast_e_value": null,
+      "blast_mismatches": null,
+      "blast_subject": null
+    }
+  ],
+  "operons": [
+    {
+      "start": 595000,
+      "end": 600000,
+      "direction": "forward"
+    },
+    {
+      "start": 1195000,
+      "end": 1200000,
+      "direction": "forward"
+    },
+    {
+      "start": 1795000,
+      "end": 1800000,
+      "direction": "forward"
+    },
+    {
+      "start": 2395000,
+      "end": 2400000,
+      "direction": "forward"
+    },
+    {
+      "start": 2995000,
+      "end": 3000000,
+      "direction": "forward"
+    },
+    {
+      "start": 3595000,
+      "end": 3600000,
+      "direction": "forward"
+    }
+  ],
+  "qc_flags": [],
+  "validation_passed": true,
+  "operon_direction_string": "",
+  "novelty_assessment": null
+}

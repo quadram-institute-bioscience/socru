@@ -1,0 +1,12 @@
+.git
+.github
+.claude
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.ruff_cache
+*.egg-info
+dist
+build
+.pre-commit-config.yaml
